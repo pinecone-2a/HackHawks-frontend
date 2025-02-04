@@ -7,8 +7,10 @@ import { UserInfoForm } from "../../utils/types";
 import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 
 export default function ProfileSetup1() {
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [check, setCheck] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
@@ -39,7 +41,9 @@ export default function ProfileSetup1() {
   ) => {
     const value = e.target.value;
     const field = e.target.name;
-    setForm({ ...form, [field]: value });
+    setForm((prev) => {
+      return { ...prev, [field]: value };
+    });
     console.log(form);
   };
 
@@ -110,6 +114,9 @@ export default function ProfileSetup1() {
       console.log(form);
     }
   };
+  useEffect(() => {
+    validate();
+  }, [form]);
   return (
     <div className="w-[510px] h-[631px] flex flex-col gap-10">
       <div className="flex items-center justify-between">
@@ -227,36 +234,58 @@ export default function ProfileSetup1() {
         </div>
       </div>
       <div className="flex justify-end">
-        <Link
+        {/* <Link
           onClick={(e) => {
-            if (!validate() && loading) {
-              e.preventDefault();
-              setCheck(true);
-              console.log(check);
+            if (validate() && !loading) {
+              setCheck(false);
+              console.log("validate", validate());
+              console.log("loading", loading);
+              console.log("working");
               console.log(errors);
             } else {
-              setCheck(false);
-              console.log(check);
+              e.preventDefault();
+              setCheck(true);
+              console.log("validate", validate());
+              console.log("loading", loading);
+              console.log("pervented");
               console.log(errors);
             }
           }}
           href={`/profile?step=2`}
-          className={` ${
-            !validate() && loading
+          className={`w-[236px] ${
+            !validate()
               ? `bg-muted cursor-not-allowed`
               : `bg-foreground text-background`
           }`}
+        > */}
+        <Button
+          className={`w-[236px] ${
+            !validate()
+              ? `bg-muted text-foreground cursor-not-allowed hover:text-background hover:bg-muted-foreground`
+              : `bg-foreground text-background`
+          }`}
+          disabled={!validate() || loading}
+          onClick={(e) => {
+            if (validate() && !loading) {
+              setCheck(false);
+              router.push(`/profile?step=2`);
+              console.log("validate", validate());
+              console.log("loading", loading);
+              console.log("working");
+              console.log(errors);
+            } else {
+              e.preventDefault();
+              setCheck(true);
+              console.log("validate", validate());
+              console.log("loading", loading);
+              console.log("pervented");
+              console.log(errors);
+            }
+          }}
         >
-          <Button
-            className="w-[236px]"
-            onClick={() => {
-              console.log("it works");
-            }}
-            disabled={!validate() && loading}
-          >
-            Continue
-          </Button>
-        </Link>
+          Continue
+        </Button>
+        {/* </Link> */}
       </div>
     </div>
   );
