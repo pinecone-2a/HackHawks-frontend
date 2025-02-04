@@ -2,20 +2,38 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ChangeEvent, useState } from "react";
-import { ProfileSetupForm } from "../../utils/types";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { UserInfoForm } from "../../utils/types";
+import Image from "next/image";
+import Link from "next/link";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function ProfileSetup1() {
-  const [form, setForm] = useState<ProfileSetupForm>({
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [check, setCheck] = useState<boolean>(false);
+  const [count, setCount] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [reset, setReset] = useState<boolean>(false);
+  const [form, setForm] = useState<UserInfoForm>({
     name: "",
     about: "",
-    social: "",
+    socialMediaURL: "",
+    avatarImage: "",
   });
-  const [errors, setErrors] = useState<ProfileSetupForm>({
-    name: "",
-    about: "",
-    social: "",
-  });
+  let errors = {
+    name: false,
+    about: false,
+    socialMediaURL: false,
+    avatarImage: false,
+  };
+  useEffect(() => {
+    const step1String = localStorage.getItem("step1");
+    const step1 = step1String ? JSON.parse(step1String) : "";
+    if (step1) {
+      setForm(step1);
+    }
+    // if()
+  }, []);
   const handleForm = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -24,67 +42,221 @@ export default function ProfileSetup1() {
     setForm({ ...form, [field]: value });
     console.log(form);
   };
+
+  useEffect(() => {
+    setLoading(true);
+    let interval = setTimeout(() => {
+      localStorage.setItem("step1", JSON.stringify(form));
+      setLoading(false);
+    }, 2000);
+    return () => {
+      clearTimeout(interval);
+    };
+  }, [form]);
   const validate = (): boolean => {
     let isValid = true;
-    if (!form.name) {
-      setErrors({ ...errors, name: "Please enter name!" });
+    if (!form.name || !/^[a-zA-Z0-9_]{8,}$/.test(form.name)) {
       isValid = false;
+    } else {
+      errors.name = true;
     }
+
     if (!form.about) {
-      setErrors({ ...errors, about: "Please enter info about yourself!" });
       isValid = false;
+    } else {
+      errors.about = true;
     }
-    if (!form.social) {
-      setErrors({ ...errors, social: "Please enter a social link!" });
+
+    if (
+      !form.socialMediaURL ||
+      !/^https?:\/\/(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/a-zA-Z0-9#?=&_.-]*)?$/.test(
+        form.socialMediaURL
+      )
+    ) {
       isValid = false;
+    } else {
+      errors.socialMediaURL = true;
+    }
+
+    if (!form.avatarImage) {
+      isValid = false;
+    } else {
+      errors.avatarImage = true;
     }
     return isValid;
   };
+  const handleInput = () => {
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  };
+  const imageInput = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "qjhhbr3k");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUDINARY_URL}`, {
+        method: "POST",
+        body: formData,
+      });
+      const response = await res.json();
+      setForm((prev) => {
+        return {
+          ...prev,
+          avatarImage: response.secure_url,
+        };
+      });
+      console.log(form);
+    }
+  };
   return (
     <div className="w-[510px] h-[631px] flex flex-col gap-10">
-      <h1 className="text-xl font-bold">Complete your profile page</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-bold">Complete your profile page</h1>
+        {loading && (
+          <div className="flex items-center gap-2">
+            Saving...
+            <AiOutlineLoading3Quarters className="animate-spin" />
+          </div>
+        )}
+        <button
+          onClick={() => {
+            setForm({
+              name: "",
+              about: "",
+              socialMediaURL: "",
+              avatarImage: "",
+            });
+          }}
+        >
+          Reset
+        </button>
+      </div>
       <div className="flex flex-col w-40 h-48">
-        <label htmlFor="file">Add image</label>
-        <input onChange={handleForm} type="file" />
+        {!form.avatarImage ? (
+          <div className="font-semibold">
+            <div
+              onClick={() => {
+                handleInput();
+              }}
+              className={`border w-40 h-40 rounded-full content-center text-center border-dashed 
+            }`}
+            >
+              Add image
+            </div>
+            {check && (
+              <div className="text-red-500 whitespace-nowrap">
+                {!errors.avatarImage && <p>Please upload profile picture!</p>}
+              </div>
+            )}
+          </div>
+        ) : (
+          <>
+            <Image
+              src={form.avatarImage}
+              onClick={() => {
+                handleInput();
+              }}
+              className={`w-40 h-40 rounded-full content-center text-center`}
+              alt="pfp"
+              width={160}
+              height={160}
+            />
+          </>
+        )}
+
+        <input
+          className="hidden"
+          onChange={(e) => {
+            imageInput(e);
+          }}
+          type="file"
+          ref={inputRef}
+        />
       </div>
       <div className="flex flex-col gap-10">
-        <div className="">
-          <label htmlFor="" className="font-semibold">
-            Name
-          </label>
+        <div className="flex flex-col  font-semibold">
+          <label htmlFor="">Name</label>
           <Input
             onChange={handleForm}
             name="name"
+            defaultValue={form.name}
             placeholder="Enter your name here"
-            className="h-10"
+            className={`h-10 `}
           />
-          {!form.name ? errors.name : ""}
+          {check && (
+            <div className="text-red-500">
+              {!errors.name && !validate() && (
+                <p>username must be 8+ characters!</p>
+              )}
+            </div>
+          )}
         </div>
         <div className="flex flex-col font-semibold">
           <label htmlFor="">About</label>
           <Textarea
             onChange={handleForm}
             name="about"
-            className="border h-[130px]"
+            defaultValue={form.about}
+            className={`border h-[130px] `}
             placeholder="Write about yourself here"
           />
-          {!form.about ? errors.about : ""}
+          {check && (
+            <div className="text-red-500">
+              {!errors.about && <p>Please enter info about yourself!</p>}
+            </div>
+          )}
         </div>
         <div className="font-semibold">
           <label htmlFor="">Social media URL</label>
-          <Input onChange={handleForm} name="social" placeholder="https://" />
-          {!form.social ? errors.social : ""}
+          <Input
+            className={``}
+            onChange={handleForm}
+            name="socialMediaURL"
+            defaultValue={form.socialMediaURL}
+            placeholder="https://"
+          />
+          {check && (
+            <div className="text-red-500">
+              {!errors.socialMediaURL && (
+                <p>Please enter a valid social link!</p>
+              )}
+            </div>
+          )}
         </div>
       </div>
       <div className="flex justify-end">
-        <Button
-          onClick={() => {
-            console.log("it works");
+        <Link
+          onClick={(e) => {
+            if (!validate() && loading) {
+              e.preventDefault();
+              setCheck(true);
+              console.log(check);
+              console.log(errors);
+            } else {
+              setCheck(false);
+              console.log(check);
+              console.log(errors);
+            }
           }}
-          disabled={!validate}
-          className={`w-[236px] ${!validate ? `bg-muted` : ``}`}>
-          Continue
-        </Button>
+          href={`/profile?step=2`}
+          className={` ${
+            !validate() && loading
+              ? `bg-muted cursor-not-allowed`
+              : `bg-foreground text-background`
+          }`}
+        >
+          <Button
+            className="w-[236px]"
+            onClick={() => {
+              console.log("it works");
+            }}
+            disabled={!validate() && loading}
+          >
+            Continue
+          </Button>
+        </Link>
       </div>
     </div>
   );
