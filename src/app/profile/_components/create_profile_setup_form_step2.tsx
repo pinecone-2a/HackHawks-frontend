@@ -3,58 +3,30 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ChangeEvent, useEffect, useState } from "react";
-import { ProfileSetupForm } from "../../utils/types";
+import { UserInfoForm } from "../../utils/types";
 type country = {
   name: {
     common: string;
   };
   cios: string;
+  cca2: string;
 };
 export default function ProfileSetup2() {
-  const [form, setForm] = useState<ProfileSetupForm>({
-    name: "",
-    about: "",
-    social: "",
-  });
   const [countries, setCountries] = useState<country[]>([]);
-  const [errors, setErrors] = useState<ProfileSetupForm>({
-    name: "",
-    about: "",
-    social: "",
-  });
+  const months = Array.from({ length: 12 }, (_, i) => i + 1);
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 10 }, (_, i) => currentYear + i);
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(`https://restcountries.com/v3.1/all`);
       const data: country[] = await res.json();
       setCountries(data);
-      console.log(data);
+      // console.log(data);
     };
     fetchData();
   }, []);
-  const handleForm = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const value = e.target.value;
-    const field = e.target.name;
-    setForm({ ...form, [field]: value });
-    console.log(form);
-  };
-  const validate = (): boolean => {
-    let isValid = true;
-    if (!form.name) {
-      setErrors({ ...errors, name: "Please enter name!" });
-      isValid = false;
-    }
-    if (!form.about) {
-      setErrors({ ...errors, about: "Please enter info about yourself!" });
-      isValid = false;
-    }
-    if (!form.social) {
-      setErrors({ ...errors, social: "Please enter a social link!" });
-      isValid = false;
-    }
-    return isValid;
-  };
+
   return (
     <div className="w-[510px] h-[631px] flex flex-col gap-10">
       <div>
@@ -63,40 +35,80 @@ export default function ProfileSetup2() {
           Enter location and payment details
         </p>
       </div>
-      {/* <div className="flex flex-col w-40 h-48">
-        <label htmlFor="file">Add image</label>
-        <input onChange={handleForm} type="file" />
-      </div> */}
       <div className="flex flex-col gap-10">
-        <div className="">
-          <label htmlFor="" className="font-semibold">
-            Select country
-          </label>
-          {/* <Input
-            onChange={handleForm}
-            name="name"
-            placeholder="Enter your name here"
-            className="h-10"
-          /> */}
-          {countries &&
-            countries.map((country: country) => (
-              <option key={country.cios} value={country.cios}>
-                {country.cios}
-              </option>
-            ))}
+        <div className="font-semibold ">
+          <label htmlFor="countries">Select country</label>
+          <select id="countries" className="w-full border p-2 rounded-md">
+            {countries &&
+              countries.map((country: country) => (
+                <option key={country.cca2} value={country.name.common}>
+                  {country.name.common}
+                </option>
+              ))}
+          </select>
         </div>
-        <div className="flex flex-col font-semibold">
-          <label htmlFor="">About</label>
-          <Textarea
-            onChange={handleForm}
-            name="about"
-            className="border h-[130px]"
-            placeholder="Write about yourself here"
+
+        <div className="font-semibold flex justify-between">
+          <div>
+            <label htmlFor="firstname">First name</label>
+            <Input
+              id="firstname"
+              name="firstname"
+              placeholder="your first name"
+            />
+          </div>
+          <div>
+            <label htmlFor="lastname">Last name</label>
+            <Input id="lastname" name="lastname" placeholder="your last name" />
+          </div>
+        </div>
+
+        <div
+          className="font-semibold
+        "
+        >
+          <label htmlFor="card-number">Enter card number</label>
+          <Input
+            id="card-number"
+            name="card"
+            placeholder="XXXX-XXXX-XXXX-XXXX"
           />
         </div>
-        <div className="font-semibold">
-          <label htmlFor="">Social media URL</label>
-          <Input onChange={handleForm} name="social" placeholder="https://" />
+        <div className="font-semibold flex justify-between gap-2">
+          <div>
+            <label htmlFor="date">Expires</label>
+            <select
+              name="date"
+              id="date"
+              className="border p-2 w-40 rounded-lg"
+            >
+              {months.map((month) => (
+                <option key={month} value={month}>
+                  {month}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="year">Year</label>
+            <select id="year" className="border p-2 w-40 rounded-lg">
+              {years.map((year) => (
+                <option value={year} key={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="CVC">CVC</label>
+            <Input
+              id="CVC"
+              maxLength={3}
+              type="number"
+              name="CVC"
+              placeholder="CVC"
+            />
+          </div>
         </div>
       </div>
       <div className="flex justify-end">
@@ -104,8 +116,8 @@ export default function ProfileSetup2() {
           onClick={() => {
             console.log("it works");
           }}
-          disabled={!validate}
-          className={`w-[236px] ${!validate ? `bg-muted` : ``}`}>
+          className={``}
+        >
           Continue
         </Button>
       </div>
