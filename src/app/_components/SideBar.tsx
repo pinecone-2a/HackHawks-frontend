@@ -1,9 +1,14 @@
 'use client';
 import { useState } from "react";
 import { ExternalLinkIcon } from "lucide-react";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export const SideBar = () => {
   const [active, setActive] = useState("Home");
+
+  const pathname = usePathname()
+
+
 
   return (
     <div className="w-[251px] h-[156px] p-4 flex flex-col mt-[44px] ml-[80px] mr-[74px]">
@@ -12,7 +17,7 @@ export const SideBar = () => {
           <button
             key={item}
             className={`w-full text-left p-2 rounded-lg text-[14px] hover:bg-[#F4F4F5] ${
-              active === item ? "bg-[#F4F4F5]" : ""
+                pathname.includes(item)  ? "bg-[#F4F4F5]" : ""
             }`}
             onClick={() => setActive(item)}
           >
