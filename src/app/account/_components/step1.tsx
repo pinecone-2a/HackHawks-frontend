@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 export default function SignupStep1() {
   return (
@@ -18,11 +19,15 @@ export default function SignupStep1() {
         </div>
         <div>
           <label htmlFor="username">Username</label>
-          <Input id="username" placeholder="Enter username here" />
+          <Input
+            name="username"
+            id="username"
+            placeholder="Enter username here"
+          />
         </div>
-        <div>
+        <Link href={`/account/signup?step=2`}>
           <Button className="w-full">Continue</Button>
-        </div>
+        </Link>
       </div>
     </div>
   );

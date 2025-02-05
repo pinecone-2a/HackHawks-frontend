@@ -1,11 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useSearchParams } from "next/navigation";
-import SignupStep1 from "../_components/step1";
 import Link from "next/link";
-import SignupStep2 from "../_components/step2";
 
-export default function Signin() {
+export default function SignupStep2() {
   return (
     <div className="relative min-h-screen w-full">
       <div className="flex justify-end p-10">
@@ -15,7 +12,10 @@ export default function Signin() {
       </div>
       <div className="w-[407px] h-[256px] absolute flex flex-col gap-3 justify-evenly top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="">
-          <h3 className="font-bold text-2xl">Welcome back</h3>
+          <h3 className="font-bold text-2xl">Welcome, baconpancakes1</h3>
+          <p className="text-muted-foreground text-sm">
+            Connect email and set a password
+          </p>
         </div>
         <div>
           <label htmlFor="email">Email</label>
