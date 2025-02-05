@@ -25,7 +25,7 @@ export function NavigationProfile() {
 
             <div className="w-[168px] h-[40px] flex justify-betweens mr-[80px]">
             <Avatar>
-               <AvatarImage src="https://github.com/shadcn.png" />
+               <AvatarImage  src="https://github.com/shadcn.png" />
                  <AvatarFallback>CN</AvatarFallback>
             </Avatar> 
             <p className="font-medium font-sm ml-[8px] pt-2">Username</p>

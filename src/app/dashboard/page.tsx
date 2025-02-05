@@ -75,8 +75,8 @@ export default function EarningsDashboard() {
   const [selectedAmount, setSelectedAmount] = useState(1);
 
   return (
-    <div className="flex justify-center items-center w-screen">
-      <div className="w-[907px]">
+    <div className="">
+      <div className="w-[1000px] h-screen">
         <Card className="p-8 shadow-lg">
           <CardContent>
             <div className="flex justify-between items-center pt-[24px]">
