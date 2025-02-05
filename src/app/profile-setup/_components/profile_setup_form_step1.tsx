@@ -73,7 +73,7 @@ export default function ProfileSetup1() {
 
     if (
       !form.socialMediaURL ||
-      !/^https?:\/\/(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/a-zA-Z0-9#?=&_.-]*)?$/.test(
+      !/^[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/a-zA-Z0-9#?=&_.-]*)?$/.test(
         form.socialMediaURL
       )
     ) {
@@ -268,7 +268,7 @@ export default function ProfileSetup1() {
           onClick={(e) => {
             if (validate() && !loading) {
               setCheck(false);
-              router.push(`/profile?step=2`);
+              router.push(`/profile-setup?step=2`);
               console.log("validate", validate());
               console.log("loading", loading);
               console.log("working");
