@@ -29,7 +29,6 @@ export default function RootLayout({
     <html lang="en">
    <body >
     <NavigationProfile/>
-    <Navigation/>
 
   <main className="flex">
   <SideBar/>
