@@ -4,7 +4,7 @@ import { ExternalLink } from "lucide-react";
 
 export const ExploreContainer = () => {
   return (
-    <div className="">
+    <div className="w-[1000px]">
       <div className="text-[#18181B] text-[1.3rem] font-[600] pb-[24px]">Explore creators</div>
       <div className="pb-[24px]">
         <Input className="w-[243px] h-[36px]" placeholder="Search name" />
@@ -17,8 +17,8 @@ export const ExploreContainer = () => {
               <div className="text-[#18181B] text-[1.3rem] font-[600]">Space ranger</div>
 
             </div>
-            <div className="text-end">
-              <Button className="bg-[#F4F4F5] w-[136px] h-[40px] text-[#18181B] hover:text-white">
+            <div className="text-end ">
+              <Button  className="bg-gray-100 w-[136px] h-[40px]  hover:text-white hover:bg-black">
                 View profile
                 <ExternalLink />
               </Button>
