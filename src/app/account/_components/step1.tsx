@@ -51,7 +51,7 @@ export default function SignupStep1() {
         const response = await send.json();
         setResponse(response);
         setLoading(false);
-      }, 1000);
+      }, 2000);
     }
     return () => {
       clearTimeout(timeout);
