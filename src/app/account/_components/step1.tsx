@@ -16,7 +16,9 @@ export default function SignupStep1() {
   });
   useEffect(() => {
     const formString = localStorage.getItem("signup-info");
-    const formL = formString ? JSON.parse(formString) : {};
+    const formL = formString
+      ? JSON.parse(formString)
+      : { username: "", password: "", email: "" };
     setForm(formL);
   }, []);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,10 +60,12 @@ export default function SignupStep1() {
               e.preventDefault();
             }
           }}
-          href={`/account/signup?step=2`}>
+          href={`/account/signup?step=2`}
+        >
           <Button
             disabled={form.username.length < 8}
-            className="w-full text-background">
+            className="w-full text-background"
+          >
             Continue
           </Button>
         </Link>
