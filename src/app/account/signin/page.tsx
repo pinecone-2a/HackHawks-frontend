@@ -27,11 +27,6 @@ export default function Signin() {
       };
     });
   };
-  // useEffect(() => {
-  //   if (responses) {
-  //     setLoading(false);
-  //   }
-  // }, [responses]);
   const sendData = async () => {
     const send = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/users/auth/sign-in`,
