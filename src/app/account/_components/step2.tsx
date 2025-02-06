@@ -6,9 +6,11 @@ export default function SignupStep2() {
   return (
     <div className="relative min-h-screen w-full">
       <div className="flex justify-end p-10">
-        <Button className="bg-secondary text-foreground hover:bg-foreground hover:text-background">
-          Log in
-        </Button>
+        <Link href={`/account/signin`}>
+          <Button className="bg-secondary text-foreground hover:bg-foreground hover:text-background">
+            Log in
+          </Button>
+        </Link>
       </div>
       <div className="w-[407px] h-[256px] absolute flex flex-col gap-3 justify-evenly top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="">
