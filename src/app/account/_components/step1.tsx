@@ -1,14 +1,23 @@
 "use client";
+import { Skeleton } from "@/app/_components/Skeleton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { ChangeEvent, useEffect, useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 export type form = {
   username: string;
   password: string;
   email: string;
 };
+type response = {
+  message: string;
+  yes?: string;
+  no?: string;
+};
 export default function SignupStep1() {
+  const [response, setResponse] = useState<response>();
+  const [loading, setLoading] = useState<boolean>();
   const [form, setForm] = useState<form>({
     username: "",
     password: "",
@@ -23,11 +32,37 @@ export default function SignupStep1() {
   }, []);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-    localStorage.setItem("signup-info", JSON.stringify(form));
+
     setForm({
       ...form,
       [name]: value,
     });
+  };
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    setLoading(true);
+    setResponse({ message: "" });
+    if (form.username) {
+      timeout = setTimeout(async () => {
+        const send = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/users/auth/${form.username}`,
+          { method: "POST", headers: { "Content-Type": "application/json" } }
+        );
+        const response = await send.json();
+        setResponse(response);
+        setLoading(false);
+      }, 1000);
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [form.username]);
+  useEffect(() => {
+    localStorage.setItem("signup-info", JSON.stringify(form));
+  }, [form]);
+
+  const save = () => {
+    localStorage.setItem("signup-info", JSON.stringify(form));
   };
   console.log(form);
   return (
@@ -45,25 +80,54 @@ export default function SignupStep1() {
           </p>
         </div>
         <div>
-          <label htmlFor="username">Username</label>
-          <Input
-            defaultValue={form.username}
-            onChange={handleChange}
-            name="username"
-            id="username"
-            placeholder="Enter username here"
-          />
+          <div>
+            <label htmlFor="username">Username</label>
+            <Input
+              className={`border ${
+                form.username && response?.no
+                  ? "border-red-500"
+                  : response?.yes
+                  ? "border-green-400"
+                  : "border-gray-300"
+              }`}
+              defaultValue={form.username}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              name="username"
+              id="username"
+              placeholder="Enter username here"
+            />
+          </div>
+          {response ? (
+            <div
+              className={`${
+                form.username && response?.no
+                  ? "text-red-500"
+                  : response?.yes
+                  ? "text-green-400"
+                  : "text-gray-300"
+              }`}
+            >
+              {response.message}
+            </div>
+          ) : (
+            <AiOutlineLoading3Quarters className="animate-spin" />
+          )}
         </div>
+
         <Link
           onClick={(e) => {
-            if (form.username.length < 8) {
+            if (form.username.length < 6 || !response?.yes) {
               e.preventDefault();
+            } else {
+              save();
             }
           }}
           href={`/account/signup?step=2`}
         >
           <Button
-            disabled={form.username.length < 8}
+            disabled={form.username.length < 6 || !response?.yes}
             className="w-full text-background"
           >
             Continue
