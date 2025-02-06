@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { ExternalLinkIcon } from "lucide-react";
 import { usePathname, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 export const SideBar = () => {
   const [active, setActive] = useState("Home");
@@ -24,12 +25,14 @@ export const SideBar = () => {
             {item}
           </button>
         ))}
+        <Link href={"/view-page"}>
         <button className="w-full text-left p-2 rounded-lg hover:bg-[#F4F4F5] flex items-center gap-1 text-[14px]">
           View page
           <span className="ml-2">
             <ExternalLinkIcon className="text-[#18181B] h-[12px] w-[12px]" />
           </span>
         </button>
+        </Link>
         <button
           className={`w-full text-left p-2 rounded-lg text-[14px] hover:bg-[#F4F4F5] ${
             active === "Account settings" ? "bg-[#F4F4F5]" : ""

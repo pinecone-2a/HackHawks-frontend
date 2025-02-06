@@ -70,7 +70,7 @@ export default function EditProfile({ isOpen, onClose }: EditProfileProps) {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <img src="Profile.png" alt="Default Profile" className="w-full h-full object-cover" />
+              <img src="Profile.png"  className="w-full h-full object-cover" />
             )}
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 cursor-pointer">
               <label className="cursor-pointer">
@@ -115,7 +115,7 @@ export default function EditProfile({ isOpen, onClose }: EditProfileProps) {
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancel</Button>
           <DialogClose asChild>
-          <Button>Save changes</Button>
+          <Button variant="outline">Save changes</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
