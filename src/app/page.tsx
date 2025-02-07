@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { useState } from "react";
 import EditProfile from './_components/EditProfile';
-import { CreatorPage } from './_components/creator-page/CreatorPage';
+import { CreatorPage } from './creator-page/CreatorPage';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
