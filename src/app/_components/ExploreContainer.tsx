@@ -25,6 +25,7 @@ export const ExploreContainer = () => {
         <div className="p-[24px]">
           <div className="flex justify-between">
             <div className="flex items-center gap-3 pb-[12px]">
+              {ExploreData.map()}
               <img className="size-[40px] rounded-full border-solid border-[1px]" src="ExploreUserLogo.png" alt="" />
               <div className="text-[#18181B] text-[1.3rem] font-[600]">Space ranger</div>
             </div>
