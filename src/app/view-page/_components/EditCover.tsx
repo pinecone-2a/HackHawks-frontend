@@ -53,7 +53,7 @@ export default function EditCover({ isOpen, onClose }: EditCoverProps) {
   };
 
   return (
-    <div className="w-screen bg-[#F4F4F5] h-[319px] flex items-center justify-center relative">
+    <div className="w-screen bg-[#F4F4F5] h-[319px] flex items-center justify-center absolute z-1">
       {coverImage || tempCoverImage ? (
         <img
           src={tempCoverImage || coverImage!}
