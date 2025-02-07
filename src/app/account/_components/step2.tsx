@@ -6,10 +6,12 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { form } from "./step1";
 import { Skeleton } from "@/app/_components/Skeleton";
 import { response } from "../signin/page";
+import { useRouter } from "next/navigation";
 
 export default function SignupStep2() {
   const [response, setResponse] = useState<response>();
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
   const [form, setForm] = useState<form>({
     username: "",
     password: "",
@@ -19,6 +21,9 @@ export default function SignupStep2() {
     const formString = localStorage.getItem("signup-info");
     const formL = formString ? JSON.parse(formString) : {};
     setForm(formL);
+    if (!formL.username) {
+      router.replace(`/account/signup?step=1`);
+    }
   }, []);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
@@ -30,11 +35,6 @@ export default function SignupStep2() {
     });
   };
 
-  // useEffect(() => {
-  //   if (response) {
-  //     setLoading(false);
-  //   }
-  // }, []);
   const sendForm = async () => {
     const send = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/users/addnew`,
@@ -113,23 +113,19 @@ export default function SignupStep2() {
                 setLoading(true);
               }
             }}
-            href={`/account/signup?step=2`}
-          >
+            href={`/profile-setup`}>
             <Button
               disabled={!isValid()}
               onClick={sendForm}
-              className="w-full text-background"
-            >
+              className="w-full text-background">
               Continue
             </Button>
           </Link>
           <div>
             {loading && (
               <div>
-                {response ? (
+                {response && (
                   <div className="text-red-500">{response.message}</div>
-                ) : (
-                  <Skeleton />
                 )}
               </div>
             )}
