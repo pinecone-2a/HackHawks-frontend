@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import SignupStep1 from "../_components/step1";
 import Link from "next/link";
 import SignupStep2 from "../_components/step2";
@@ -14,10 +14,12 @@ export type response = {
 export default function Signin() {
   const [responses, setResponse] = useState<response>();
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
   const [login, setLogin] = useState({
     email: "",
     password: "",
   });
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setLogin((p) => {
@@ -42,6 +44,7 @@ export default function Signin() {
     setResponse(response);
     localStorage.setItem("userId", response.id);
   };
+
   console.log(responses);
   return (
     <div className="relative min-h-screen w-full">
@@ -81,8 +84,7 @@ export default function Signin() {
             sendData();
             setLoading(true);
           }}
-          className="w-full text-background"
-        >
+          className="w-full text-background">
           Continue
         </Button>
         <div>

@@ -68,7 +68,6 @@ export default function ProfileSetup1() {
     setForm((prev) => {
       return { ...prev, [field]: value };
     });
-    console.log(form);
   };
 
   useEffect(() => {
@@ -157,8 +156,7 @@ export default function ProfileSetup1() {
               socialMediaURL: "",
               avatarImage: "",
             });
-          }}
-        >
+          }}>
           Reset
         </button>
       </div>
@@ -170,8 +168,7 @@ export default function ProfileSetup1() {
                 handleInput();
               }}
               className={`border w-40 h-40 rounded-full content-center text-center border-dashed 
-            }`}
-            >
+            }`}>
               Add image
             </div>
             {check && (
@@ -307,8 +304,7 @@ export default function ProfileSetup1() {
               console.log("pervented");
               console.log(validationResult.errors);
             }
-          }}
-        >
+          }}>
           Continue
         </Button>
         {/* </Link> */}

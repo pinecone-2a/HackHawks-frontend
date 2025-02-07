@@ -20,17 +20,29 @@ const paymentSchema = z.object({
   lastName: z.string().min(6),
   cardNumber: z.string().min(16),
   expiryDate: z.date(),
+  CVC: z.string().max(3),
 });
+type PaymentInfo = {
+  country: string;
+  firstName: string;
+  lastName: string;
+  cardNumber: string;
+  expiryDate?: Date;
+  CVC: string;
+};
 export default function ProfileSetup2() {
   const [cardExpiryDate, setCardExpiryDate] = useState("");
+  const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
   const [countries, setCountries] = useState<country[]>([]);
   const [isValid, setValid] = useState<boolean>(false);
-  const [form2, setForm2] = useState({
+  const [form2, setForm2] = useState<PaymentInfo>({
     country: "",
     firstName: "",
     lastName: "",
     cardNumber: "",
-    expiryDate: "",
+    expiryDate: new Date(),
+    CVC: "",
   });
   const [form1, setForm1] = useState<UserInfoForm>({
     name: "",
@@ -57,6 +69,7 @@ export default function ProfileSetup2() {
     } else {
       setValid(false);
     }
+    console.log(result);
   }, [form2]);
   useEffect(() => {
     const fetchData = async () => {
@@ -75,6 +88,7 @@ export default function ProfileSetup2() {
       return {
         ...p,
         [name]: value,
+        expiryDate: new Date(year + "-" + month + "-" + "15"),
       };
     });
     console.log(form2);
@@ -84,7 +98,39 @@ export default function ProfileSetup2() {
     const formL = formString ? JSON.parse(formString) : {};
     setForm1(formL);
   }, []);
-  console.log(form1);
+  const sendDatas = async () => {
+    const userId = localStorage.getItem("userId");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...form1, userId }),
+    });
+    const response = await res.json();
+    console.log("profile response", response);
+
+    const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bank-card`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...form2,
+        userId,
+      }),
+    });
+    const response2 = await res2.json();
+    console.log("card response", response2);
+  };
+  // useEffect(() => {
+  //   setCardExpiryDate(month + " 1 " + year);
+  //   const date = new Date(cardExpiryDate);
+  //   if (typeof date === Date()) {
+  //     setForm2({
+  //       ...form2,
+  //       expiryDate: date,
+  //     });
+  //   }
+  //   console.log(date);
+  // }, [month, year]);
+  console.log(form2);
   return (
     <div className="w-[510px] h-[631px] flex flex-col gap-10">
       <div>
@@ -100,8 +146,7 @@ export default function ProfileSetup2() {
             onChange={handleChange}
             name="country"
             id="countries"
-            className="w-full border p-2 rounded-md"
-          >
+            className="w-full border p-2 rounded-md">
             {countries &&
               countries.map((country: country) => (
                 <option key={country.cca2} value={country.name.common}>
@@ -134,8 +179,7 @@ export default function ProfileSetup2() {
 
         <div
           className="font-semibold
-        "
-        >
+        ">
           <label htmlFor="card-number">Enter card number</label>
           <Input
             onChange={handleChange}
@@ -146,12 +190,14 @@ export default function ProfileSetup2() {
         </div>
         <div className="font-semibold flex justify-between gap-2">
           <div>
-            <label htmlFor="date">Expires</label>
+            <label htmlFor="month">Expires</label>
             <select
-              name="date"
-              id="date"
-              className="border p-2 w-40 rounded-lg"
-            >
+              name="month"
+              onChange={(e) => {
+                setMonth(e.target.value);
+              }}
+              id="month"
+              className="border p-2 w-40 rounded-lg">
               {months.map((month) => (
                 <option key={month} value={month}>
                   {month}
@@ -161,7 +207,12 @@ export default function ProfileSetup2() {
           </div>
           <div>
             <label htmlFor="year">Year</label>
-            <select id="year" className="border p-2 w-40 rounded-lg">
+            <select
+              onChange={(e) => {
+                setYear(e.target.value);
+              }}
+              id="year"
+              className="border p-2 w-40 rounded-lg">
               {years.map((year) => (
                 <option value={year} key={year}>
                   {year}
@@ -172,6 +223,7 @@ export default function ProfileSetup2() {
           <div>
             <label htmlFor="CVC">CVC</label>
             <Input
+              onChange={handleChange}
               id="CVC"
               maxLength={3}
               type="number"
@@ -185,10 +237,10 @@ export default function ProfileSetup2() {
         <Button
           disabled={!isValid}
           onClick={() => {
+            sendDatas();
             console.log("it works");
           }}
-          className={``}
-        >
+          className={``}>
           Continue
         </Button>
       </div>
