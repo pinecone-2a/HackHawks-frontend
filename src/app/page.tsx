@@ -12,7 +12,6 @@ export default function Home() {
       hi2 hello
       <button onClick={() => setIsOpen(true)} className="mt-4 px-4 py-2 bg-[#F4F4F5] text-[#18181B] rounded rounded-md">Edit Page</button>
       <EditProfile isOpen={isOpen} onClose={() => setIsOpen(false)} />
-        <CreatorPage/>
     </div>
     
   )
