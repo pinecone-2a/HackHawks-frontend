@@ -12,10 +12,10 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (<>
-      <HomeNavbar/>
+      {/* <HomeNavbar/>
       <HomeHero/>
       <HomeFeature/>
-      <HomeFooter/>
+      <HomeFooter/> */}
   </>
 
     // <div>
