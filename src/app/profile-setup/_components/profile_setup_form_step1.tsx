@@ -8,12 +8,36 @@ import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useRouter } from "next/navigation";
+import { z } from "zod";
 
+const forSchema = z.object({
+  name: z.string().min(6),
+  about: z.string().min(15),
+  socialMediaURL: z.string().url(),
+  avatarImage: z.string().url(),
+});
 export default function ProfileSetup1() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [check, setCheck] = useState<boolean>(false);
-  const [count, setCount] = useState<number>(0);
+  const [isValid, setValid] = useState(false);
+  const [validationResult, setValidationResult] = useState<{
+    success: boolean;
+    errors: {
+      name: boolean;
+      about: boolean;
+      socialMediaURL: boolean;
+      avatarImage: boolean;
+    };
+  }>({
+    success: false,
+    errors: {
+      name: false,
+      about: false,
+      socialMediaURL: false,
+      avatarImage: false,
+    },
+  });
   const [loading, setLoading] = useState<boolean>(false);
   const [reset, setReset] = useState<boolean>(false);
   const [form, setForm] = useState<UserInfoForm>({
@@ -22,12 +46,12 @@ export default function ProfileSetup1() {
     socialMediaURL: "",
     avatarImage: "",
   });
-  let errors = {
-    name: false,
-    about: false,
-    socialMediaURL: false,
-    avatarImage: false,
-  };
+  // let errors = {
+  //   name: false,
+  //   about: false,
+  //   socialMediaURL: false,
+  //   avatarImage: false,
+  // };
   useEffect(() => {
     const step1String = localStorage.getItem("step1");
     const step1 = step1String ? JSON.parse(step1String) : "";
@@ -44,7 +68,6 @@ export default function ProfileSetup1() {
     setForm((prev) => {
       return { ...prev, [field]: value };
     });
-    console.log(form);
   };
 
   useEffect(() => {
@@ -57,38 +80,36 @@ export default function ProfileSetup1() {
       clearTimeout(interval);
     };
   }, [form]);
-  const validate = (): boolean => {
-    let isValid = true;
-    if (!form.name || !/^[a-zA-Z0-9_]{8,}$/.test(form.name)) {
-      isValid = false;
-    } else {
-      errors.name = true;
-    }
 
-    if (!form.about) {
-      isValid = false;
+  useEffect(() => {
+    const result = forSchema.safeParse(form);
+    if (result.success) {
+      setValid(true);
+      setValidationResult({
+        success: true,
+        errors: {
+          name: false,
+          about: false,
+          socialMediaURL: false,
+          avatarImage: false,
+        },
+      });
     } else {
-      errors.about = true;
+      setValid(false);
+      const errors = result.error.formErrors.fieldErrors;
+      setValidationResult({
+        success: false,
+        errors: {
+          name: !!errors.name,
+          about: !!errors.about,
+          socialMediaURL: !!errors.socialMediaURL,
+          avatarImage: !!errors.avatarImage,
+        },
+      });
     }
+    console.log(validationResult);
+  }, [form]);
 
-    if (
-      !form.socialMediaURL ||
-      !/^[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/a-zA-Z0-9#?=&_.-]*)?$/.test(
-        form.socialMediaURL
-      )
-    ) {
-      isValid = false;
-    } else {
-      errors.socialMediaURL = true;
-    }
-
-    if (!form.avatarImage) {
-      isValid = false;
-    } else {
-      errors.avatarImage = true;
-    }
-    return isValid;
-  };
   const handleInput = () => {
     if (inputRef.current) {
       inputRef.current.click();
@@ -114,9 +135,9 @@ export default function ProfileSetup1() {
       console.log(form);
     }
   };
-  useEffect(() => {
-    validate();
-  }, [form]);
+  // useEffect(() => {
+  //   isValid;
+  // }, [form]);
   return (
     <div className="w-[510px] h-[631px] flex flex-col gap-10">
       <div className="flex items-center justify-between">
@@ -135,8 +156,7 @@ export default function ProfileSetup1() {
               socialMediaURL: "",
               avatarImage: "",
             });
-          }}
-        >
+          }}>
           Reset
         </button>
       </div>
@@ -148,13 +168,14 @@ export default function ProfileSetup1() {
                 handleInput();
               }}
               className={`border w-40 h-40 rounded-full content-center text-center border-dashed 
-            }`}
-            >
+            }`}>
               Add image
             </div>
             {check && (
               <div className="text-red-500 whitespace-nowrap">
-                {!errors.avatarImage && <p>Please upload profile picture!</p>}
+                {validationResult.errors.avatarImage && (
+                  <p>Please upload profile picture!</p>
+                )}
               </div>
             )}
           </div>
@@ -194,7 +215,7 @@ export default function ProfileSetup1() {
           />
           {check && (
             <div className="text-red-500">
-              {!errors.name && !validate() && (
+              {validationResult.errors.name && !isValid && (
                 <p>username must be 8+ characters!</p>
               )}
             </div>
@@ -211,7 +232,9 @@ export default function ProfileSetup1() {
           />
           {check && (
             <div className="text-red-500">
-              {!errors.about && <p>Please enter info about yourself!</p>}
+              {validationResult.errors.about && (
+                <p>Please enter info about yourself!</p>
+              )}
             </div>
           )}
         </div>
@@ -226,7 +249,7 @@ export default function ProfileSetup1() {
           />
           {check && (
             <div className="text-red-500">
-              {!errors.socialMediaURL && (
+              {validationResult.errors.socialMediaURL && (
                 <p>Please enter a valid social link!</p>
               )}
             </div>
@@ -260,29 +283,28 @@ export default function ProfileSetup1() {
         > */}
         <Button
           className={`w-[236px] ${
-            !validate()
-              ? `bg-muted text-foreground cursor-not-allowed hover:text-background hover:bg-muted-foreground`
+            !isValid
+              ? `bg-muted text-background cursor-not-allowed hover:text-background hover:bg-muted-foreground`
               : `bg-foreground text-background`
           }`}
-          disabled={!validate() || loading}
+          disabled={!isValid || loading}
           onClick={(e) => {
-            if (validate() && !loading) {
+            if (isValid && !loading) {
               setCheck(false);
               router.push(`/profile-setup?step=2`);
-              console.log("validate", validate());
+              console.log("validate", isValid);
               console.log("loading", loading);
               console.log("working");
-              console.log(errors);
+              console.log(validationResult.errors);
             } else {
               e.preventDefault();
               setCheck(true);
-              console.log("validate", validate());
+              console.log("validate", isValid);
               console.log("loading", loading);
               console.log("pervented");
-              console.log(errors);
+              console.log(validationResult.errors);
             }
-          }}
-        >
+          }}>
           Continue
         </Button>
         {/* </Link> */}

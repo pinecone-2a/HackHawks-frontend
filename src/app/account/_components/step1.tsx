@@ -68,9 +68,11 @@ export default function SignupStep1() {
   return (
     <div className="relative min-h-screen w-full">
       <div className="flex justify-end p-10">
-        <Button className="bg-secondary text-foreground hover:bg-foreground hover:text-background">
-          Log in
-        </Button>
+        <Link href={`/account/signin`}>
+          <Button className="bg-secondary text-foreground hover:bg-foreground hover:text-background">
+            Log in
+          </Button>
+        </Link>
       </div>
       <div className="w-[407px] h-[256px] absolute flex flex-col justify-evenly top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="">
@@ -107,9 +109,8 @@ export default function SignupStep1() {
                   : response?.yes
                   ? "text-green-400"
                   : "text-gray-300"
-              }`}
-            >
-              {response.message}
+              }`}>
+              {response?.message}
             </div>
           ) : (
             <AiOutlineLoading3Quarters className="animate-spin" />
@@ -124,12 +125,10 @@ export default function SignupStep1() {
               save();
             }
           }}
-          href={`/account/signup?step=2`}
-        >
+          href={`/account/signup?step=2`}>
           <Button
             disabled={form.username.length < 6 || !response?.yes}
-            className="w-full text-background"
-          >
+            className="w-full text-background">
             Continue
           </Button>
         </Link>
