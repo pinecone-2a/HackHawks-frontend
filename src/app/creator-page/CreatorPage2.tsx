@@ -1,17 +1,18 @@
 
-// import { Link } from "lucide-react"
 import { Navigation } from "../_components/Navigation"
+import { FaHeart } from "react-icons/fa";
 import Link from "next/link";
+import { NavigationProfile } from "../_components/NavigationProfile";
+// import { QrCode } from "./QrCode";
 
-
-export function CreatorPage () {
+export function CreatorPage2 () {
     return (
         <div className="">
-           <Navigation/>
+           <NavigationProfile/>
            <img src="CreatorPageBackground.png" alt="" className="w-full h-[319px]" />
 
            <div className="flex gap-8 justify-center w-screen h-full absolute mt-[-86px]">
-           <div className="w-[632px] h-[775px] flex flex-col justify-between">
+           <div className="w-[632px] h-[660px] flex flex-col justify-between">
             <div className="rounded-lg border w-[100%] h-[273px] bg-white p-5">
                 <div className="gap-3 flex items-center">
                   <div className="rounded-full w-[48px] h-[48px] bg-gray-300"></div>
@@ -29,71 +30,35 @@ export function CreatorPage () {
                 <p className="text-[14px] mt-5">https://buymeacoffee.com/spacerulz44</p>
             </div>
 
-            <div className="rounded-lg border w-[100%] h-[380px] bg-white p-5 snap-y mt-[30px]">
+            <div className="rounded-lg border w-[100%] h-[236px] bg-white p-5 snap-y mt-[30px]">
                 <p className="text-[16px] font-semibold mb-5">Recent supporters</p>
-
-                <div className="flex ">
-                    <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex pr-[40px]"></div>
-
-                    <div className="flex flex-col  pl-[12px]">
-                        <div className="flex gap-[4px] ">
-                        <p className="font-bold text-sm "> Guest </p>
-                        <p className="text-[14px]"> bought $1 coffee</p>
+                <div className="w-[584px] h-[140px] rounded-lg border bg-white  ">
+                    <div className=" mt-[42px] ">
+                        <div className="flex items-center justify-center">
+                          <FaHeart  className="w-[29px] h-[29px] "/>
                         </div>
 
-                     <p className="text-[14px]">Thank you for being so awesome everyday! You always manage to brighten up my day when I’m feeling down. Although $1 isn’t that much money it’s all I can <br /> contribute at the moment. </p>
-                    </div>
+                <div className="flex items-center justify-center mt-[20px]">
+                  <p className="font-semibold text-base ">Be the first one to support Jake</p>
                 </div>
 
-                <div className="flex mt-[16px]">
-                <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex"></div>
+
+                    </div>
                 
-                <div className="flex flex-col gap-3 pl-[12px] ">
-                        <div className="flex gap-[4px] ">
-                        <p className="font-bold text-sm "> John Doe </p>
-                        <p className="text-[14px]"> bought $5 coffee</p>
-                        </div>
-
-                     <p className="text-[14px]">Thank you for being so awesome everyday!  </p>
-                 </div>
-                </div>
-
-                <div className="flex mt-[16px]">
-                 <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex"></div>
-
-                 <div className="flex flex-col gap-3 pl-[12px] ">
-                        <div className="flex gap-[4px] pt-[10px] ">
-                          <p className="font-bold text-sm "> Jake </p>
-                          <p className="text-[14px]"> bought $10 coffee</p>
-                        </div>
-                 </div>
-                </div>
-
-                <div className="flex mt-[16px] ">
-                    <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex pr-[40px]"></div>
-
-                    <div className="flex flex-col  pl-[12px]">
-                        <div className="flex gap-[4px] ">
-                        <p className="font-bold text-sm "> Guest </p>
-                        <p className="text-[14px]"> bought $2 coffee</p>
-                        </div>
-
-                     <p className="text-[14px]">Thank you for being so awesome everyday! You always manage to brighten up my day when I’m feeling down. Although $1 isn’t that much money it’s all I can <br /> contribute at the moment. </p>
-                    </div>
                 </div>
 
 
             </div>
            </div>
 
-           <div className="rounded-lg border w-[650px] h-[509px] bg-white p-6">
+           <div className="rounded-lg border w-[650px] h-[520px] bg-white p-6">
            <div className="gap-3 ml-[10px] w-[580px] ">
                   <p className="text-[24px] font-semibold mb-[24px]">Buy Space ranger a Coffee</p>
 
                   <div>
                     <p className="font-medium text-sm">Select amount:</p>
 
-                    <div className="w-[337px] flex justify-between mt-[8px] ">
+                    <div className="w-[337px] flex justify-between mt-[8px]">
                     <button className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $1</button>
                     <button className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $3</button>
                     <button className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $5</button>
@@ -117,9 +82,11 @@ export function CreatorPage () {
                     </div>
                   </div>
 
-                    <Link href="/dashboard" >
-                    <p className="w-[580px] h-[40px] bg-black rounded-md mt-[32px] text-white hover:bg-gray-900 flex justify-center pt-[8px]">Support</p>
-                    </Link>
+                  <div>
+                   <Link href="/dashboard">
+                     <p className="w-[580px] h-[40px] bg-black rounded-md mt-[32px] text-white hover:bg-gray-900 flex justify-center pt-[8px]">Support</p>
+                   </Link>
+                  </div>
            </div>
             </div>
            </div>
