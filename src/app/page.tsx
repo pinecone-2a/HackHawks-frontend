@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { useState } from "react";
 import EditProfile from "./_components/EditProfile";
-import { CreatorPage } from "./_components/creator-page/CreatorPage";
 import { HomeNavbar } from "./_components/HomeNavbar";
 import { HomeHero } from "./_components/HomeHero";
 import { HomeFeature } from "./_components/HomeFeature";
