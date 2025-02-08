@@ -59,7 +59,9 @@ export default function FrameEditPage() {
       {/* Supporters Section */}
       <div className="bg-white border border-[#E4E4E7] rounded-lg p-6 text-center">
         <h3 className="text-lg font-semibold">Recent Supporters</h3>
+        <div className="bg-white border border-[#E4E4E7] rounded-lg p-6 text-center">
         <p className="text-gray-500">Be the first one to support Jake ❤️</p>
+        </div>
       </div>
 
       
