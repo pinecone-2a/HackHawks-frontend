@@ -1,6 +1,6 @@
 
 // import { Link } from "lucide-react"
-import { Navigation } from "../_components/Navigation"
+import { Navigation } from "../../_components/Navigation"
 import Link from "next/link";
 
 
