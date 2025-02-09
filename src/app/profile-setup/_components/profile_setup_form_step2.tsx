@@ -6,6 +6,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { UserInfoForm } from "../../utils/types";
 import { z } from "zod";
 import { form } from "@/app/account/_components/step1";
+import { useRouter } from "next/navigation";
 type country = {
   name: {
     common: string;
@@ -31,8 +32,10 @@ type PaymentInfo = {
   CVC: string;
 };
 export default function ProfileSetup2() {
+  const router = useRouter();
   const [cardExpiryDate, setCardExpiryDate] = useState("");
   const [year, setYear] = useState("");
+  const [response, setMessage] = useState("");
   const [month, setMonth] = useState("");
   const [countries, setCountries] = useState<country[]>([]);
   const [isValid, setValid] = useState<boolean>(false);
@@ -118,6 +121,9 @@ export default function ProfileSetup2() {
     });
     const response2 = await res2.json();
     console.log("card response", response2);
+    if (response.message === "success" && response2.message === "success") {
+      router.push(`/dashboard`);
+    }
   };
   // useEffect(() => {
   //   setCardExpiryDate(month + " 1 " + year);
@@ -146,7 +152,8 @@ export default function ProfileSetup2() {
             onChange={handleChange}
             name="country"
             id="countries"
-            className="w-full border p-2 rounded-md">
+            className="w-full border p-2 rounded-md"
+          >
             {countries &&
               countries.map((country: country) => (
                 <option key={country.cca2} value={country.name.common}>
@@ -179,7 +186,8 @@ export default function ProfileSetup2() {
 
         <div
           className="font-semibold
-        ">
+        "
+        >
           <label htmlFor="card-number">Enter card number</label>
           <Input
             onChange={handleChange}
@@ -197,7 +205,8 @@ export default function ProfileSetup2() {
                 setMonth(e.target.value);
               }}
               id="month"
-              className="border p-2 w-40 rounded-lg">
+              className="border p-2 w-40 rounded-lg"
+            >
               {months.map((month) => (
                 <option key={month} value={month}>
                   {month}
@@ -212,7 +221,8 @@ export default function ProfileSetup2() {
                 setYear(e.target.value);
               }}
               id="year"
-              className="border p-2 w-40 rounded-lg">
+              className="border p-2 w-40 rounded-lg"
+            >
               {years.map((year) => (
                 <option value={year} key={year}>
                   {year}
@@ -240,7 +250,8 @@ export default function ProfileSetup2() {
             sendDatas();
             console.log("it works");
           }}
-          className={``}>
+          className={``}
+        >
           Continue
         </Button>
       </div>

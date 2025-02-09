@@ -7,6 +7,7 @@ import { form } from "./step1";
 import { Skeleton } from "@/app/_components/Skeleton";
 import { response } from "../signin/page";
 import { useRouter } from "next/navigation";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function SignupStep2() {
   const [response, setResponse] = useState<response>();
@@ -36,17 +37,34 @@ export default function SignupStep2() {
   };
 
   const sendForm = async () => {
-    const send = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/users/addnew`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+    setLoading(true);
+    try {
+      const send = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/addnew`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
+      const response = await send.json();
+      setResponse(response);
+      localStorage.setItem("userId", response.id);
+      if (response.id) {
+        setTimeout(() => {
+          router.push(`/profile-setup`);
+          setLoading(false);
+        }, 2000);
       }
-    );
-    const response = await send.json();
-    setResponse(response);
-    localStorage.setItem("userId", response.id);
+      if (response.hasProfile) {
+        setTimeout(() => {
+          router.push(`/dashboard`);
+          setLoading(false);
+        }, 2000);
+      }
+    } catch (e) {
+      console.error(e, "sendForm ajilsangui!");
+    }
   };
   const isValid = () => {
     let isValid = true;
@@ -105,27 +123,39 @@ export default function SignupStep2() {
               placeholder="Enter password here"
             />
           </div>
-          <Link
+
+          <Button
+            disabled={!isValid()}
             onClick={(e) => {
               if (!isValid()) {
                 e.preventDefault();
               } else {
                 setLoading(true);
+                sendForm();
               }
             }}
-            href={`/profile-setup`}>
-            <Button
-              disabled={!isValid()}
-              onClick={sendForm}
-              className="w-full text-background">
-              Continue
-            </Button>
-          </Link>
+            className="w-full text-background"
+          >
+            Continue
+          </Button>
+
           <div>
             {loading && (
               <div>
-                {response && (
-                  <div className="text-red-500">{response.message}</div>
+                {response ? (
+                  <div className="text-red-500">
+                    {response.message}
+                    {". "}
+                    {response.message === "success" && `redirecting...`}
+                    <br />
+                    {response.hasProfile &&
+                      `profile already setup! redirecting to dashboard`}
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    Checking...
+                    <AiOutlineLoading3Quarters className="animate-spin" />
+                  </div>
                 )}
               </div>
             )}

@@ -3,6 +3,7 @@ import { Skeleton } from "@/app/_components/Skeleton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 export type form = {
@@ -16,6 +17,7 @@ type response = {
   no?: string;
 };
 export default function SignupStep1() {
+  const router = useRouter();
   const [response, setResponse] = useState<response>();
   const [loading, setLoading] = useState<boolean>();
   const [form, setForm] = useState<form>({
@@ -37,6 +39,11 @@ export default function SignupStep1() {
       ...form,
       [name]: value,
     });
+  };
+  const nextStep = () => {
+    if (response?.yes) {
+      router.replace(`/account/signup?step=2`);
+    }
   };
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -109,7 +116,8 @@ export default function SignupStep1() {
                   : response?.yes
                   ? "text-green-400"
                   : "text-gray-300"
-              }`}>
+              }`}
+            >
               {response?.message}
             </div>
           ) : (
@@ -117,21 +125,20 @@ export default function SignupStep1() {
           )}
         </div>
 
-        <Link
+        <Button
           onClick={(e) => {
             if (form.username.length < 6 || !response?.yes) {
               e.preventDefault();
             } else {
               save();
+              nextStep();
             }
           }}
-          href={`/account/signup?step=2`}>
-          <Button
-            disabled={form.username.length < 6 || !response?.yes}
-            className="w-full text-background">
-            Continue
-          </Button>
-        </Link>
+          disabled={form.username.length < 6 || !response?.yes}
+          className="w-full text-background"
+        >
+          Continue
+        </Button>
       </div>
     </div>
   );

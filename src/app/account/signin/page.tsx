@@ -10,6 +10,7 @@ import { Skeleton } from "@/app/_components/Skeleton";
 export type response = {
   message: string;
   id: string;
+  hasProfile?: boolean;
 };
 export default function Signin() {
   const [responses, setResponse] = useState<response>();
@@ -84,7 +85,8 @@ export default function Signin() {
             sendData();
             setLoading(true);
           }}
-          className="w-full text-background">
+          className="w-full text-background"
+        >
           Continue
         </Button>
         <div>
