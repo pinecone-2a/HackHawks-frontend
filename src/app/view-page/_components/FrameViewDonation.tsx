@@ -1,6 +1,6 @@
 export default function FrameViewDonation() {
     return (
-      <div className="max-w-lg bg-white border border-gray-300 rounded-lg p-6 left-[1200px] absolute z-3">
+      <div className="max-w-lg bg-white border border-gray-300 rounded-lg p-6 z-3">
         <h2 className="text-xl font-semibold mb-4">Buy Jake a Coffee</h2>
         
         

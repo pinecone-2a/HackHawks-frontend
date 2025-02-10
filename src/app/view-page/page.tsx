@@ -5,17 +5,20 @@ import FrameViewDonation from "./_components/FrameViewDonation";
 
 export default function ViewPage() {
   return (
-    <div className="relative">
-      <div className="">
+    <div className="">
+      <div className="relative">
      <EditCover isOpen={false} onClose={function (): void {
         throw new Error("Function not implemented.");
       } }/>
       </div>
-      <div className=" ">
-        <div className="w-[1280px] flex justify-between pt-[238px]">
+      <div className="relative flex justify-center">
+        {/* <div className="w-[1280px] flex justify-between pt-[238px]"> */}
+        <div className="flex flex-col items-center xl:flex-row gap-20 absolute -top-10">
+
       <FrameEditPage/>
       <FrameViewDonation/>
-      </div>
+        </div>
+      {/* </div> */}
       </div>
     </div>
   )

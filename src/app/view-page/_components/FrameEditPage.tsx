@@ -16,7 +16,7 @@ export default function FrameEditPage() {
   );
 
   return (
-    <div className="max-w-[632px] left-[450px] absolute z-2">
+    <div className="max-w-[632px]">
       
       <div className="bg-white border border-[#E4E4E7] rounded-lg p-6">
         <div className="flex items-center justify-between mb-4">

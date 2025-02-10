@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { CameraIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
 import { CldImage } from 'next-cloudinary';
+import Image from "next/image";
 
 type EditCoverProps = {
   isOpen: boolean;
@@ -53,12 +54,14 @@ export default function EditCover({ isOpen, onClose }: EditCoverProps) {
   };
 
   return (
-    <div className="w-screen bg-[#F4F4F5] h-[319px] flex items-center justify-center absolute z-1">
+    <div className="w-full bg-[#F4F4F5] h-[319px] flex items-center justify-center">
       {coverImage || tempCoverImage ? (
-        <img
+        <Image
           src={tempCoverImage || coverImage!}
           alt="Cover"
           className="absolute inset-0 w-full h-full object-cover"
+          width={1400}
+          height={400}
         />
       ) : (
         <div className="absolute inset-0 bg-[#F4F4F5]"></div>
