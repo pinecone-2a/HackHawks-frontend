@@ -46,10 +46,11 @@ export default function SignupStep1() {
     }
   };
   useEffect(() => {
+    let timeout: NodeJS.Timeout;
     setLoading(true);
     setResponse({ message: "" });
-    const check = async () => {
-      try {
+    if (form.username) {
+      timeout = setTimeout(async () => {
         const send = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/users/auth/${form.username}`,
           { method: "POST", headers: { "Content-Type": "application/json" } }
@@ -57,14 +58,11 @@ export default function SignupStep1() {
         const response = await send.json();
         setResponse(response);
         setLoading(false);
-      } catch (e) {
-        console.error(e, "aldaa");
-        setResponse({ message: "SERVER_NOT_RESPONDING" });
-        console.log(response);
-        setLoading(false);
-      }
+      }, 2000);
+    }
+    return () => {
+      clearTimeout(timeout);
     };
-    check();
   }, [form.username]);
   useEffect(() => {
     localStorage.setItem("signup-info", JSON.stringify(form));
@@ -120,10 +118,7 @@ export default function SignupStep1() {
                   : "text-gray-300"
               }`}
             >
-              <div className="text-red-500">
-                {response.message === "SERVER_NOT_RESPONDING" &&
-                  `Server hariu ogsongui!`}
-              </div>
+              {response?.message}
             </div>
           ) : (
             <div className="flex items-center gap-3">
