@@ -7,13 +7,18 @@ import Link from "next/link";
 import SignupStep2 from "../_components/step2";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Skeleton } from "@/app/_components/Skeleton";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 export type response = {
   message: string;
-  id: string;
-  hasProfile?: boolean;
+  success?: boolean;
+  profileSetup?: boolean;
+  data?: {
+    id: string;
+  };
 };
 export default function Signin() {
-  const [responses, setResponse] = useState<response>();
+  const [responses, setResponse] = useState<response>({ message: "WAITING" });
+  const [noreponse, setnoreponse] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [login, setLogin] = useState({
@@ -31,21 +36,35 @@ export default function Signin() {
     });
   };
   const sendData = async () => {
-    const send = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/users/auth/sign-in`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(login),
+    try {
+      const send = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/auth/sign-in`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(login),
+        }
+      );
+      const response = await send.json();
+      setResponse(response);
+      if (response.data.id) {
+        localStorage.setItem("userId", response.data.id);
       }
-    );
-    const response = await send.json();
-    setResponse(response);
-    localStorage.setItem("userId", response.id);
+      if (response.success) {
+        if (response.profileSetup) {
+          router.push(`/dashboard`);
+        } else {
+          router.push(`/profile-setup`);
+        }
+      }
+    } catch (e) {
+      console.error(e, "server hariu ogsongu");
+      setResponse({ message: "SERVER_NOT_RESPONDING" });
+      // setnoreponse(e.message);
+    }
   };
-
   console.log(responses);
   return (
     <div className="relative min-h-screen w-full">
@@ -92,10 +111,26 @@ export default function Signin() {
         <div>
           {loading && (
             <div>
-              {responses ? (
-                <div className="text-red-500">{responses.message}</div>
+              {responses?.success ? (
+                <div className="text-green-500">Амжилттай!</div>
               ) : (
-                <Skeleton />
+                <div className="flex items-center gap-2">
+                  {responses?.message ? (
+                    <div className="text-red-500">
+                      {responses.message === "WRONG_PASSWORD" &&
+                        "Буруу password оруулсан байна"}
+                      {responses.message === "NOT_REGISTERED" &&
+                        "Бүртгэлгүй хэрэглэгч байна"}
+                      {responses.message === "SERVER_NOT_RESPONDING" &&
+                        "Server hariu ogsongui!"}
+                    </div>
+                  ) : (
+                    <>
+                      Checking...
+                      <AiOutlineLoading3Quarters className="animate-spin" />
+                    </>
+                  )}
+                </div>
               )}
             </div>
           )}

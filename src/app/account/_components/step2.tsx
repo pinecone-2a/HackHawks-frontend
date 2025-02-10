@@ -49,16 +49,10 @@ export default function SignupStep2() {
       );
       const response = await send.json();
       setResponse(response);
-      localStorage.setItem("userId", response.id);
-      if (response.id) {
+      // localStorage.setItem("userId", response.id);
+      if (response.success) {
         setTimeout(() => {
-          router.push(`/profile-setup`);
-          setLoading(false);
-        }, 2000);
-      }
-      if (response.hasProfile) {
-        setTimeout(() => {
-          router.push(`/dashboard`);
+          router.push(`/account/signin`);
           setLoading(false);
         }, 2000);
       }
@@ -144,12 +138,9 @@ export default function SignupStep2() {
               <div>
                 {response ? (
                   <div className="text-red-500">
-                    {response.message}
-                    {". "}
-                    {response.message === "success" && `redirecting...`}
-                    <br />
-                    {response.hasProfile &&
-                      `profile already setup! redirecting to dashboard`}
+                    {response.success
+                      ? "amjilttai burtgegdelee"
+                      : "Ali hediin burtgeltei bn"}
                   </div>
                 ) : (
                   <div className="flex items-center gap-2">

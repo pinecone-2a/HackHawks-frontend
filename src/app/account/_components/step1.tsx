@@ -46,11 +46,10 @@ export default function SignupStep1() {
     }
   };
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
     setLoading(true);
     setResponse({ message: "" });
-    if (form.username) {
-      timeout = setTimeout(async () => {
+    const check = async () => {
+      try {
         const send = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/users/auth/${form.username}`,
           { method: "POST", headers: { "Content-Type": "application/json" } }
@@ -58,11 +57,14 @@ export default function SignupStep1() {
         const response = await send.json();
         setResponse(response);
         setLoading(false);
-      }, 2000);
-    }
-    return () => {
-      clearTimeout(timeout);
+      } catch (e) {
+        console.error(e, "aldaa");
+        setResponse({ message: "SERVER_NOT_RESPONDING" });
+        console.log(response);
+        setLoading(false);
+      }
     };
+    check();
   }, [form.username]);
   useEffect(() => {
     localStorage.setItem("signup-info", JSON.stringify(form));
@@ -108,7 +110,7 @@ export default function SignupStep1() {
               placeholder="Enter username here"
             />
           </div>
-          {response ? (
+          {response?.message ? (
             <div
               className={`${
                 form.username && response?.no
@@ -118,10 +120,16 @@ export default function SignupStep1() {
                   : "text-gray-300"
               }`}
             >
-              {response?.message}
+              <div className="text-red-500">
+                {response.message === "SERVER_NOT_RESPONDING" &&
+                  `Server hariu ogsongui!`}
+              </div>
             </div>
           ) : (
-            <AiOutlineLoading3Quarters className="animate-spin" />
+            <div className="flex items-center gap-3">
+              <AiOutlineLoading3Quarters className="animate-spin" />
+              <div className="animate-pulse">Checking</div>
+            </div>
           )}
         </div>
 
