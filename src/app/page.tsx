@@ -1,29 +1,15 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-<<<<<<< HEAD
-import EditProfile from './_components/EditProfile';
-import SideBar from './_components/SideBar';
-=======
 import EditProfile from "./_components/EditProfile";
 import { HomeNavbar } from "./_components/HomeNavbar";
 import { HomeHero } from "./_components/HomeHero";
 import { HomeFeature } from "./_components/HomeFeature";
 import { HomeFooter } from "./_components/HomeFooter";
->>>>>>> main
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
-<<<<<<< HEAD
-  return (
-    <div>
-      hi2 hello
-      <SideBar />
-      
-    </div>
-  )
-=======
   return (<>
       {/* <HomeNavbar/>
       <HomeHero/>
@@ -40,5 +26,4 @@ export default function Home() {
     //   <CreatorPage />
     // </div>
   );
->>>>>>> main
 }

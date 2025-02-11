@@ -115,11 +115,7 @@ export default function EditProfile({ isOpen, onClose }: EditProfileProps) {
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancel</Button>
           <DialogClose asChild>
-<<<<<<< HEAD
           <Button variant="outline">Save changes</Button>
-=======
-            <Button>Save changes</Button>
->>>>>>> main
           </DialogClose>
         </DialogFooter>
       </DialogContent>
