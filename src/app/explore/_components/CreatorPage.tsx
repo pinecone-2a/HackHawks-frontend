@@ -33,7 +33,7 @@ export function CreatorPage () {
             <div className="rounded-lg border w-[100%] h-[273px] bg-white p-5">
                 <div className="gap-3 flex items-center">
                   <div className="rounded-full w-[48px] h-[48px] bg-gray-300"></div>
-                  <p className="text-[20px] font-semibold">{profileData?.name}</p>
+                  {/* <p className="text-[20px] font-semibold">{profileData?.name}</p> */}
                 </div>
                 <div className="border-b w-[100%] h-[10%]"></div>
 
