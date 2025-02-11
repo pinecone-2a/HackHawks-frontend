@@ -8,6 +8,13 @@ import SignupStep2 from "../_components/step2";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Skeleton } from "@/app/_components/Skeleton";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { ResetPassword } from "../_components/resetpassword";
 export type response = {
   message: string;
   success?: boolean;
@@ -109,7 +116,13 @@ export default function Signin() {
         >
           Continue
         </Button>
-        <Link href={`/account/reset-password`}>Forgot Password?</Link>
+        <Dialog>
+          <DialogTrigger>Forgot Password?</DialogTrigger>
+          <DialogContent>
+            <DialogTitle>Reset your password</DialogTitle>
+            <ResetPassword />
+          </DialogContent>
+        </Dialog>
         <div>
           {loading && (
             <div>
