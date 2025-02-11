@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import z from "zod";
@@ -15,6 +16,7 @@ type response = {
   success?: boolean;
   message?: string;
   id?: string;
+  code?: string;
 };
 const emailSchema = z.string().email();
 const newPasswordSchema = z
@@ -27,6 +29,7 @@ const newPasswordSchema = z
     path: ["secondPass"],
   });
 export default function ResetPassword() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [otpId, setOtpId] = useState<string>("");
   const [response, setresponse] = useState<response>();
@@ -36,7 +39,16 @@ export default function ResetPassword() {
   const [isOtpMatched, setOtpState] = useState(false);
   const [userExist, setuserExist] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  useEffect(() => {
+    let interval = setTimeout(() => {
+      if (response?.code === "PASS_CHANGED_SUCCESSFULLY") {
+        router.push(`/account/signin`);
+      }
+    }, 2000);
+    return () => {
+      clearTimeout(interval);
+    };
+  }, [response]);
   // new pass
   const [newPassword, setNewPassword] = useState({
     firstPass: "",
@@ -126,6 +138,7 @@ export default function ResetPassword() {
         }
       );
       const data = await res.json();
+      setresponse(data);
       console.log(data);
     } catch (e) {
       console.error(e, "aldaa");
@@ -133,14 +146,14 @@ export default function ResetPassword() {
   };
   return (
     <div className="relative min-h-screen w-full">
-      <div className="flex justify-end p-10">
+      <div className="flex justify-end p-10 gap-7">
         <Link href={`/account/signup`}>
           <Button className="bg-secondary text-foreground hover:bg-foreground hover:text-background">
             Sign up
           </Button>
         </Link>
         <Link href={`/account/signin`}>
-          <Button className="bg-secondary text-foreground hover:bg-foreground hover:text-background">
+          <Button className="bg-foreground text-background hover:bg-background hover:text-foreground">
             Sign in
           </Button>
         </Link>
@@ -184,9 +197,9 @@ export default function ResetPassword() {
         )}
 
         {isOtpMatched ? (
-          <div className="text-background flex justify-between">
+          <div className="text-background flex justify-end">
             <Dialog>
-              <DialogTrigger className="bg-foreground text-background p-1 px-2 rounded-md text-xs">
+              <DialogTrigger className="bg-foreground text-background p-1 px-2 rounded-md text-md">
                 <div>Change Password</div>
               </DialogTrigger>
               <DialogContent>
@@ -228,12 +241,16 @@ export default function ResetPassword() {
                     >
                       Save changes
                     </Button>
+                    {response?.code === "PASS_CHANGED_SUCCESSFULLY" && (
+                      <div className="text-green-500">
+                        Password changed successfully. Redirecting to login
+                        page...
+                      </div>
+                    )}
                   </div>
                 </div>
               </DialogContent>
             </Dialog>
-
-            <Button className="text-xs">Dashboard</Button>
           </div>
         ) : userExist ? (
           <div>
