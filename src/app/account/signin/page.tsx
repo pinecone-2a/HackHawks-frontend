@@ -45,6 +45,7 @@ export default function Signin() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(login),
+          credentials: "include",
         }
       );
       const response = await send.json();
@@ -108,6 +109,7 @@ export default function Signin() {
         >
           Continue
         </Button>
+        <Link href={`/account/reset-password`}>Forgot Password?</Link>
         <div>
           {loading && (
             <div>

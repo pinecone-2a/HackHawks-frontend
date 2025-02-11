@@ -223,6 +223,7 @@ export default function ResetPassword() {
                     <div>
                       <label htmlFor="2password">Confirm new passsword</label>
                       <Input
+                        id="2password"
                         onChange={(e) => {
                           setNewPassword((p) => {
                             return {
@@ -231,7 +232,7 @@ export default function ResetPassword() {
                             };
                           });
                         }}
-                        type="2password"
+                        type="password"
                       />
                     </div>
                     <Button

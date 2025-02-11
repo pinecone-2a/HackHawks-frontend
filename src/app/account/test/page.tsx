@@ -1,45 +1,44 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { ChangeEvent, ChangeEventHandler, useEffect, useState } from "react";
+import { useState } from "react";
+
 type form = {
   username: string;
   password: string;
 };
 export default function App() {
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+  });
   return (
-    <div>
-      <div className="text-background flex justify-between">
-        <Dialog>
-          <DialogTrigger className="bg-foreground text-background p-1 px-2 rounded-md text-xs">
-            <div>Change Password</div>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogTitle>Change your password</DialogTitle>
-            <div className="flex justify-center">
-              <div className="flex flex-col w-2/3 gap-3">
-                <div>
-                  <label htmlFor="password">Enter new passsword</label>
-                  <Input type="password" />
-                </div>
-                <div>
-                  <label htmlFor="2password">Confirm new passsword</label>
-                  <Input type="2password" />
-                </div>
-                <Button className="text-background">Save changes</Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-
-        <Button className="text-xs">Dashboard</Button>
+    <div className="w-full h-screen flex justify-center items-center">
+      <div>
+        <label htmlFor="username">Username</label>
+        <Input
+          id="username"
+          type="text"
+          onChange={(e) =>
+            setForm((p) => {
+              return { ...p, username: e.target.value };
+            })
+          }
+        />
+        <label htmlFor="password">Password</label>
+        <Input
+          id="password"
+          type="password"
+          onChange={(e) =>
+            setForm((p) => {
+              return { ...p, username: e.target.value };
+            })
+          }
+        />
+        <Button type="submit" className="text-background">
+          Submit
+        </Button>
       </div>
     </div>
   );
