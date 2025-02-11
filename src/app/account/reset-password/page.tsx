@@ -62,7 +62,7 @@ export default function ResetPassword() {
     setLoading(true);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/auth/reset-password`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/auth/reset/password`,
         {
           method: "POST",
           headers: {
@@ -91,7 +91,7 @@ export default function ResetPassword() {
     console.log({ otp, email, otpId });
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/auth/verify-otp`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/auth/reset/verify-otp`,
         {
           method: "POST",
           headers: {
@@ -116,7 +116,7 @@ export default function ResetPassword() {
   const changePassword = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/auth/change-password`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/auth/reset/change-password`,
         {
           method: "POST",
           headers: {
