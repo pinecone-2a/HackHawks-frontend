@@ -1,13 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { CameraIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
-import { CldImage } from 'next-cloudinary';
+import { CldImage } from "next-cloudinary";
 
 interface EditProfileProps {
-  isOpen: boolean
+  isOpen: boolean;
   onClose: () => void;
 }
 
@@ -22,14 +29,18 @@ export default function EditProfile({ isOpen, onClose }: EditProfileProps) {
   const [image, setImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
+    formData.append(
+      "upload_preset",
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
+    );
 
     setLoading(true);
 
@@ -55,8 +66,12 @@ export default function EditProfile({ isOpen, onClose }: EditProfileProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-[20px] text-[#09090B]">Edit profile</DialogTitle>
-          <p className="text-[14px] text-[#71717A]">Make changes to your profile here. Click save when you're done.</p>
+          <DialogTitle className="text-[20px] text-[#09090B]">
+            Edit profile
+          </DialogTitle>
+          <p className="text-[14px] text-[#71717A]">
+            Make changes to your profile here. Click save when you're done.
+          </p>
         </DialogHeader>
 
         <div className="flex flex-col items-center">
@@ -70,16 +85,23 @@ export default function EditProfile({ isOpen, onClose }: EditProfileProps) {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <img src="Profile.png"  className="w-full h-full object-cover" />
+              <img src="Profile.png" className="w-full h-full object-cover" />
             )}
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 cursor-pointer">
               <label className="cursor-pointer">
                 <CameraIcon className="w-6 h-6 text-white" />
-                <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
               </label>
             </div>
           </div>
-          {loading && <p className="text-sm text-gray-500 mt-2">Uploading...</p>}
+          {loading && (
+            <p className="text-sm text-gray-500 mt-2">Uploading...</p>
+          )}
         </div>
 
         <div className="mt-4">
@@ -98,8 +120,7 @@ export default function EditProfile({ isOpen, onClose }: EditProfileProps) {
             value={about}
             onChange={(e) => setAbout(e.target.value)}
             className="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-gray-200 outline-none"
-            rows={3}
-          ></textarea>
+            rows={3}></textarea>
         </div>
 
         <div className="mt-4">
@@ -113,17 +134,14 @@ export default function EditProfile({ isOpen, onClose }: EditProfileProps) {
         </div>
 
         <DialogFooter>
-          <Button variant="outline" onClick={onClose}>Cancel</Button>
+          <Button variant="outline" onClick={onClose}>
+            Cancel
+          </Button>
           <DialogClose asChild>
-<<<<<<< HEAD
-          <Button variant="outline">Save changes</Button>
-=======
-            <Button>Save changes</Button>
->>>>>>> main
+            <Button variant="outline">Save changes</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
-
