@@ -1,6 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { ChangeEvent, ChangeEventHandler, useEffect, useState } from "react";
 type form = {
@@ -8,51 +14,33 @@ type form = {
   password: string;
 };
 export default function App() {
-  const [form, setForm] = useState<form>({
-    username: "",
-    password: "",
-  });
-  useEffect(() => {
-    const sendD = async () => {
-      const res = await fetch(`http://localhost:4000/users/auth/test/login`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-      const data = await res.json();
-      console.log(data);
-    };
-    sendD();
-  }, []);
-  useEffect(() => {}, []);
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const name = e.target.name;
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
-  const sendData = async () => {
-    const res = await fetch(`http://localhost:4000/users/auth/test/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
-    const data = await res.json();
-    console.log(data);
-  };
   return (
     <div>
-      <Input onChange={handleChange} type="name" name="username" />
-      <Input onChange={handleChange} type="password" name="password" />
-      <Button onClick={sendData} className=" text-background">
-        Click
-      </Button>
+      <div className="text-background flex justify-between">
+        <Dialog>
+          <DialogTrigger className="bg-foreground text-background p-1 px-2 rounded-md text-xs">
+            <div>Change Password</div>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogTitle>Change your password</DialogTitle>
+            <div className="flex justify-center">
+              <div className="flex flex-col w-2/3 gap-3">
+                <div>
+                  <label htmlFor="password">Enter new passsword</label>
+                  <Input type="password" />
+                </div>
+                <div>
+                  <label htmlFor="2password">Confirm new passsword</label>
+                  <Input type="2password" />
+                </div>
+                <Button className="text-background">Save changes</Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        <Button className="text-xs">Dashboard</Button>
+      </div>
     </div>
   );
 }
