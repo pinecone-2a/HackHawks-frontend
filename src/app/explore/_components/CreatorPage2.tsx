@@ -3,19 +3,18 @@ import { Navigation } from "../../_components/Navigation"
 import { FaHeart } from "react-icons/fa";
 import Link from "next/link";
 import { NavigationProfile } from "../../_components/NavigationProfile";
-// import { QrCode } from "./QrCode";
+import { QrCode } from "./QrCode";
 
 export function CreatorPage2 () {
     return (
         <div className="">
-           <NavigationProfile/>
-           <img src="CreatorPageBackground.png" alt="" className="w-full h-[319px]" />
+           <img src="background.png" alt="" className="w-full h-[319px]"/>
 
            <div className="flex gap-8 justify-center w-screen h-full absolute mt-[-86px]">
            <div className="w-[632px] h-[660px] flex flex-col justify-between">
             <div className="rounded-lg border w-[100%] h-[273px] bg-white p-5">
                 <div className="gap-3 flex items-center">
-                  <div className="rounded-full w-[48px] h-[48px] bg-gray-300"></div>
+                  <img src="space-avatar.png" alt="" className="w-[48px] h-[48px]" />
                   <p className="text-[20px] font-semibold">Space ranger</p>
                 </div>
                 <div className="border-b w-[100%] h-[10%]"></div>
@@ -41,13 +40,8 @@ export function CreatorPage2 () {
                 <div className="flex items-center justify-center mt-[20px]">
                   <p className="font-semibold text-base ">Be the first one to support Jake</p>
                 </div>
-
-
                     </div>
-                
                 </div>
-
-
             </div>
            </div>
 
@@ -83,15 +77,13 @@ export function CreatorPage2 () {
                   </div>
 
                   <div>
-                   <Link href="/dashboard">
+                   <Link href="/explore/QrCode">
                      <p className="w-[580px] h-[40px] bg-black rounded-md mt-[32px] text-white hover:bg-gray-900 flex justify-center pt-[8px]">Support</p>
                    </Link>
                   </div>
            </div>
             </div>
-           </div>
-
-
-           </div>
+         </div>
+       </div>
     )
 }
