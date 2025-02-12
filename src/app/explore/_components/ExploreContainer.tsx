@@ -45,7 +45,7 @@ export const ExploreContainer = () => {
                   <div className="text-[#18181B] text-[1.3rem] font-[600]">{item?.name}</div>
                 </div>
                 <div className="text-end ">
-                  <Link href={`explore/${item?.id}`}>
+                  <Link href={`/${item?.userId}`}>
                     <Button variant={"outline"} className="bg-gray-100 border-none w-[136px] h-[40px]  hover:text-white hover:bg-black">
                       View profile
                       <ExternalLink />

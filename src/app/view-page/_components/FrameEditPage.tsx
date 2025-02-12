@@ -25,9 +25,7 @@ export default function FrameEditPage(props: Props) {
   const [about, setAbout] = useState(
     "I'm a typical person who enjoys exploring different things. I also make music art as a hobby. Follow me along."
   );
-  const [socialUrl, setSocialUrl] = useState(
-    "https://buymeacoffee.com/baconpancakes1"
-  );
+
 
   return (
     <div className="max-w-[632px]">
@@ -67,7 +65,7 @@ export default function FrameEditPage(props: Props) {
       
       <div className="bg-white border border-[#E4E4E7] rounded-lg p-6">
         <h2 className="text-lg font-semibold">{props.user.profile?.socialMediaURL}</h2>
-        <a href={socialUrl} target="_blank" className="text-blue-500">{socialUrl}</a>
+        <a href={props.user.profile?.socialMediaURL} target="_blank" className="text-blue-500">{props.user.profile?.socialMediaURL}</a>
       </div>
 
       {/* Supporters Section */}

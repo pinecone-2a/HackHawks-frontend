@@ -20,23 +20,25 @@ profile: {
 }
 export default function ViewPage() {
   const [user, setUser] = useState<user>()
+  const [count, setCount] = useState(false);
+
   const params = useParams()
   const {userId} = params 
   useEffect(()=>{
     const fetchData = async ()=>{
-      const res = await fetch(`http://localhost:4000/users/auth/${userId}`)
+      const res = await fetch(`http://localhost:4000/users/auth/explore/${userId}`)
       const data = await res.json()
       setUser(data)
       console.log(data)
     }
     fetchData()
-  }, [])
+  }, [count])
   return (
     <div className="">
       <div className="relative">
-     <EditCover isOpen={false} onClose={function (): void {
+    {user &&  <EditCover  setCount={setCount} count={count} user={user} isOpen={false} onClose={function (): void {
         throw new Error("Function not implemented.");
-      } }/>
+      } }/>}
       </div>
       <div className="relative flex justify-center">
         {/* <div className="w-[1280px] flex justify-between pt-[238px]"> */}
