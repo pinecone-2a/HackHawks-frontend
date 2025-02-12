@@ -4,16 +4,28 @@ import { useState } from "react";
 import { CameraIcon } from "@heroicons/react/24/outline";
 import { CldImage } from 'next-cloudinary';
 import EditProfile from "@/app/_components/EditProfile";
-
-export default function FrameEditPage() {
+type user = {
+  id: string,
+    name: string,
+    about: string,
+    avatarImage: string,
+    socialMediaURL: string
+    backgroundImage: null | string,
+    successMessage: string,
+    userId: string
+}
+type Props = {
+  user: {
+    profile?: user
+  }
+}
+export default function FrameEditPage(props: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [image, setImage] = useState<string | null>(null);
   const [about, setAbout] = useState(
     "I'm a typical person who enjoys exploring different things. I also make music art as a hobby. Follow me along."
   );
-  const [socialUrl, setSocialUrl] = useState(
-    "https://buymeacoffee.com/baconpancakes1"
-  );
+
 
   return (
     <div className="max-w-[632px]">
@@ -34,7 +46,7 @@ export default function FrameEditPage() {
                 </label>
               </div>
             </div>
-            <h1 className="text-xl font-semibold">Jake</h1>
+            <h1 className="text-xl font-semibold">{props.user.profile?.name}</h1>
           </div>
           <button
             onClick={() => setIsOpen(true)}
@@ -45,15 +57,15 @@ export default function FrameEditPage() {
         </div>
         <div className="border-t border-[#E4E4E7] my-4"></div>
         <div>
-          <h2 className="text-lg font-semibold">About Jake</h2>
-          <p className="text-gray-500">{about}</p>
+          <h2 className="text-lg font-semibold">About {props.user.profile?.name}</h2>
+          <p className="text-gray-500">{props.user.profile?.about}</p>
         </div>
       </div>
 
       
       <div className="bg-white border border-[#E4E4E7] rounded-lg p-6">
-        <h2 className="text-lg font-semibold">Social media URL</h2>
-        <a href={socialUrl} target="_blank" className="text-blue-500">{socialUrl}</a>
+        <h2 className="text-lg font-semibold">{props.user.profile?.socialMediaURL}</h2>
+        <a href={props.user.profile?.socialMediaURL} target="_blank" className="text-blue-500">{props.user.profile?.socialMediaURL}</a>
       </div>
 
       {/* Supporters Section */}
