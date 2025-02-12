@@ -10,10 +10,10 @@ export default function Home() {
   return (
     <div>
       hi2 hello
-      <SideBar />
       <button
         onClick={() => setIsOpen(true)}
-        className="mt-4 px-4 py-2 bg-[#F4F4F5] text-[#18181B]  rounded-md">
+        className="mt-4 px-4 py-2 bg-[#F4F4F5] text-[#18181B]  rounded-md"
+      >
         Edit Page
       </button>
       <EditProfile isOpen={isOpen} onClose={() => setIsOpen(false)} />

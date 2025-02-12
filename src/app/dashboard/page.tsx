@@ -42,7 +42,7 @@ type profile = {
   successMessage: string;
   userId: string;
 };
-type data = {
+export type data = {
   user: user;
   success?: boolean;
   code?: string;
@@ -60,6 +60,7 @@ type data = {
 
 export default function EarningsDashboard() {
   const [user, setUser] = useState<data>();
+  const [filter, setFilter] = useState("");
   const [donations, setDonations] = useState<donation[]>([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -76,11 +77,11 @@ export default function EarningsDashboard() {
     if (user?.success) {
       setDonations(user.earningsData.day30data);
     }
-  }, [user]);
+  }, [filter, user]);
   return (
-    <div className="">
+    <div className="h-screen">
       {user?.success ? (
-        <div className="w-[1000px] h-screen">
+        <div className="w-4/5 ">
           <Card className="p-8 shadow-lg">
             <CardContent>
               <div className="flex justify-between items-center pt-[24px]">
@@ -90,7 +91,9 @@ export default function EarningsDashboard() {
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <div>
-                    <h2 className="text-2xl font-bold">{}</h2>
+                    <h2 className="text-2xl font-bold">
+                      {user.user.profile.name}
+                    </h2>
                     <p className="text-lg text-gray-500">
                       buymeacoffee.com/{user.user.username}
                     </p>
@@ -115,9 +118,15 @@ export default function EarningsDashboard() {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent defaultValue={`day30`} align="start">
-                    <DropdownMenuItem>Last 30 days</DropdownMenuItem>
-                    <DropdownMenuItem>Last 90 days</DropdownMenuItem>
-                    <DropdownMenuItem>All time</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setFilter("day30data")}>
+                      Last 30 days
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setFilter("day60data")}>
+                      Last 60 days
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setFilter("day90data")}>
+                      Last 90 days
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -190,17 +199,17 @@ export default function EarningsDashboard() {
         </div>
       ) : (
         <div>
-          {user?.code !== `NO_TOKEN_PROVIDED` ? (
-            <div className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2">
-              <DotLottieReact
-                src="https://lottie.host/86aa9c8c-3696-49d6-b1c3-a44ab37159ef/yi7LeQ1VdX.lottie"
-                loop
-                autoplay
-              />
+          {user?.code !== `JWT_EXPIRED` ? (
+            <div className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2  whitespace-nowrap font-extrabold text-2xl">
               Please Wait...
             </div>
           ) : (
-            <Link href={`/account/signin`}>Please Login</Link>
+            <Link
+              className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-extrabold text-2xl"
+              href={`/account/signin`}
+            >
+              Please Login 💩
+            </Link>
           )}
         </div>
       )}
