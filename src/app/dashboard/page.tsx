@@ -2,7 +2,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
@@ -75,7 +75,10 @@ const transactions = [
 export default function EarningsDashboard() {
   const [selectedRange, setSelectedRange] = useState("Last 30 days");
   const [selectedAmount, setSelectedAmount] = useState(1);
-
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    console.log(userId);
+  }, []);
   return (
     <div className="">
       <div className="w-[1000px] h-screen">
@@ -96,8 +99,7 @@ export default function EarningsDashboard() {
               </div>
               <Button
                 variant="default"
-                className="bg-black text-white px-8 py-3 text-lg"
-              >
+                className="bg-black text-white px-8 py-3 text-lg">
                 Share page link
               </Button>
             </div>
@@ -107,25 +109,21 @@ export default function EarningsDashboard() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="outline"
-                    className="flex items-center gap-2 text-lg px-4 py-2"
-                  >
+                    className="flex items-center gap-2 text-lg px-4 py-2">
                     {selectedRange} <ChevronDown className="w-5 h-5" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                   <DropdownMenuItem
-                    onClick={() => setSelectedRange("Last 30 days")}
-                  >
+                    onClick={() => setSelectedRange("Last 30 days")}>
                     Last 30 days
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => setSelectedRange("Last 90 days")}
-                  >
+                    onClick={() => setSelectedRange("Last 90 days")}>
                     Last 90 days
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => setSelectedRange("All time")}
-                  >
+                    onClick={() => setSelectedRange("All time")}>
                     All time
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -141,8 +139,7 @@ export default function EarningsDashboard() {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
-                className="flex items-center gap-2 text-lg px-4 py-2"
-              >
+                className="flex items-center gap-2 text-lg px-4 py-2">
                 Amount: ${selectedAmount} <ChevronDown className="w-5 h-5" />
               </Button>
             </DropdownMenuTrigger>
@@ -150,8 +147,7 @@ export default function EarningsDashboard() {
               {[1, 2, 5, 10].map((amt) => (
                 <DropdownMenuItem
                   key={amt}
-                  onClick={() => setSelectedAmount(amt)}
-                >
+                  onClick={() => setSelectedAmount(amt)}>
                   <Checkbox />${amt}
                 </DropdownMenuItem>
               ))}
@@ -165,8 +161,7 @@ export default function EarningsDashboard() {
               {transactions.map((txn, idx) => (
                 <div
                   key={idx}
-                  className="flex pt-[24px] justify-between items-start px-[24px] pb-4 last:border-none"
-                >
+                  className="flex pt-[24px] justify-between items-start px-[24px] pb-4 last:border-none">
                   <div>
                     <p className="text-lg font-semibold">{txn.name}</p>
                     <p className="text-md text-gray-500">{txn.link}</p>
