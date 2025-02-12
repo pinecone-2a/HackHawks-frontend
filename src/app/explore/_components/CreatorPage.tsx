@@ -26,13 +26,13 @@ export function CreatorPage () {
     return (
         <div className="">
     
-           <img src="background.png" alt="" className="w-full h-[319px]" />
+           <img src="/img/background.png" alt="" className="w-full h-[319px]" />
 
            <div className="flex gap-8 justify-center w-screen h-full absolute mt-[-86px]">
            <div className="w-[632px] h-[775px] flex flex-col justify-between">
             <div className="rounded-lg border w-[100%] h-[273px] bg-white p-5">
                 <div className="gap-3 flex items-center">
-                <img src="jake.png" alt="avatar" className="w-[40px] h-[40px] rounded-full flex" />
+                <img src="/img/space.png" alt="avatar" className="w-[40px] h-[40px] rounded-full flex" />
                   {/* <div className="rounded-full w-[48px] h-[48px] bg-gray-300"></div> */}
                   {/* <p className="text-[20px] font-semibold">{profileData?.name}</p> */}
                 </div>
@@ -53,7 +53,7 @@ export function CreatorPage () {
 
                 <div className="flex ">
                     {/* <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex pr-[40px]"></div> */}
-                    <img src="cn.png" alt="" className="w-[40px] h-[40px] flex pr-[40px]"/>
+                    <img src="/img/cn.png" alt="" className="w-[40px] h-[40px] flex "/>
 
                     <div className="flex flex-col  pl-[12px]">
                         <div className="flex gap-[4px] ">
@@ -66,7 +66,7 @@ export function CreatorPage () {
                 </div>
 
                 <div className="flex mt-[16px]">
-                <img src="grinch-avatar.png" alt="avatar" className="w-[40px] h-[40px] rounded-full flex" />
+                <img src="/img/grinch.png" alt="avatar" className="w-[40px] h-[40px] rounded-full flex" />
                 
                 <div className="flex flex-col gap-3 pl-[12px] ">
                         <div className="flex gap-[4px] ">
@@ -80,7 +80,7 @@ export function CreatorPage () {
 
                 <div className="flex mt-[16px]">
                  {/* <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex"></div> */}
-                <img src="jake.png" alt="avatar" className="w-[40px] h-[40px] rounded-full flex" />
+                <img src="/img/jake.png" alt="avatar" className="w-[40px] h-[40px] rounded-full flex" />
 
                  
 
@@ -94,7 +94,7 @@ export function CreatorPage () {
 
                 <div className="flex mt-[16px] ">
                     {/* <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex pr-[40px]"></div> */}
-                <img src="space.png" alt="avatar" className="w-[40px] h-[40px] rounded-full flex pr-[40px]" />
+                <img src="/img/space.png" alt="" className="w-[40px] h-[40px] rounded-full flex " />
 
 
                     <div className="flex flex-col  pl-[12px]">
