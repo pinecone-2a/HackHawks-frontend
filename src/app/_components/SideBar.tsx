@@ -16,9 +16,8 @@ export const SideBar = () => {
         {["Home", "Explore"].map((item) => (
           <button
             key={item}
-            className={`w-full text-left p-2 rounded-lg text-[14px] hover:bg-[#F4F4F5] ${
-                pathname.includes(item)  ? "bg-[#F4F4F5]" : ""
-            }`}
+            className={`w-full text-left p-2 rounded-lg text-[14px] hover:bg-[#F4F4F5] ${pathname.includes(item) ? "bg-[#F4F4F5]" : ""
+              }`}
             onClick={() => setActive(item)}
           >
             {item}
@@ -31,9 +30,8 @@ export const SideBar = () => {
           </span>
         </button>
         <button
-          className={`w-full text-left p-2 rounded-lg text-[14px] hover:bg-[#F4F4F5] ${
-            active === "Account settings" ? "bg-[#F4F4F5]" : ""
-          }`}
+          className={`w-full text-left p-2 rounded-lg text-[14px] hover:bg-[#F4F4F5] ${active === "Account settings" ? "bg-[#F4F4F5]" : ""
+            }`}
           onClick={() => setActive("Account settings")}
         >
           Account settings

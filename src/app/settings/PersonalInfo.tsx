@@ -3,7 +3,20 @@ import { useState, useEffect } from "react";
 
 export default function PersonalInfo() {
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
+    const [setingName, setSetingsName] = useState<string>();
 
+    const onChangeOne = () => {
+        fetch("http://localhost:4000/", {
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify({ categoryName: setingName }),
+        });
+        setSetingsName("");
+        // window.location.reload();
+    };
 
     useEffect(() => {
         return () => {
