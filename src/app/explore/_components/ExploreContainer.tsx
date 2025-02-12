@@ -47,7 +47,7 @@ console.log(ExploreData)
                <div className="text-[#18181B] text-[1.3rem] font-[600]">{item?.name}</div>
              </div>
              <div className="text-end ">
-              <Link href={`explore/${item?.id}`}>
+              <Link href={`/${item?.id}`}>
                <Button className="bg-gray-50 w-[136px] h-[40px]  hover:text-white hover:bg-black">
                  View profile
                  <ExternalLink />
