@@ -108,7 +108,7 @@ export default function SignupStep1() {
               placeholder="Enter username here"
             />
           </div>
-          {response ? (
+          {response?.message ? (
             <div
               className={`${
                 form.username && response?.no
@@ -121,7 +121,10 @@ export default function SignupStep1() {
               {response?.message}
             </div>
           ) : (
-            <AiOutlineLoading3Quarters className="animate-spin" />
+            <div className="flex items-center gap-3">
+              <AiOutlineLoading3Quarters className="animate-spin" />
+              <div className="animate-pulse">Checking</div>
+            </div>
           )}
         </div>
 
