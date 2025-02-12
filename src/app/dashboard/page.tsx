@@ -184,7 +184,6 @@ export default function EarningsDashboard() {
           </Card>
         </div>
       </div>
-      <Skeleton />
     </div>
   );
 }
