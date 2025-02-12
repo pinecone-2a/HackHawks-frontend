@@ -43,7 +43,7 @@ export function ResetPassword() {
   useEffect(() => {
     let interval = setTimeout(() => {
       if (response?.code === "PASS_CHANGED_SUCCESSFULLY") {
-        router.push(`/account/signin`);
+        router.refresh();
       }
     }, 2000);
     return () => {
