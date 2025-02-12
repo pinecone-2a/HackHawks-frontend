@@ -142,7 +142,7 @@ export function CreatorPage () {
                     </div>
                   </div>
 
-                    <Link href="/dashboard" >
+                    <Link href="/a" >
                     <p className="w-[580px] h-[40px] bg-black rounded-md mt-[32px] text-white hover:bg-gray-900 flex justify-center pt-[8px]">Support</p>
                     </Link>
            </div>
