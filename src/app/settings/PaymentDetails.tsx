@@ -8,13 +8,39 @@ import {
     SelectGroup,
     SelectLabel,
 } from "@/components/ui/select"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 export default function PaymentDetails() {
+    const [selectedYear, setSelectedYear] = useState<string>("")
+    const [cardData, setCardData] = useState<any>([])
+
+
     const startYear = 1900
     const endYear = 2025
 
-    // You can store the selected year in a state variable
-    const [selectedYear, setSelectedYear] = useState<string>("")
+    useEffect(() => {
+        const fetchData = async () => {
+            const localId = localStorage.getItem("userId");
+            const response = await fetch(`http://localhost:4000/bank-card/${localId}`)
+            const data = await response.json()
+            setCardData(data)
+        }
+
+        // const updatePassword = async () => {
+        //     const response = await fetch(`http://localhost:4000/bank-card/${localId}`, {
+        //         method: "POST",
+
+        //     });
+        //     const data = await response.json();
+
+        // }
+        // updatePassword()
+
+        fetchData()
+    }, [])
+
+    console.log(cardData)
+
+
 
     return <div className="w-[650px] min-h-[250px] text-black gap-1 p-[24px] flex flex-col rounded-[9px] border-[#E4E4E7] border-[1px] ">
         <h1 className="font-bold text-[16px] pb-5">Payment details</h1>
@@ -66,7 +92,6 @@ export default function PaymentDetails() {
                             <SelectItem value="October">October</SelectItem>
                             <SelectItem value="November">November</SelectItem>
                             <SelectItem value="December">December</SelectItem>
-
                         </SelectGroup>
                     </SelectContent>
                 </Select>
