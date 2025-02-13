@@ -64,9 +64,12 @@ export default function EarningsDashboard() {
   const [donations, setDonations] = useState<donation[]>([]);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/testing`, {
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/dashbordInfo`,
+        {
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       setUser(data);
       console.log(data);

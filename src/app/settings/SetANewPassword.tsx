@@ -161,10 +161,18 @@ export default function SetSNewPassword(props: Props) {
           {loading ? <div>Please wait</div> : "Send mail"}
         </Button>
       )}
-      {response?.success && (
+      {response?.success ? (
         <div
           className={` ${
             response.success ? `text-green-500` : `text-red-500`
+          } `}
+        >
+          {response?.message}
+        </div>
+      ) : (
+        <div
+          className={` ${
+            response?.success ? `text-green-500` : `text-red-500`
           } `}
         >
           {response?.message}

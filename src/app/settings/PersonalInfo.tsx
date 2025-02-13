@@ -4,6 +4,7 @@ import { data } from "../dashboard/page";
 import z from "zod";
 import { UserInfoForm } from "../utils/types";
 import { Button } from "@/components/ui/button";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 type Props = {
   user: data;
 };
@@ -13,7 +14,15 @@ const forSchema = z.object({
   socialMediaURL: z.string().url(),
   avatarImage: z.string().url(),
 });
+type response = {
+  success?: boolean;
+  message?: string;
+  id?: string;
+  code?: string;
+};
 export default function PersonalInfo({ user }: Props) {
+  const [response, setresponse] = useState<response>();
+  const [loading, setLoading] = useState<boolean>(false);
   const [avatarImage, setSelectedImage] = useState<string>(
     user.user.profile.avatarImage
   );
@@ -37,6 +46,8 @@ export default function PersonalInfo({ user }: Props) {
     console.log(isValid, result.success);
   }, [changed]);
   const imageInput = async (e: ChangeEvent<HTMLInputElement>) => {
+    setLoading(true);
+
     if (e.target.files) {
       const file = e.target.files[0];
       const formData = new FormData();
@@ -48,6 +59,9 @@ export default function PersonalInfo({ user }: Props) {
       });
       const response = await res.json();
       setSelectedImage(response.secure_url);
+      setLoading(false);
+
+      console.log(avatarImage);
     }
   };
   const onChange = (
@@ -60,13 +74,13 @@ export default function PersonalInfo({ user }: Props) {
       return {
         ...prev,
         [name]: value,
-        avatarImage,
       };
     });
     console.log("changed", changed);
   };
 
   const sendData = async () => {
+    setLoading(true);
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/profile/update`,
       {
@@ -75,7 +89,7 @@ export default function PersonalInfo({ user }: Props) {
         credentials: "include",
         body: JSON.stringify({
           id: user.user.id,
-          avatarImage: changed.avatarImage,
+          avatarImage: avatarImage,
           name: changed.name,
           about: changed.about,
           socialMediaURL: changed.socialMediaURL,
@@ -83,7 +97,15 @@ export default function PersonalInfo({ user }: Props) {
       }
     );
     const response = await res.json();
-    console.log(response);
+    setresponse(response);
+    setLoading(false);
+    console.log({
+      id: user.user.id,
+      avatarImage: changed.avatarImage,
+      name: changed.name,
+      about: changed.about,
+      socialMediaURL: changed.socialMediaURL,
+    });
   };
   return (
     <div>
@@ -150,11 +172,27 @@ export default function PersonalInfo({ user }: Props) {
             console.log("still working");
             sendData();
           }}
-          disabled={isValid}
+          disabled={isValid || loading}
           className="mt-4 p-2 text-background"
         >
-          Save Changes
+          {loading ? (
+            <div className="flex gap-4 items-center">
+              <div>Loading...</div>
+              <AiOutlineLoading3Quarters className="animate-spin" />
+            </div>
+          ) : (
+            `Save Changes`
+          )}
         </Button>
+        {response && (
+          <div
+            className={`${
+              response.success ? `text-green-500` : `text-red-500`
+            }`}
+          >
+            {response.message}
+          </div>
+        )}
       </div>
     </div>
   );
