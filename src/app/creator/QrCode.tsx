@@ -1,31 +1,64 @@
 
-import Link from "next/link";
-import { BsQrCode } from "react-icons/bs";
-import { IoCloseOutline } from "react-icons/io5"
+// import Link from "next/link";
+// import { BsQrCode } from "react-icons/bs";
+// import { IoCloseOutline } from "react-icons/io5"
 
-export function QrCode() {
+
+
+import { Copy } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
+ 
+export function DialogDemo() {
   return (
-    <div className=" flex justify-center items-center mt-[100px]">
-            <div className="w-[428px] h-[484px] bg-white rounded-xl shadow-2xl pt-[150px] flex-col  border-2 flex justify-center items-center ">
-
-              <div>
-
-            <Link href="/dashboard">
-                  <button className="flex justify-end w-[100%] h-[10%] mb-6 ml-[130px]">
-                      <IoCloseOutline className="w-[16px] h-[16px] text-[#09090B]  flex items-end mt-2 mr-2" /></button>
-            </Link>
-              </div>
-
-      <div className="flex justify-center items-center flex-col mb-[200px]">
-      <h2  className=" font-semibold text-3xl mb-[10px]">Scan QR code</h2>
-      <p className="">Scan the QR code to complete your donation</p>
-        <BsQrCode  className="text-black bg-white p-4  shadow-md w-[245px] h-[245px] mt-[40px]" size={100}/>
-      </div>
-
-    </div>
-
-    </div>
-
-  );
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button className="w-[580px] h-[40px] mt-[32px] bg-black text-white" variant="outline">Support</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Support</DialogTitle>
+          <DialogDescription>
+            Make changes to your profile here. Click save when you're done.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+              Name
+            </Label>
+            <Input id="name"  className="col-span-3" />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="username" className="text-right">
+              Username
+            </Label>
+            <Input id="username"  className="col-span-3" />
+          </div>
+        </div>
+        <DialogFooter>
+         
+          
+          <DialogClose asChild>
+            <Button type="submit">Save changes</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
 }
+
 

@@ -1,8 +1,15 @@
 'use client';
+import { QrCode } from "lucide-react";
 import { Navigation } from "../../_components/Navigation"
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { use, useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { DialogDemo } from "@/app/creator/QrCode";
 
 
 export function CreatorPage () {
@@ -23,6 +30,13 @@ export function CreatorPage () {
     fetchData();
   }, []);
 
+  // const onClickHanlder = ()=>{
+  // setIsDialogOpen(true) 
+  // }
+
+  // const closeDialog = ()=>{
+  //   setIsDialogOpen(false)
+  // }
     return (
         <div className="">
     
@@ -137,10 +151,9 @@ export function CreatorPage () {
                         <p className="font-normal text-sm pl-[12px] pt-[8px] ">Thank you for being so awesome everyday!</p>
                     </div>
                   </div>
-
-                    <Link href="/creator/QrCode" >
-                    <p className="w-[580px] h-[40px] bg-black rounded-md mt-[32px] text-white hover:bg-gray-900 flex justify-center pt-[8px]">Support</p>
-                    </Link>
+                   <DialogDemo/>
+                    
+                   
            </div>
             </div>
            </div>
