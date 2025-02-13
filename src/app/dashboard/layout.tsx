@@ -25,15 +25,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
-<div className="min-h-screen overflow-x-hidden bg-background">
+    <div className="min-h-screen overflow-x-hidden bg-background">
       <NavigationProfile />
       <div className="flex">
-  <SideBar  />
+        <SideBar />
         <main className="flex-1 min-w-0 p-4">{children}</main>
       </div>
     </div>
-
   );
 }
