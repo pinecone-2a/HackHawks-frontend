@@ -3,7 +3,7 @@ import { Navigation } from "../../_components/Navigation"
 import { FaHeart } from "react-icons/fa";
 import Link from "next/link";
 import { NavigationProfile } from "../../_components/NavigationProfile";
-import { QrCode } from "./QrCode";
+import { QrCode } from "../../creator/QrCode";
 
 export function CreatorPage2 () {
     return (

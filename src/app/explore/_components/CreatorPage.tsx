@@ -33,7 +33,6 @@ export function CreatorPage () {
             <div className="rounded-lg border w-[100%] h-[273px] bg-white p-5">
                 <div className="gap-3 flex items-center">
                 <img src="/img/space.png" alt="avatar" className="w-[40px] h-[40px] rounded-full flex" />
-                  {/* <div className="rounded-full w-[48px] h-[48px] bg-gray-300"></div> */}
                   {/* <p className="text-[20px] font-semibold">{profileData?.name}</p> */}
                 </div>
                 <div className="border-b w-[100%] h-[10%]"></div>
@@ -52,7 +51,6 @@ export function CreatorPage () {
                 <p className="text-[16px] font-semibold mb-5">Recent supporters</p>
 
                 <div className="flex ">
-                    {/* <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex pr-[40px]"></div> */}
                     <img src="/img/cn.png" alt="" className="w-[40px] h-[40px] flex "/>
 
                     <div className="flex flex-col  pl-[12px]">
@@ -79,7 +77,6 @@ export function CreatorPage () {
                 </div>
 
                 <div className="flex mt-[16px]">
-                 {/* <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex"></div> */}
                 <img src="/img/jake.png" alt="avatar" className="w-[40px] h-[40px] rounded-full flex" />
 
                  
@@ -93,7 +90,6 @@ export function CreatorPage () {
                 </div>
 
                 <div className="flex mt-[16px] ">
-                    {/* <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex pr-[40px]"></div> */}
                 <img src="/img/space.png" alt="" className="w-[40px] h-[40px] rounded-full flex " />
 
 
@@ -142,14 +138,12 @@ export function CreatorPage () {
                     </div>
                   </div>
 
-                    <Link href="/Qr-code" >
+                    <Link href="/creator/QrCode" >
                     <p className="w-[580px] h-[40px] bg-black rounded-md mt-[32px] text-white hover:bg-gray-900 flex justify-center pt-[8px]">Support</p>
                     </Link>
            </div>
             </div>
            </div>
-
-
            </div>
     )
 }

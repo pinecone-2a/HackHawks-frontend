@@ -1,7 +1,7 @@
 
-import { Navigation } from "../../_components/Navigation"
+import { Navigation } from "../_components/Navigation"
 import { FaRegCircleCheck } from "react-icons/fa6";
-import { NavigationProfile } from "../../_components/NavigationProfile";
+import { NavigationProfile } from "../_components/NavigationProfile";
 import Link from "next/link";
 
 
