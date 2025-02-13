@@ -13,17 +13,21 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useState } from "react"
 
  
 export function DialogDemo() {
 
-  // state [open, setOpen] = useState(false);
-  // setTimeout(() => { setOpen(false), 3000 })
+  const [open, setOpen] = useState(false);
+  const onSupport = () => {
+    setOpen(true)
+    setTimeout(() => { setOpen(false) },3000)
+  }
   
   return (
-    <Dialog >
+    <Dialog open={open}>
       <DialogTrigger asChild>
-        <Button className="w-[580px] h-[40px] mt-[32px] bg-black text-white" variant="outline">Support</Button>
+        <Button onClick={onSupport} className="w-[580px] h-[40px] mt-[32px] bg-black text-white" variant="outline">Support</Button>
       </DialogTrigger>
       <DialogContent className="w-[428px] h-[484px] bg-white rounded-xl shadow-2xl pt-[150px] flex-col  border-2 flex justify-center ">
         <DialogHeader className="flex justify-center items-center">

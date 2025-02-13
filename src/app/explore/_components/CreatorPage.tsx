@@ -17,6 +17,7 @@ export function CreatorPage () {
 
   const [profileData, setProfileData] = useState<any[]>([]); 
 
+
   const {id} =useParams();   
 
   console.log("profileData", profileData)   
@@ -30,20 +31,6 @@ export function CreatorPage () {
     };
     fetchData();
   }, []);
-
-
-
-   const [open, setOpen] = useState(false);
-   setTimeout(() => { setOpen(false), 3000 })
-
-  const onClickHanlder = ()=>{
-  setOpen(true) 
-  }
-
-  const closeDialog = ()=>{
-    setOpen(false)
-  }
-
 
     return (
         <div className="">
@@ -159,12 +146,7 @@ export function CreatorPage () {
                         <p className="font-normal text-sm pl-[12px] pt-[8px] ">Thank you for being so awesome everyday!</p>
                     </div>
                   </div>
-                  
-               <DialogDemo>
-                
-               </DialogDemo>
-                    
-                   
+               <DialogDemo></DialogDemo>
            </div>
             </div>
            </div>
