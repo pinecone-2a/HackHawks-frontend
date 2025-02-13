@@ -1,5 +1,5 @@
 'use client';
-import { QrCode } from "lucide-react";
+
 import { Navigation } from "../../_components/Navigation"
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -141,10 +141,10 @@ export function CreatorPage () {
 
                   <div className=" h-[153px]">
                      <p className="text-sm font-medium mt-[20px]">Special message:</p>
-
-                     <div className="border-[#E4E4E7] border rounded-md h-[131px] mt-[8px] hover:border-black">
-                        <p className="font-normal text-sm pl-[12px] pt-[8px] ">Thank you for being so awesome everyday!</p>
-                    </div>
+                     <input  className="border-[#E4E4E7] border rounded-md h-[131px] mt-[8px] hover:border-black" type="" placeholder="" />
+                     {/* <div className="border-[#E4E4E7] border rounded-md h-[131px] mt-[8px] hover:border-black"> */}
+                        {/* <p className="font-normal text-sm pl-[12px] pt-[8px] ">Thank you for being so awesome everyday!</p> */}
+                    {/* </div> */}
                   </div>
                <DialogDemo></DialogDemo>
            </div>
