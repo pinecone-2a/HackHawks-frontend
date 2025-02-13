@@ -13,7 +13,6 @@ import {
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 type donation = {
   id: string;
@@ -104,8 +103,7 @@ export default function EarningsDashboard() {
                 </div>
                 <Button
                   variant="default"
-                  className="bg-black text-white px-8 py-3 text-lg"
-                >
+                  className="bg-black text-white px-8 py-3 text-lg">
                   Share page link
                 </Button>
               </div>
@@ -115,8 +113,7 @@ export default function EarningsDashboard() {
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="outline"
-                      className="flex items-center gap-2 text-lg px-4 py-2"
-                    >
+                      className="flex items-center gap-2 text-lg px-4 py-2">
                       <ChevronDown className="w-5 h-5" />
                     </Button>
                   </DropdownMenuTrigger>
@@ -145,8 +142,7 @@ export default function EarningsDashboard() {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
-                  className="flex items-center gap-2 text-lg px-4 py-2"
-                >
+                  className="flex items-center gap-2 text-lg px-4 py-2">
                   Amount: $ <ChevronDown className="w-5 h-5" />
                 </Button>
               </DropdownMenuTrigger>
@@ -168,8 +164,7 @@ export default function EarningsDashboard() {
                     {donations.map((donation, index) => (
                       <div
                         key={donation.donor.id + donation.id}
-                        className="flex pt-[24px] justify-between items-start px-[24px] pb-4 last:border-none"
-                      >
+                        className="flex pt-[24px] justify-between items-start px-[24px] pb-4 last:border-none">
                         <div>
                           <Link href={`/${donation.donor.id}`}>
                             <h1 className="text-lg font-semibold">
@@ -209,8 +204,7 @@ export default function EarningsDashboard() {
           ) : (
             <Link
               className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-extrabold text-2xl"
-              href={`/account/signin`}
-            >
+              href={`/account/signin`}>
               Please Login 💩
             </Link>
           )}
