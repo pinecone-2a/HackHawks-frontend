@@ -26,7 +26,8 @@ export type response = {
 export default function Signin() {
   const [responses, setResponse] = useState<response>({ message: "WAITING" });
   const [noreponse, setnoreponse] = useState("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isResponded, setisResponded] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
   const [login, setLogin] = useState({
     email: "",
@@ -43,6 +44,7 @@ export default function Signin() {
     });
   };
   const sendData = async () => {
+    setIsLoading(true);
     try {
       const send = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/users/auth/sign-in`,
@@ -57,6 +59,7 @@ export default function Signin() {
       );
       const response = await send.json();
       setResponse(response);
+      setIsLoading(false);
       if (response.data.id) {
         localStorage.setItem("userId", response.data.id);
       }
@@ -108,13 +111,13 @@ export default function Signin() {
         </div>
 
         <Button
+          disabled={isLoading}
           onClick={() => {
             sendData();
-            setLoading(true);
+            setisResponded(true);
           }}
-          className="w-full text-background"
-        >
-          Continue
+          className="w-full text-background">
+          {isLoading ? <div>Please Wait</div> : <div>Continue</div>}
         </Button>
         <Dialog>
           <DialogTrigger>Forgot Password?</DialogTrigger>
@@ -124,7 +127,7 @@ export default function Signin() {
           </DialogContent>
         </Dialog>
         <div>
-          {loading && (
+          {isResponded && (
             <div>
               {responses?.success ? (
                 <div className="text-green-500">Амжилттай!</div>
