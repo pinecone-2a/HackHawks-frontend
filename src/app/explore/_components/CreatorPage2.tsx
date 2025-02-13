@@ -8,7 +8,7 @@ import { QrCode } from "./QrCode";
 export function CreatorPage2 () {
     return (
         <div className="">
-           <img src="background.png" alt="" className="w-full h-[319px]"/>
+           <img src="/img/background.png" alt="" className="w-full h-[319px]"/>
 
            <div className="flex gap-8 justify-center w-screen h-full absolute mt-[-86px]">
            <div className="w-[632px] h-[660px] flex flex-col justify-between">
@@ -77,7 +77,7 @@ export function CreatorPage2 () {
                   </div>
 
                   <div>
-                   <Link href="/explore/QrCode">
+                   <Link href="">
                      <p className="w-[580px] h-[40px] bg-black rounded-md mt-[32px] text-white hover:bg-gray-900 flex justify-center pt-[8px]">Support</p>
                    </Link>
                   </div>
