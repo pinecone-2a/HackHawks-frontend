@@ -1,11 +1,4 @@
-
-// import Link from "next/link";
-// import { BsQrCode } from "react-icons/bs";
-// import { IoCloseOutline } from "react-icons/io5"
-
-
-
-import { Copy } from "lucide-react"
+'use client'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -23,38 +16,35 @@ import { Label } from "@/components/ui/label"
 
  
 export function DialogDemo() {
+
+  // state [open, setOpen] = useState(false);
+  // setTimeout(() => { setOpen(false), 3000 })
+  
   return (
-    <Dialog>
+    <Dialog >
       <DialogTrigger asChild>
         <Button className="w-[580px] h-[40px] mt-[32px] bg-black text-white" variant="outline">Support</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Support</DialogTitle>
+      <DialogContent className="w-[428px] h-[484px] bg-white rounded-xl shadow-2xl pt-[150px] flex-col  border-2 flex justify-center ">
+        <DialogHeader className="flex justify-center items-center">
+          <div className="mt-[30px]">
+          <DialogTitle >
+          <div className="font-semibold text-3xl flex justify-center">Scan QR code</div>
+
+
+          </DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            <div className="flex justify-center ">Scan the QR code to complete your donation</div>
           </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name"  className="col-span-3" />
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input id="username"  className="col-span-3" />
-          </div>
-        </div>
-        <DialogFooter>
-         
+
           
-          <DialogClose asChild>
-            <Button type="submit">Save changes</Button>
-          </DialogClose>
+        </DialogHeader>
+        <DialogFooter className="flex justify-center">
+        <div className="w-[240px] h-[240px] flex justify-center ">
+            <img src="/img/Qr-Code.png" alt="" />
+          </div>
+
         </DialogFooter>
       </DialogContent>
     </Dialog>

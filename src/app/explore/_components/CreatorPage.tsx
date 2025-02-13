@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { DialogDemo } from "@/app/creator/QrCode";
+import { set } from "zod";
 
 
 export function CreatorPage () {
@@ -30,13 +31,20 @@ export function CreatorPage () {
     fetchData();
   }, []);
 
-  // const onClickHanlder = ()=>{
-  // setIsDialogOpen(true) 
-  // }
 
-  // const closeDialog = ()=>{
-  //   setIsDialogOpen(false)
-  // }
+
+   const [open, setOpen] = useState(false);
+   setTimeout(() => { setOpen(false), 3000 })
+
+  const onClickHanlder = ()=>{
+  setOpen(true) 
+  }
+
+  const closeDialog = ()=>{
+    setOpen(false)
+  }
+
+
     return (
         <div className="">
     
@@ -151,7 +159,10 @@ export function CreatorPage () {
                         <p className="font-normal text-sm pl-[12px] pt-[8px] ">Thank you for being so awesome everyday!</p>
                     </div>
                   </div>
-                   <DialogDemo/>
+                  
+               <DialogDemo>
+                
+               </DialogDemo>
                     
                    
            </div>
