@@ -1,9 +1,24 @@
+"use client"
+
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
 export default function FrameViewDonation() {
+  const params = useParams();
+  const {userId} = params
+  const [form, setForm] = useState({
+    amount: 0,
+    specialMessage: "",
+    socialUrl: "https://buymeacoffee.com/",
+    donorId:"",
+    recipentId: userId,
+
+  })
+
+ 
     return (
       <div className="max-w-lg bg-white border border-gray-300 rounded-lg p-6 z-3">
         <h2 className="text-xl font-semibold mb-4">Buy Jake a Coffee</h2>
-        
-        
         <div className="mb-4">
           <h3 className="text-sm font-medium">Select amount:</h3>
           <div className="flex gap-2 mt-2">
@@ -31,15 +46,17 @@ export default function FrameViewDonation() {
         
         <div className="mb-4">
           <label className="text-sm font-medium">Special message:</label>
+          {/* onChange={} */}
           <textarea
             placeholder="Please write your message here"
             className="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-gray-200 outline-none"
             rows={3}
-          ></textarea>
+          />
         </div>
   
-        
+        {/* onClick={asdf} */}
         <button
+
           className="w-full bg-gray-300 text-gray-600 py-2 rounded-lg cursor-not-allowed"
           disabled
         >

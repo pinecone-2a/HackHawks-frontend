@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import EditCover from "../view-page/_components/EditCover";
-import FrameEditPage from "../view-page/_components/FrameEditPage";
-import FrameViewDonation from "../view-page/_components/FrameViewDonation";
+import EditCover from "../_components/EditCover";
+import FrameEditPage from "../_components/FrameEditPage";
+import FrameViewDonation from "../_components/FrameViewDonation";
 import { useParams } from "next/navigation";
 
 type user = {
