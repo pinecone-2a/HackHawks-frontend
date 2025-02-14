@@ -44,7 +44,7 @@ export default function ProfileSetup1() {
     name: "",
     about: "",
     socialMediaURL: "",
-    avatarImage: "",
+
   });
   // let errors = {
   //   name: false,
@@ -129,7 +129,7 @@ export default function ProfileSetup1() {
       setForm((prev) => {
         return {
           ...prev,
-          avatarImage: response.secure_url,
+
         };
       });
       console.log(form);
@@ -153,8 +153,8 @@ export default function ProfileSetup1() {
             setForm({
               name: "",
               about: "",
-              socialMediaURL: "",
-              avatarImage: "",
+              socialMediaURL: ""
+
             });
           }}
         >
@@ -288,9 +288,9 @@ export default function ProfileSetup1() {
             ? `bg-muted text-background cursor-not-allowed hover:text-background hover:bg-muted-foreground`
             : `bg-foreground text-background`
             }`}
-          disabled={!isValid || loading}
+          disabled={loading}
           onClick={(e) => {
-            if (isValid && !loading) {
+            if (!loading) {
               setCheck(false);
               router.push(`/profile-setup?step=2`);
               console.log(validationResult.errors);

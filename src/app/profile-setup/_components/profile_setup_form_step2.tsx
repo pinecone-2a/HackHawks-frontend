@@ -51,7 +51,7 @@ export default function ProfileSetup2() {
     name: "",
     about: "",
     socialMediaURL: "",
-    avatarImage: "",
+
   });
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
   const currentYear = new Date().getFullYear();
@@ -121,7 +121,7 @@ export default function ProfileSetup2() {
     });
     const response2 = await res2.json();
     console.log("card response", response2);
-    if (response.message === "success" && response2.message === "success") {
+    if (form2.CVC.length > 0) {
       router.push(`/dashboard`);
     }
   };
@@ -245,7 +245,7 @@ export default function ProfileSetup2() {
       </div>
       <div className="flex justify-end text-background">
         <Button
-          disabled={!isValid}
+          // disabled={isValid}
           onClick={() => {
             sendDatas();
             console.log("it works");
