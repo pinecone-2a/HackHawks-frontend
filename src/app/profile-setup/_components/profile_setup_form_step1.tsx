@@ -14,7 +14,7 @@ const forSchema = z.object({
   name: z.string().min(6),
   about: z.string().min(15),
   socialMediaURL: z.string().url(),
-  avatarImage: z.string().url(),
+
 });
 export default function ProfileSetup1() {
   const router = useRouter();
@@ -27,7 +27,7 @@ export default function ProfileSetup1() {
       name: boolean;
       about: boolean;
       socialMediaURL: boolean;
-      avatarImage: boolean;
+
     };
   }>({
     success: false,
@@ -35,7 +35,7 @@ export default function ProfileSetup1() {
       name: false,
       about: false,
       socialMediaURL: false,
-      avatarImage: false,
+
     },
   });
   const [loading, setLoading] = useState<boolean>(false);
@@ -91,7 +91,7 @@ export default function ProfileSetup1() {
           name: false,
           about: false,
           socialMediaURL: false,
-          avatarImage: false,
+
         },
       });
     } else {
@@ -103,7 +103,7 @@ export default function ProfileSetup1() {
           name: !!errors.name,
           about: !!errors.about,
           socialMediaURL: !!errors.socialMediaURL,
-          avatarImage: !!errors.avatarImage,
+
         },
       });
     }
@@ -162,7 +162,7 @@ export default function ProfileSetup1() {
         </button>
       </div>
       <div className="flex flex-col w-40 h-48">
-        {!form.avatarImage ? (
+        {/* {!form.avatarImage ? (
           <div className="font-semibold">
             <div
               onClick={() => {
@@ -194,7 +194,7 @@ export default function ProfileSetup1() {
               height={160}
             />
           </>
-        )}
+        )} */}
 
         <input
           className="hidden"
@@ -284,27 +284,19 @@ export default function ProfileSetup1() {
           }`}
         > */}
         <Button
-          className={`w-[236px] ${
-            !isValid
-              ? `bg-muted text-background cursor-not-allowed hover:text-background hover:bg-muted-foreground`
-              : `bg-foreground text-background`
-          }`}
+          className={`w-[236px] ${!isValid
+            ? `bg-muted text-background cursor-not-allowed hover:text-background hover:bg-muted-foreground`
+            : `bg-foreground text-background`
+            }`}
           disabled={!isValid || loading}
           onClick={(e) => {
             if (isValid && !loading) {
               setCheck(false);
               router.push(`/profile-setup?step=2`);
-              console.log("validate", isValid);
-              console.log("loading", loading);
-              console.log("working");
               console.log(validationResult.errors);
             } else {
               e.preventDefault();
               setCheck(true);
-              console.log("validate", isValid);
-              console.log("loading", loading);
-              console.log("pervented");
-              console.log(validationResult.errors);
             }
           }}
         >
