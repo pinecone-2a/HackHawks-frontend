@@ -139,9 +139,9 @@ export function CreatorPage () {
                     </div>
                   </div>
 
-                  <div className=" h-[153px]">
+                  <div className=" h-[153px] w-[580px]">
                      <p className="text-sm font-medium mt-[20px]">Special message:</p>
-                     <input  className="border-[#E4E4E7] border rounded-md h-[131px] mt-[8px] hover:border-black" type="" placeholder="" />
+                     <input  className="border-[#E4E4E7] border rounded-md h-[131px] w-[580px] mt-[8px] hover:border-black" type="" placeholder="" />
                      {/* <div className="border-[#E4E4E7] border rounded-md h-[131px] mt-[8px] hover:border-black"> */}
                         {/* <p className="font-normal text-sm pl-[12px] pt-[8px] ">Thank you for being so awesome everyday!</p> */}
                     {/* </div> */}
