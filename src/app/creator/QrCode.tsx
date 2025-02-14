@@ -29,7 +29,7 @@ export function DialogDemo() {
       <DialogTrigger asChild>
         <Button onClick={onSupport} className="w-[580px] h-[40px] mt-[32px] bg-black text-white" variant="outline">Support</Button>
       </DialogTrigger>
-      <DialogContent className="w-[428px] h-[484px] bg-white rounded-xl shadow-2xl pt-[150px] flex-col  border-2 flex justify-center ">
+      <DialogContent className=" bg-white rounded-xl shadow-2xl pt-[150px] flex-col  border-2 flex justify-center ">
         <DialogHeader className="flex justify-center items-center">
           <div className="mt-[30px]">
           <DialogTitle >
@@ -38,14 +38,14 @@ export function DialogDemo() {
 
           </DialogTitle>
           <DialogDescription>
-            <div className="flex justify-center ">Scan the QR code to complete your donation</div>
+            <div className="flex justify-center pt-[10px]">Scan the QR code to complete your donation</div>
           </DialogDescription>
           </div>
 
           
         </DialogHeader>
         <DialogFooter className="flex justify-center">
-        <div className="w-[240px] h-[240px] flex justify-center ">
+        <div className="w-[240px] h-[240px] flex justify-center mt-[40px]  mb-[40px]">
             <img src="/img/Qr-Code.png" alt="" />
           </div>
 
