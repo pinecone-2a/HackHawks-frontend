@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
+import { QrReader } from 'react-qr-reader';
 
  
 export function DialogDemo() {
@@ -23,6 +24,7 @@ export function DialogDemo() {
     setOpen(true)
     setTimeout(() => { setOpen(false) },3000)
   }
+  
   
   return (
     <Dialog open={open}>
