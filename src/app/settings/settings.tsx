@@ -45,9 +45,9 @@ export default function Settings() {
         My account
       </div>
       <div className="flex flex-col justify-center items-start gap-8">
-        <PersonalInfo user={user} />
-        <SetSNewPassword user={user} />
-        <PaymentDetails user={user} />
+        <PersonalInfo />
+        <SetSNewPassword />
+        <PaymentDetails />
         <SuccessPage user={user} />
       </div>
     </div>

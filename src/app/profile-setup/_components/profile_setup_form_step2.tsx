@@ -102,11 +102,11 @@ export default function ProfileSetup2() {
     setForm1(formL);
   }, []);
   const sendDatas = async () => {
-    const userId = localStorage.getItem("userId");
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form1, userId }),
+      credentials: "include",
+      body: JSON.stringify(form1),
     });
     const response = await res.json();
     console.log("profile response", response);
@@ -114,10 +114,8 @@ export default function ProfileSetup2() {
     const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bank-card`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...form2,
-        userId,
-      }),
+      credentials: "include",
+      body: JSON.stringify(form2),
     });
     const response2 = await res2.json();
     console.log("card response", response2);
