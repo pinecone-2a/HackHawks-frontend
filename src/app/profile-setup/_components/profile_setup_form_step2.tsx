@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ChangeEvent, useEffect, useState } from "react";
-import { UserInfoForm } from "../../utils/types";
 import { z } from "zod";
 import { form } from "@/app/account/_components/step1";
 import { useRouter } from "next/navigation";
+import { UserType } from "@/app/_typescript/allTypesGoesHere";
 type country = {
   name: {
     common: string;
@@ -36,6 +36,7 @@ export default function ProfileSetup2() {
   const [cardExpiryDate, setCardExpiryDate] = useState("");
   const [year, setYear] = useState("");
   const [response, setMessage] = useState("");
+  const [userId, setUserId] = useState("")
   const [month, setMonth] = useState("");
   const [countries, setCountries] = useState<country[]>([]);
   const [isValid, setValid] = useState<boolean>(false);
@@ -47,7 +48,7 @@ export default function ProfileSetup2() {
     expiryDate: new Date(),
     CVC: "",
   });
-  const [form1, setForm1] = useState<UserInfoForm>({
+  const [form1, setForm1] = useState<UserType>({
     name: "",
     about: "",
     socialMediaURL: "",
@@ -98,25 +99,29 @@ export default function ProfileSetup2() {
   };
   useEffect(() => {
     const formString = localStorage.getItem("step1");
+    const localId = localStorage.getItem("userId");
     const formL = formString ? JSON.parse(formString) : {};
     setForm1(formL);
+    if (localId) {
+      setUserId(localId);
+    }
   }, []);
   const sendDatas = async () => {
-    const userId = localStorage.getItem("userId");
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile`, {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...form1, userId }),
     });
     const response = await res.json();
     console.log("profile response", response);
 
-    const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bank-card`, {
+    const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bank-card/addnew`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify({
-        ...form2,
-        userId,
+        ...form2,userId
       }),
     });
     const response2 = await res2.json();

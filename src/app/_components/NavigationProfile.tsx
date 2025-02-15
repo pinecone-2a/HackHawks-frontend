@@ -11,13 +11,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { cookies } from "next/headers";
-import { data } from "../dashboard/page";
 import { Logout } from "./logout";
 
 export async function NavigationProfile() {
   let dat = null;
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/dashbordInfo`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/dashboard`, {
       credentials: "include",
       headers: { Cookie: (await cookies()).toString() },
     });

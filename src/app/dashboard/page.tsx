@@ -13,73 +13,60 @@ import {
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { cookies } from "next/headers";
 
-type donation = {
+interface UserProfile {
+  name: string;
+  avatarImage: string;
+}
+
+interface Donor {
+  id: string;
+  profile: UserProfile;
+}
+
+interface Donation {
   id: string;
   amount: number;
+  createdAt: string;
   specialMessage: string;
   socialURLOrBuyMeACoffee: string;
-  createdAt: Date;
-  donor: user;
-};
-type user = {
-  id: string;
-  email: string;
-  password: string;
-  username: string;
-  profile: profile;
-  recievedDonations: donation[];
-  sendDonation: donation[];
-};
-type profile = {
-  id: string;
-  name: string;
-  about: string;
-  avatarImage: string;
-  socialMediaURL: string;
-  backgroundImage: string;
-  successMessage: string;
-  userId: string;
-};
-export type data = {
-  user: user;
-  success?: boolean;
+  donor: Donor;
+}
+
+interface TotalEarnings {
+  _sum: {
+    amount: number;
+  };
+}
+
+interface Data {
+  success: boolean;
   code?: string;
-  earnings: {
-    day30earnings: number;
-    day60earnings: number;
-    day90earnings: number;
-  };
-  earningsData: {
-    day30data: donation[];
-    day60data: donation[];
-    day90data: donation[];
-  };
-};
+  donation: Donation[];
+  totalEarnings: TotalEarnings;
+}
 
 export default function EarningsDashboard() {
-  const [user, setUser] = useState<data>();
+  const [user, setUser] = useState<Data | null>(null);
   const [filter, setFilter] = useState("");
-  const [donations, setDonations] = useState<donation[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/dashbordInfo`,
-        {
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
+        { method: "GET",
           credentials: "include",
+         
         }
       );
       const data = await res.json();
       setUser(data);
-      console.log(data);
+      
     };
     fetchData();
   }, []);
-  useEffect(() => {
-    if (user?.success) {
-      setDonations(user.earningsData.day30data);
-    }
-  }, [filter, user]);
+
+  console.log(user);
   return (
     <div className="h-screen">
       {user?.success ? (
@@ -89,15 +76,15 @@ export default function EarningsDashboard() {
               <div className="flex justify-between items-center pt-[24px]">
                 <div className="flex items-center gap-6">
                   <Avatar className="w-10 h-10">
-                    <AvatarImage src={user.user.profile.avatarImage} />
+                    <AvatarImage src={user.donation[0].donor.profile.avatarImage} />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <div>
                     <h2 className="text-2xl font-bold">
-                      {user.user.profile.name}
+                      {user.donation[0].donor.profile.name}
                     </h2>
                     <p className="text-lg text-gray-500">
-                      buymeacoffee.com/{user.user.username}
+                      buymeacoffee.com/{user.donation[0].donor.profile.name}
                     </p>
                   </div>
                 </div>
@@ -131,7 +118,7 @@ export default function EarningsDashboard() {
                 </DropdownMenu>
               </div>
               <p className="text-4xl font-extrabold mt-4">
-                ${user.earnings.day30earnings}
+                ${user.totalEarnings._sum.amount}
               </p>
             </CardContent>
           </Card>
@@ -159,16 +146,16 @@ export default function EarningsDashboard() {
           <div className="overflow-y-auto max-h-[528px] border-[1px] rounded-xl ">
             <Card className="mt-6 p-6 shadow-lg border-none">
               <CardContent className="p-6 space-y-6">
-                {donations && (
+                {user && (
                   <div>
-                    {donations.map((donation, index) => (
+                    {user?.donation.map((donation, index) => (
                       <div
-                        key={donation.donor.id + donation.id}
+                        key={user.donation + donation.id}
                         className="flex pt-[24px] justify-between items-start px-[24px] pb-4 last:border-none">
                         <div>
                           <Link href={`/${donation.donor.id}`}>
                             <h1 className="text-lg font-semibold">
-                              {donation.donor.username}
+                              {donation.donor.profile.name}
                             </h1>
                           </Link>
                           <p className="text-md text-gray-500">

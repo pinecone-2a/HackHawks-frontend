@@ -1,12 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { cookies } from "next/headers";
 import { Input } from "@/components/ui/input";
 import { useRouter, useSearchParams } from "next/navigation";
 import SignupStep1 from "../_components/step1";
 import Link from "next/link";
 import SignupStep2 from "../_components/step2";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Skeleton } from "@/app/_components/Skeleton";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import {
   Dialog,
@@ -47,7 +47,7 @@ export default function Signin() {
     setIsLoading(true);
     try {
       const send = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/auth/sign-in`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/sign-in`,
         {
           method: "POST",
           headers: {
@@ -63,13 +63,6 @@ export default function Signin() {
       if (response.data.id) {
         localStorage.setItem("userId", response.data.id);
       }
-      if (response.success) {
-        if (response.profileSetup) {
-          router.push(`/dashboard`);
-        } else {
-          router.push(`/profile-setup`);
-        }
-      }
     } catch (e) {
       console.error(e, "server hariu ogsongu");
       setResponse({ message: "SERVER_NOT_RESPONDING" });
@@ -77,6 +70,15 @@ export default function Signin() {
     }
   };
   console.log(responses);
+  useEffect(() => {
+    if (responses.success) {
+      if (responses.profileSetup) {
+        router.push(`/dashboard`);
+      } else {
+        router.push(`/profile-setup`);
+      }
+    }
+  }, [responses, router])
   return (
     <div className="relative min-h-screen w-full">
       <div className="flex justify-end p-10">
@@ -109,7 +111,7 @@ export default function Signin() {
             placeholder="Enter password here"
           />
         </div>
-
+       
         <Button
           disabled={isLoading}
           onClick={() => {
@@ -119,6 +121,7 @@ export default function Signin() {
           className="w-full text-background">
           {isLoading ? <div>Please Wait</div> : <div>Continue</div>}
         </Button>
+      
         <Dialog>
           <DialogTrigger>Forgot Password?</DialogTrigger>
           <DialogContent>

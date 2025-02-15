@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Divide, ExternalLink, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDebounce } from "../../_customHooks/DebounceHook";
-import { ProfileType } from "../../_typescript/ProfileType";
+import { ProfileType } from "../../_typescript/allTypesGoesHere";
 import { NoCreator } from "./NoCreator";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
