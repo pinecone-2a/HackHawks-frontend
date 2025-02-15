@@ -10,9 +10,6 @@ import {
   } from "@/components/ui/select"
 import Link from "next/link";
 
-  
-
-
 export function NavigationProfile() {
   return (
     <div className="bg-slate-100 w-screen ">
@@ -41,7 +38,6 @@ export function NavigationProfile() {
                   <SelectItem value="logout">Logout</SelectItem>
                </SelectContent>
             </Select>
-
             </div>
           </div>
         </div>
