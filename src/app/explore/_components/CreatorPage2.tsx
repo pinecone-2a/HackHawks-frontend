@@ -3,7 +3,6 @@ import { Navigation } from "../../_components/Navigation"
 import { FaHeart } from "react-icons/fa";
 import Link from "next/link";
 import { NavigationProfile } from "../../_components/NavigationProfile";
-// import { QrCode } from "../../creator/QrCode";
 
 export function CreatorPage2 () {
     return (
@@ -61,7 +60,7 @@ export function CreatorPage2 () {
                   </div>
 
                   <div className="mt-[32px] w-[580px] h-[62px]">
-                    <p className="text-sm font-medium">Enter BuyMeCoffee or social acount URL:</p>
+                    <p className="text-sm font-medium">Enter BuyMeCoffee or social account URL:</p>
 
                     <div className="border-[#E4E4E7] border rounded-md h-[45px] mt-[8px] hover:border-black">
                         <input type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-[570px] h-[40px] rounded-md pl-[12px]"/>

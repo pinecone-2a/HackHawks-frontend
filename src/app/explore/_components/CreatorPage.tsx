@@ -56,7 +56,7 @@ export function CreatorPage () {
                 <p className="text-[14px] mt-5">https://buymeacoffee.com/spacerulz44</p>
             </div>
 
-            <div className="rounded-lg border w-[100%] h-[380px] bg-white p-5 snap-y mt-[30px]">
+            <div className="rounded-lg border w-[100%] h-[380px] bg-white p-5 snap-y mt-[30px] max-h-[346px]">
                 <p className="text-[16px] font-semibold mb-5">Recent supporters</p>
 
                 <div className="flex ">
