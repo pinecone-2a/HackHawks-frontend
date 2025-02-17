@@ -3,12 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { UserInfoForm } from "../../utils/types";
 import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
+import { UserType } from "@/app/_typescript/allTypesGoesHere";
 
 const forSchema = z.object({
   name: z.string().min(6),
@@ -40,11 +40,12 @@ export default function ProfileSetup1() {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [reset, setReset] = useState<boolean>(false);
-  const [form, setForm] = useState<UserInfoForm>({
+  const [form, setForm] = useState<UserType>({
     name: "",
     about: "",
     socialMediaURL: "",
     avatarImage: "",
+    
   });
   // let errors = {
   //   name: false,
@@ -120,7 +121,7 @@ export default function ProfileSetup1() {
       const file = e.target.files[0];
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", "qjhhbr3k");
+      formData.append("upload_preset", "food-delivery");
       const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUDINARY_URL}`, {
         method: "POST",
         body: formData,

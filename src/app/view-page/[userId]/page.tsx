@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import EditCover from "../view-page/_components/EditCover";
-import FrameEditPage from "../view-page/_components/FrameEditPage";
-import FrameViewDonation from "../view-page/_components/FrameViewDonation";
+import EditCover from "../_components/EditCover";
+import FrameEditPage from "../_components/FrameEditPage";
+import FrameViewDonation from "../_components/FrameViewDonation";
 import { useParams } from "next/navigation";
 
 type user = {
@@ -26,9 +26,7 @@ export default function ViewPage() {
   const { userId } = params;
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/auth/explore/${userId}`
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/auth/${userId}`);
       const data = await res.json();
       setUser(data);
       console.log(data);
@@ -37,9 +35,7 @@ export default function ViewPage() {
   }, [count]);
   return (
     <div className="">
-      <div className="relative">
-        {user && <EditCover setCount={setCount} count={count} user={user} />}
-      </div>
+      <div className="relative">{user && <EditCover setCount={setCount} count={count} user={user} />}</div>
       <div className="relative flex justify-center">
         {/* <div className="w-[1280px] flex justify-between pt-[238px]"> */}
         <div className="flex flex-col items-center xl:flex-row gap-20 absolute -top-10">

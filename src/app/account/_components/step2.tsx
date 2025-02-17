@@ -4,13 +4,17 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { ChangeEvent, useEffect, useState } from "react";
 import { form } from "./step1";
-import { Skeleton } from "@/app/_components/Skeleton";
-import { response } from "../signin/page";
+import ResponseType from "../signin/page";
 import { useRouter } from "next/navigation";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
+type ResponseType = {
+  success: boolean;
+  [key: string]: any;
+};
+
 export default function SignupStep2() {
-  const [response, setResponse] = useState<response>();
+  const [response, setResponse] = useState<ResponseType>();
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [form, setForm] = useState<form>({
@@ -40,7 +44,7 @@ export default function SignupStep2() {
     setLoading(true);
     try {
       const send = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/addnew`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/sign-up`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

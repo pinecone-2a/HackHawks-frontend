@@ -1,5 +1,4 @@
 "use client";
-import { Skeleton } from "@/app/_components/Skeleton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
@@ -52,7 +51,7 @@ export default function SignupStep1() {
     if (form.username) {
       timeout = setTimeout(async () => {
         const send = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/users/auth/${form.username}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/${form.username}`,
           { method: "POST", headers: { "Content-Type": "application/json" } }
         );
         const response = await send.json();

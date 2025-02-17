@@ -4,17 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Divide, ExternalLink, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDebounce } from "../../_customHooks/DebounceHook";
-import { ProfileType } from "../../_typescript/ProfileType";
+import { ProfileType } from "../../_typescript/allTypesGoesHere";
 import { NoCreator } from "./NoCreator";
 import Link from "next/link";
-import { Input } from "@/components/ui/input";
+
 import Image from "next/image";
+import { Input } from "@/components/ui/input";
 
 export const ExploreContainer = () => {
   const [ExploreData, setExploreData] = useState<ProfileType[]>([]);
   const [searchValue, setSearchValue] = useState("");
   const debounceSearch = useDebounce(searchValue);
-  console.log(ExploreData);
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
@@ -37,7 +37,7 @@ export const ExploreContainer = () => {
       <div className="pb-[24px] relative">
         <Input
           onChange={onChangeHandler}
-          className="w-[243px] h-[36px] pl-[35px]"
+          className="w-[30%] h-[36px] pl-[35px] "
           placeholder="Search name"
         />
         <Search className="absolute size-[16px] top-[10px] left-[12px] opacity-50" />
@@ -74,7 +74,7 @@ export const ExploreContainer = () => {
                   </div>
                 </div>
                 <div className="text-end ">
-                  <Link href={`/${item.userId}`}>
+                  <Link href={`/creator/${item.userId}`}>
                     <Button
                       variant={"outline"}
                       className="bg-gray-100 border-none w-[136px] h-[40px]  hover:text-white hover:bg-black"

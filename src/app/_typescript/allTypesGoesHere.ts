@@ -8,3 +8,10 @@ export type ProfileType = {
   succesMessage: String;
   userId: String;
 };
+
+export type UserType = {
+  name: string,
+  about: string,
+  socialMediaURL: string,
+  avatarImage: string,
+}

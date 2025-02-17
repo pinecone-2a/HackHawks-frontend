@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-
+type SetSNewPasswordProps = {
+  user: any;
+};
 
 export default function SetSNewPassword() {
   const [userId, setUserId] = useState("")
