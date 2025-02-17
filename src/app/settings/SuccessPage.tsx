@@ -1,7 +1,7 @@
-import { data } from "../dashboard/page";
+import { Data } from "../dashboard/page";
 
 type Props = {
-  user: data;
+  user: Data | undefined;
 };
 export default function SuccessPage(props: Props) {
   return (
