@@ -13,10 +13,10 @@ export default function Home() {
 
   return (
     <div>
-      <HomeNavbar/>
-      <HomeHero/>
-      <HomeFeature/>
-      <HomeFooter/>
+      <HomeNavbar />
+      <HomeHero />
+      <HomeFeature />
+      <HomeFooter />
     </div>
   );
 }
