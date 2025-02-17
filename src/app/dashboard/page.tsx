@@ -101,7 +101,7 @@ export default function EarningsDashboard() {
                   </Avatar>
                   <div>
                     <h2 className="text-2xl font-bold">{profileData[0]?.name}</h2>
-                    <p className="text-lg text-gray-500">buymeacoffee.com/{profileData[0].name}</p>
+                    <p className="text-lg text-gray-500">buymeacoffee.com/{profileData[0]?.name}</p>
                   </div>
                 </div>
               </div>
