@@ -21,7 +21,7 @@ export const ExploreContainer = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://localhost:4000/profile/explore?search=${debounceSearch}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/explore?search=${debounceSearch}`);
       const data = await response.json();
       setExploreData(data);
     };
