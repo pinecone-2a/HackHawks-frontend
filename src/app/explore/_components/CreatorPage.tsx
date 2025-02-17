@@ -25,13 +25,13 @@ export function CreatorPage () {
 
   useEffect(() => {
     const fetchProfileData = async () => {
-      const response = await fetch(`http://localhost:4000/profile/explore/${id}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/explore/${id}`);
       const data = await response.json();
      setProfileData(data)
     };
 
     const fetchDonationData = async () => {
-      const response = await fetch(`http://localhost:4000/donation/creator/${id}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/donation/creator/${id}`);
       const data = await response.json();
      setDonationData(data)
     };
