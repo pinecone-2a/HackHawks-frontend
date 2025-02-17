@@ -86,7 +86,7 @@ export default function EarningsDashboard() {
     fetchProfileData();
   }, []);
 
-  console.log("profile data here---", profileData);
+  
   return (
     <div className="h-screen">
       {donations?.success ? (

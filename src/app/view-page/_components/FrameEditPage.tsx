@@ -22,7 +22,7 @@ export default function FrameEditPage(props: Props) {
   const [image, setImage] = useState<string | null>(null);
   const [about, setAbout] = useState("I'm a typical person who enjoys exploring different things. I also make music art as a hobby. Follow me along.");
 
-  console.log("from Props", props.user);
+ 
 
   if (!props.user) {
     return <div className=" max-w-[632px] bg-white border border-[#E4E4E7] rounded-lg p-6"> Loading</div>;
