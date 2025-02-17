@@ -19,12 +19,9 @@ export default function Settings() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/dashbordInfo`,
-        {
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/dashbordInfo`, {
+        credentials: "include",
+      });
       const data = await res.json();
       setUser(data);
       setresponse(data);
@@ -38,11 +35,9 @@ export default function Settings() {
       router.push("/account/signin");
     }
   }, [response]);
-  return  (
+  return (
     <div className="w-[650px] ">
-      <div className=" mb-[20px]  text-black font-semibold text-[24px]">
-        My account
-      </div>
+      <div className=" mb-[20px]  text-black font-semibold text-[24px]">My account</div>
       <div className="flex flex-col justify-center items-start gap-8">
         <PersonalInfo />
         <SetSNewPassword />
@@ -50,22 +45,22 @@ export default function Settings() {
         <SuccessPage user={user} />
       </div>
     </div>
-  // ) : 
-  
-  //     (
-  //   <div>
-  //     {user?.code !== `JWT_EXPIRED` ? (
-  //       <div className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2  whitespace-nowrap font-extrabold text-2xl">
-  //         Please Login...
-  //       </div>
-  //     ) : (
-  //       <Link
-  //         className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-extrabold text-2xl"
-  //         href={`/account/signin`}
-  //       >
-  //         Please Login 💩
-  //       </Link>
-  //     )}
-  //   </div>
+    // ) :
+
+    //     (
+    //   <div>
+    //     {user?.code !== `JWT_EXPIRED` ? (
+    //       <div className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2  whitespace-nowrap font-extrabold text-2xl">
+    //         Please Login...
+    //       </div>
+    //     ) : (
+    //       <Link
+    //         className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-extrabold text-2xl"
+    //         href={`/account/signin`}
+    //       >
+    //         Please Login 💩
+    //       </Link>
+    //     )}
+    //   </div>
   );
 }
