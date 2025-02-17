@@ -111,7 +111,7 @@ export default function ProfileSetup2() {
     const response = await res.json();
     console.log("profile response", response);
 
-    const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bank-card`, {
+    const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bank-card/addnew`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
