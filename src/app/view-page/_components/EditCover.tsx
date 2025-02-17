@@ -59,7 +59,7 @@ export default function EditCover({ user, setCount, count }: Props) {
   };
   const sendImage = async () => {
     if (image) {
-      const res = await fetch(`http://localhost:4000/profile/updateCover`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/updateCover`, {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
