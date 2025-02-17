@@ -6,7 +6,7 @@ import Link from "next/link";
 export function CreatorPage2 () {
     return (
         <div className="">
-           <img src="/img/background.png" alt="" className="w-full h-[319px]"/>
+           <img src="/CreatorPageBackground.png" alt="" className="w-full h-[319px]"/>
 
            <div className="flex gap-8 justify-center w-screen h-full absolute mt-[-86px]">
            <div className="w-[632px] h-[660px] flex flex-col justify-between">

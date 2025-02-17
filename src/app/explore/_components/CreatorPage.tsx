@@ -52,13 +52,13 @@ export function CreatorPage () {
     return (
         <div className="">
     
-           <img src="/img/background.png" alt="" className="w-full h-[319px]" />
+           <img src="/CreatorPageBackground.png" alt="" className="w-full h-[319px]" />
 
            <div className="flex gap-8 justify-center w-screen h-full absolute mt-[-86px]">
            <div className="w-[632px] h-[775px] flex flex-col justify-between">
             <div className="rounded-lg border w-[100%] h-[273px] bg-white p-5">
                 <div className="gap-3 flex items-center">
-                <img src="/img/space.png" alt="avatar" className="w-[40px] h-[40px] rounded-full flex" />
+                <img src="/Profile.png" alt="avatar" className="w-[40px] h-[40px] rounded-full flex" />
                   <p className="text-[20px] font-semibold">{profileData?.name}</p>
                 </div>
                 <div className="border-b w-[100%] h-[10%]"></div>
@@ -75,8 +75,8 @@ export function CreatorPage () {
 
             <div className="rounded-lg border w-[100%] h-[380px] bg-white p-5 snap-y mt-[30px] max-h-[346px]">
                 <p className="text-[16px] font-semibold mb-5">Recent supporters</p>
-                {donationData?.map((donation: any)=>(  <div key={`creator-${donation?.id}`} className="flex ">
-                    <img src="/img/cn.png" alt="" className="w-[40px] h-[40px] flex "/>
+                {donationData?.map((donation: any)=>(  <div key={`creator-${donation?.id}`} className="flex mt-[15px]">
+                    <img src="/Profile.png" alt="" className="w-[40px] h-[40px] flex "/>
                     <div className="flex flex-col  pl-[12px]">
                         <div className="flex gap-[4px] ">
                         <p className="font-bold text-sm ">{donation?.donor.profile.name}</p>
@@ -117,10 +117,8 @@ export function CreatorPage () {
 
                   <div className=" h-[153px] w-[580px]">
                      <p className="text-sm font-medium mt-[20px]">Special message:</p>
-                     <input onChange={onSpecialChange} className="border-[#E4E4E7] border rounded-md h-[131px] w-[580px] mt-[8px] hover:border-black" type="" placeholder="" />
-                     {/* <div className="border-[#E4E4E7] border rounded-md h-[131px] mt-[8px] hover:border-black"> */}
-                        {/* <p className="font-normal text-sm pl-[12px] pt-[8px] ">Thank you for being so awesome everyday!</p> */}
-                    {/* </div> */}
+                     <input onChange={onSpecialChange} className="border-[#E4E4E7] border rounded-md h-[131px] w-[580px] mt-[8px] hover:border-black  pb-[90px] pl-[10px]" type="text" placeholder="Thank you for being so awesome everyday!"  />
+
                   </div>
                <DialogDemo specialMessage={specialMessage } socialURL={socialURL} donationAmout={donationAmout} id={id}/>
            </div>
