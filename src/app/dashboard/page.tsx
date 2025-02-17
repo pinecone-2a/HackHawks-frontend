@@ -2,7 +2,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
@@ -15,17 +15,24 @@ import Link from "next/link";
 import React from "react";
 import { cookies } from "next/headers";
 
-interface UserProfile {
+interface donationsProfile {
   name: string;
   avatarImage: string;
 }
 
 interface Donor {
   id: string;
-  profile: UserProfile;
+  name: donationsProfile;
+  profile:donationsProfile
+
+}
+interface Recipent{
+  id:string 
+  name: donationsProfile
 }
 
 interface Donation {
+  recipent: any;
   id: string;
   amount: number;
   createdAt: string;
@@ -47,44 +54,65 @@ interface Data {
   totalEarnings: TotalEarnings;
 }
 
+interface ProfileData {
+  name:string,
+  avatarImage:string
+}
 export default function EarningsDashboard() {
-  const [user, setUser] = useState<Data | null>(null);
-  const [filter, setFilter] = useState("");
+  const [donations, setDonations] = useState<Data | null>(null);
+  const [days, setDays] = useState<string>('');
+  const [amount, setAmount] = useState<string>('')
+  const [profileData, setProfileData] = useState<ProfileData[]>([])
+
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/?amount=${amount}&days=${days}`,
         { method: "GET",
           credentials: "include",
-         
-        }
-      );
-      const data = await res.json();
-      setUser(data);
-      
-    };
-    fetchData();
-  }, []);
+        });
 
-  console.log(user);
+      const data = await res.json();
+      setDonations(data)};
+    fetchData();
+  }, [days, amount])
+
+  useEffect(()=>{
+    const fetchProfileData =  async () => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/profile/dashboard`,
+        { method: "GET",
+          credentials: "include",
+        });
+
+      const data = await response.json();
+    
+        setProfileData(data);       
+    };
+      
+    fetchProfileData();
+  },[])
+  
+  console.log("profile data here---", profileData);
   return (
     <div className="h-screen">
-      {user?.success ? (
+      {donations?.success ? (
         <div className="w-4/5 ">
           <Card className="p-8 shadow-lg">
             <CardContent>
               <div className="flex justify-between items-center pt-[24px]">
                 <div className="flex items-center gap-6">
                   <Avatar className="w-10 h-10">
-                    <AvatarImage src={user.donation[0].donor.profile.avatarImage} />
+                    <AvatarImage src={profileData[0]?.avatarImage} />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <div>
                     <h2 className="text-2xl font-bold">
-                      {user.donation[0].donor.profile.name}
+                      {profileData[0]?.name}
                     </h2>
                     <p className="text-lg text-gray-500">
-                      buymeacoffee.com/{user.donation[0].donor.profile.name}
+                      buymeacoffee.com/{profileData[0].name}
                     </p>
                   </div>
                 </div>
@@ -105,20 +133,20 @@ export default function EarningsDashboard() {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent defaultValue={`day30`} align="start">
-                    <DropdownMenuItem onClick={() => setFilter("day30data")}>
+                    <DropdownMenuItem onClick={() => setDays("30")}>
                       Last 30 days
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setFilter("day60data")}>
+                    <DropdownMenuItem onClick={() => setDays("60")}>
                       Last 60 days
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setFilter("day90data")}>
+                    <DropdownMenuItem onClick={() => setDays("90")}>
                       Last 90 days
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
               <p className="text-4xl font-extrabold mt-4">
-                ${user.totalEarnings._sum.amount}
+                ${donations.totalEarnings._sum.amount}
               </p>
             </CardContent>
           </Card>
@@ -134,11 +162,18 @@ export default function EarningsDashboard() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                {[1, 2, 5, 10].map((amt) => (
-                  <DropdownMenuItem key={amt}>
-                    <Checkbox />${amt}
-                  </DropdownMenuItem>
-                ))}
+              <DropdownMenuItem onClick={() => setAmount("1")}>
+                      <Checkbox/> $1
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setAmount("2")}>
+                    <Checkbox/>$2
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setAmount("5")}>
+                      <Checkbox/>$5
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setAmount("10")}>
+                      <Checkbox/>$10
+                    </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -146,11 +181,11 @@ export default function EarningsDashboard() {
           <div className="overflow-y-auto max-h-[528px] border-[1px] rounded-xl ">
             <Card className="mt-6 p-6 shadow-lg border-none">
               <CardContent className="p-6 space-y-6">
-                {user && (
+                {donations && (
                   <div>
-                    {user?.donation.map((donation, index) => (
+                    {donations?.donation.map((donation, index) => (
                       <div
-                        key={user.donation + donation.id}
+                        key={donations.donation + donation.id}
                         className="flex pt-[24px] justify-between items-start px-[24px] pb-4 last:border-none">
                         <div>
                           <Link href={`/${donation.donor.id}`}>
@@ -184,9 +219,9 @@ export default function EarningsDashboard() {
         </div>
       ) : (
         <div>
-          {user?.code !== `JWT_EXPIRED` ? (
+          {donations?.code !== `JWT_EXPIRED` ? (
             <div className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2  whitespace-nowrap font-extrabold text-2xl">
-              Please Wait...
+              Please wait...
             </div>
           ) : (
             <Link

@@ -4,7 +4,6 @@ import PaymentDetails from "./PaymentDetails";
 import PersonalInfo from "./PersonalInfo";
 import SetSNewPassword from "./SetANewPassword";
 import SuccessPage from "./SuccessPage";
-import { data } from "../dashboard/page";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 type response = {
@@ -15,7 +14,7 @@ type response = {
 };
 export default function Settings() {
   const router = useRouter();
-  const [user, setUser] = useState<data>();
+  const [user, setUser] = useState();
   const [response, setresponse] = useState<response>();
 
   useEffect(() => {
@@ -39,7 +38,7 @@ export default function Settings() {
       router.push("/account/signin");
     }
   }, [response]);
-  return user?.success ? (
+  return  (
     <div className="w-[650px] ">
       <div className=" mb-[20px]  text-black font-semibold text-[24px]">
         My account
@@ -51,20 +50,22 @@ export default function Settings() {
         <SuccessPage user={user} />
       </div>
     </div>
-  ) : (
-    <div>
-      {user?.code !== `JWT_EXPIRED` ? (
-        <div className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2  whitespace-nowrap font-extrabold text-2xl">
-          Please Wait...
-        </div>
-      ) : (
-        <Link
-          className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-extrabold text-2xl"
-          href={`/account/signin`}
-        >
-          Please Login 💩
-        </Link>
-      )}
-    </div>
+  // ) : 
+  
+  //     (
+  //   <div>
+  //     {user?.code !== `JWT_EXPIRED` ? (
+  //       <div className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2  whitespace-nowrap font-extrabold text-2xl">
+  //         Please Login...
+  //       </div>
+  //     ) : (
+  //       <Link
+  //         className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-extrabold text-2xl"
+  //         href={`/account/signin`}
+  //       >
+  //         Please Login 💩
+  //       </Link>
+  //     )}
+  //   </div>
   );
 }

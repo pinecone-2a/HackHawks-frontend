@@ -1,14 +1,11 @@
 
-import { Navigation } from "../../_components/Navigation"
 import { FaRegCircleCheck } from "react-icons/fa6";
-import { NavigationProfile } from "../../_components/NavigationProfile";
 import Link from "next/link";
 
 
 export function DonationComplete () {
     return (
         <div className="">
-           <NavigationProfile/>
            <div className="flex justify-center  items-center mt-[133px]">
 
             <div className="w-[696px] h-[311px] p-[24px]">
@@ -26,7 +23,7 @@ export function DonationComplete () {
                 </div >
                     <div className="border-[#E4E4E7] border rounded-md h-[140px] mt-[24px] w-[510px] ml-[93px]">
                         <div className="flex pl-[12px] pt-[8px] pb-[8px] gap-[8px]">
-                        <img src="SpaceRangerAvatar.png" alt="" className="w-[32px] h-[32px]" />
+                        <img src="/img/space.png" alt="" className="w-[32px] h-[32px]" />
                         <p className="font-medium text-sm pt-[6px]">Space Ranger:</p>
 
                         </div>

@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import EditCover from "../view-page/_components/EditCover";
-import FrameEditPage from "../view-page/_components/FrameEditPage";
-import FrameViewDonation from "../view-page/_components/FrameViewDonation";
+import EditCover from "../../view-page/_components/EditCover";
+import FrameEditPage from "../../view-page/_components/FrameEditPage";
+import FrameViewDonation from "../../view-page/_components/FrameViewDonation";
 import { useParams } from "next/navigation";
 
 type user = {
@@ -24,17 +24,17 @@ export default function ViewPage() {
 
   const params = useParams();
   const { userId } = params;
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/auth/explore/${userId}`
-      );
-      const data = await res.json();
-      setUser(data);
-      console.log(data);
-    };
-    fetchData();
-  }, [count]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await fetch(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/users/auth/explore/${userId}`
+  //     );
+  //     const data = await res.json();
+  //     setUser(data);
+  //     console.log(data);
+  //   };
+  //   fetchData();
+  // }, [count]);
   return (
     <div className="">
       <div className="relative">

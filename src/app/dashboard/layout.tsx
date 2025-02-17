@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import SideBar from "../_components/SideBar";
-import { Navigation } from "../_components/Navigation";
-import { NavigationProfile } from "../_components/NavigationProfile";
+import Navigation from "../_components/NavigationProfile";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +24,12 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) 
+
+{
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
-      <NavigationProfile />
+      <Navigation />
       <div className="flex">
         <SideBar />
         <main className="flex-1 min-w-0 p-4">{children}</main>

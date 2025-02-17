@@ -1,104 +1,92 @@
 'use client';
-import { Navigation } from "../../_components/Navigation"
+
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { use, useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { DialogClose } from "@radix-ui/react-dialog";
+
+import { set } from "zod";
+import { DialogDemo } from "@/app/creator/QrCode";
 
 
 export function CreatorPage () {
+  const [donationData, setDonationData] = useState<any>([])
+  const [profileData, setProfileData] = useState<any>([]); 
+  const [donationAmout, setDonationAmout] = useState<string>("")
+  const [socialURL, setSocialURL] = useState<string>("")
+  const [specialMessage, setSpecialMessage] = useState<string>("")
 
-  const [profileData, setProfileData] = useState<any[]>([]); 
 
-  const {id} =useParams();   
-
-  console.log("profileData", profileData)   
-  console.log("id", id)
+  const {id} =useParams<any>();   
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchProfileData = async () => {
       const response = await fetch(`http://localhost:4000/profile/explore/${id}`);
       const data = await response.json();
      setProfileData(data)
     };
-    fetchData();
+
+    const fetchDonationData = async () => {
+      const response = await fetch(`http://localhost:4000/donation/creator/${id}`);
+      const data = await response.json();
+     setDonationData(data)
+    };
+
+    fetchDonationData()
+    fetchProfileData();
   }, []);
 
+  const onSocialChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
+    setSocialURL(e.target.value)
+  }
+  const onSpecialChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
+    setSpecialMessage(e.target.value)
+  }
+
+    console.log(socialURL)
+    console.log(specialMessage)
     return (
         <div className="">
-           <Navigation/>
-           <img src="CreatorPageBackground.png" alt="" className="w-full h-[319px]" />
+    
+           <img src="/img/background.png" alt="" className="w-full h-[319px]" />
 
            <div className="flex gap-8 justify-center w-screen h-full absolute mt-[-86px]">
            <div className="w-[632px] h-[775px] flex flex-col justify-between">
             <div className="rounded-lg border w-[100%] h-[273px] bg-white p-5">
                 <div className="gap-3 flex items-center">
-                  <div className="rounded-full w-[48px] h-[48px] bg-gray-300"></div>
-                  {/* <p className="text-[20px] font-semibold">{profileData?.name}</p> */}
+                <img src="/img/space.png" alt="avatar" className="w-[40px] h-[40px] rounded-full flex" />
+                  <p className="text-[20px] font-semibold">{profileData?.name}</p>
                 </div>
                 <div className="border-b w-[100%] h-[10%]"></div>
 
-                <p className="text-[16px] font-semibold mt-8">About Space ranger</p>
-                <p className="text-[14px] mt-3 h-[80px]">All day, every day, we're watching, listening to, reading and absorbing politics. It's exhausting. We then report on what we've seen in a way that's as chill as possible. None of the sensationalism and division you'll find elsewhere. It's about clarity, focus, approachability, and having a little wry smile almost all the time.</p>
+                <p className="text-[16px] font-semibold mt-8">About Space {profileData?.name}</p>
+                <p className="text-[14px] mt-3 h-[80px]">{profileData?.about}</p>  
 
             </div>
 
             <div className="rounded-lg border w-[100%] h-[116px] bg-white p-5 mt-[20px]">
                 <p className="text-[16px] font-semibold ">Social media URL</p>
-                <p className="text-[14px] mt-5">https://buymeacoffee.com/spacerulz44</p>
+                <p className="text-[14px] mt-5">https://buymeacoffee.com/{profileData?.name}</p>
             </div>
 
-            <div className="rounded-lg border w-[100%] h-[380px] bg-white p-5 snap-y mt-[30px]">
+            <div className="rounded-lg border w-[100%] h-[380px] bg-white p-5 snap-y mt-[30px] max-h-[346px]">
                 <p className="text-[16px] font-semibold mb-5">Recent supporters</p>
-
-                <div className="flex ">
-                    <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex pr-[40px]"></div>
-
+                {donationData?.map((donation: any)=>(  <div key={`creator-${donation?.id}`} className="flex ">
+                    <img src="/img/cn.png" alt="" className="w-[40px] h-[40px] flex "/>
                     <div className="flex flex-col  pl-[12px]">
                         <div className="flex gap-[4px] ">
-                        <p className="font-bold text-sm "> Guest </p>
-                        <p className="text-[14px]"> bought $1 coffee</p>
+                        <p className="font-bold text-sm ">{donation?.donor.profile.name}</p>
+                        <p className="text-[14px]"> bought ${donation?.amount} coffee</p>                          
                         </div>
 
-                     <p className="text-[14px]">Thank you for being so awesome everyday! You always manage to brighten up my day when I’m feeling down. Although $1 isn’t that much money it’s all I can <br /> contribute at the moment. </p>
+                     <p className="text-[14px]">{donation?.specialMessage}</p>
                     </div>
-                </div>
+                </div>))}
 
-                <div className="flex mt-[16px]">
-                <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex"></div>
-                
-                <div className="flex flex-col gap-3 pl-[12px] ">
-                        <div className="flex gap-[4px] ">
-                        <p className="font-bold text-sm "> John Doe </p>
-                        <p className="text-[14px]"> bought $5 coffee</p>
-                        </div>
-
-                     <p className="text-[14px]">Thank you for being so awesome everyday!  </p>
-                 </div>
-                </div>
-
-                <div className="flex mt-[16px]">
-                 <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex"></div>
-
-                 <div className="flex flex-col gap-3 pl-[12px] ">
-                        <div className="flex gap-[4px] pt-[10px] ">
-                          <p className="font-bold text-sm "> Jake </p>
-                          <p className="text-[14px]"> bought $10 coffee</p>
-                        </div>
-                 </div>
-                </div>
-
-                <div className="flex mt-[16px] ">
-                    <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex pr-[40px]"></div>
-
-                    <div className="flex flex-col  pl-[12px]">
-                        <div className="flex gap-[4px] ">
-                        <p className="font-bold text-sm "> Guest </p>
-                        <p className="text-[14px]"> bought $2 coffee</p>
-                        </div>
-
-                     <p className="text-[14px]">Thank you for being so awesome everyday! You always manage to brighten up my day when I’m feeling down. Although $1 isn’t that much money it’s all I can <br /> contribute at the moment. </p>
-                    </div>
-                </div>
 
 
             </div>
@@ -112,10 +100,10 @@ export function CreatorPage () {
                     <p className="font-medium text-sm">Select amount:</p>
 
                     <div className="w-[337px] flex justify-between mt-[8px] ">
-                    <button className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $1</button>
-                    <button className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $3</button>
-                    <button className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $5</button>
-                    <button className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $10</button>
+                    <button onClick={()=> setDonationAmout("1")} className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $1</button>
+                    <button onClick={()=> setDonationAmout("3")} className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $3</button>
+                    <button onClick={()=> setDonationAmout("5")} className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $5</button>
+                    <button onClick={()=> setDonationAmout("10")} className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $10</button>
                     </div>
                   </div>
 
@@ -123,26 +111,21 @@ export function CreatorPage () {
                     <p className="text-sm font-medium">Enter BuyMeCoffee or social acount URL:</p>
 
                     <div className="border-[#E4E4E7] border rounded-md h-[45px] mt-[8px] hover:border-black">
-                        <input type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-[570px] h-[40px] rounded-md pl-[12px]"/>
+                        <input onChange={onSocialChange} type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-[570px] h-[40px] rounded-md pl-[12px]"/>
                     </div>
                   </div>
 
-                  <div className=" h-[153px]">
+                  <div className=" h-[153px] w-[580px]">
                      <p className="text-sm font-medium mt-[20px]">Special message:</p>
-
-                     <div className="border-[#E4E4E7] border rounded-md h-[131px] mt-[8px] hover:border-black">
-                        <p className="font-normal text-sm pl-[12px] pt-[8px] ">Thank you for being so awesome everyday!</p>
-                    </div>
+                     <input onChange={onSpecialChange} className="border-[#E4E4E7] border rounded-md h-[131px] w-[580px] mt-[8px] hover:border-black" type="" placeholder="" />
+                     {/* <div className="border-[#E4E4E7] border rounded-md h-[131px] mt-[8px] hover:border-black"> */}
+                        {/* <p className="font-normal text-sm pl-[12px] pt-[8px] ">Thank you for being so awesome everyday!</p> */}
+                    {/* </div> */}
                   </div>
-
-                    <Link href="/dashboard" >
-                    <p className="w-[580px] h-[40px] bg-black rounded-md mt-[32px] text-white hover:bg-gray-900 flex justify-center pt-[8px]">Support</p>
-                    </Link>
+               <DialogDemo specialMessage={specialMessage } socialURL={socialURL} donationAmout={donationAmout} id={id}/>
            </div>
             </div>
            </div>
-
-
            </div>
     )
 }

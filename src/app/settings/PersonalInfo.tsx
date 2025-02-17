@@ -8,12 +8,12 @@ export default function PersonalInfo() {
     const [profileData, setProfileData] = useState([]);
 
 
-    const localId = localStorage.getItem("userId");
+    // const localId = localStorage.getItem("userId");
 
     useEffect(() => {
         const fetchData = async () => {
 
-            const response = await fetch(`http://localhost:4000/profile/${localId}`);
+            const response = await fetch(`http://localhost:4000/profile/`);
             const data = await response.json();
             setProfileData(data)
         }

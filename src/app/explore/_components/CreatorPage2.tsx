@@ -1,21 +1,18 @@
 
-import { Navigation } from "../../_components/Navigation"
 import { FaHeart } from "react-icons/fa";
 import Link from "next/link";
-import { NavigationProfile } from "../../_components/NavigationProfile";
-// import { QrCode } from "./QrCode";
+
 
 export function CreatorPage2 () {
     return (
         <div className="">
-           <NavigationProfile/>
-           <img src="CreatorPageBackground.png" alt="" className="w-full h-[319px]" />
+           <img src="/img/background.png" alt="" className="w-full h-[319px]"/>
 
            <div className="flex gap-8 justify-center w-screen h-full absolute mt-[-86px]">
            <div className="w-[632px] h-[660px] flex flex-col justify-between">
             <div className="rounded-lg border w-[100%] h-[273px] bg-white p-5">
                 <div className="gap-3 flex items-center">
-                  <div className="rounded-full w-[48px] h-[48px] bg-gray-300"></div>
+                  <img src="space-avatar.png" alt="" className="w-[48px] h-[48px]" />
                   <p className="text-[20px] font-semibold">Space ranger</p>
                 </div>
                 <div className="border-b w-[100%] h-[10%]"></div>
@@ -41,13 +38,8 @@ export function CreatorPage2 () {
                 <div className="flex items-center justify-center mt-[20px]">
                   <p className="font-semibold text-base ">Be the first one to support Jake</p>
                 </div>
-
-
                     </div>
-                
                 </div>
-
-
             </div>
            </div>
 
@@ -67,7 +59,7 @@ export function CreatorPage2 () {
                   </div>
 
                   <div className="mt-[32px] w-[580px] h-[62px]">
-                    <p className="text-sm font-medium">Enter BuyMeCoffee or social acount URL:</p>
+                    <p className="text-sm font-medium">Enter BuyMeCoffee or social account URL:</p>
 
                     <div className="border-[#E4E4E7] border rounded-md h-[45px] mt-[8px] hover:border-black">
                         <input type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-[570px] h-[40px] rounded-md pl-[12px]"/>
@@ -83,15 +75,13 @@ export function CreatorPage2 () {
                   </div>
 
                   <div>
-                   <Link href="/dashboard">
+                   <Link href="">
                      <p className="w-[580px] h-[40px] bg-black rounded-md mt-[32px] text-white hover:bg-gray-900 flex justify-center pt-[8px]">Support</p>
                    </Link>
                   </div>
            </div>
             </div>
-           </div>
-
-
-           </div>
+         </div>
+       </div>
     )
 }

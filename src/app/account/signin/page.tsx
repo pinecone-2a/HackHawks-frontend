@@ -24,9 +24,8 @@ export type response = {
   };
 };
 export default function Signin() {
-  const [responses, setResponse] = useState<response>({ message: "WAITING" });
-  const [noreponse, setnoreponse] = useState("");
-  const [isResponded, setisResponded] = useState<boolean>(false);
+  const [responses, setResponse] = useState<{ message: string, success: boolean, profileSetup?: boolean, data?: { id: string } }>({ message: "WAITING", success: false });
+  const [isResponded, setIsResponded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
   const [login, setLogin] = useState({
@@ -36,40 +35,29 @@ export default function Signin() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-    setLogin((p) => {
-      return {
-        ...p,
-        [name]: value,
-      };
-    });
+    setLogin((prev) => ({ ...prev, [name]: value }));
   };
+
   const sendData = async () => {
     setIsLoading(true);
     try {
-      const send = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/sign-in`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(login),
-          credentials: "include",
-        }
-      );
+      const send = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/sign-in`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(login),
+        credentials: "include",
+      });
       const response = await send.json();
       setResponse(response);
       setIsLoading(false);
-      if (response.data.id) {
-        localStorage.setItem("userId", response.data.id);
-      }
     } catch (e) {
-      console.error(e, "server hariu ogsongu");
-      setResponse({ message: "SERVER_NOT_RESPONDING" });
-      // setnoreponse(e.message);
+      console.error("Server error:", e);
+      setResponse({ message: "SERVER_NOT_RESPONDING", success: false });
     }
   };
-  console.log(responses);
+
   useEffect(() => {
     if (responses.success) {
       if (responses.profileSetup) {
@@ -78,7 +66,8 @@ export default function Signin() {
         router.push(`/profile-setup`);
       }
     }
-  }, [responses, router])
+  }, [responses, router]);
+
   return (
     <div className="relative min-h-screen w-full">
       <div className="flex justify-end p-10">
@@ -116,12 +105,13 @@ export default function Signin() {
           disabled={isLoading}
           onClick={() => {
             sendData();
-            setisResponded(true);
+            setIsResponded(true);
           }}
-          className="w-full text-background">
+          className="w-full text-background"
+        >
           {isLoading ? <div>Please Wait</div> : <div>Continue</div>}
         </Button>
-      
+
         <Dialog>
           <DialogTrigger>Forgot Password?</DialogTrigger>
           <DialogContent>
@@ -129,21 +119,20 @@ export default function Signin() {
             <ResetPassword />
           </DialogContent>
         </Dialog>
+
         <div>
           {isResponded && (
             <div>
-              {responses?.success ? (
+              {responses.success ? (
                 <div className="text-green-500">Амжилттай!</div>
               ) : (
                 <div className="flex items-center gap-2">
                   {responses?.message ? (
                     <div className="text-red-500">
-                      {responses.message === "WRONG_PASSWORD" &&
-                        "Буруу password оруулсан байна"}
-                      {responses.message === "NOT_REGISTERED" &&
-                        "Бүртгэлгүй хэрэглэгч байна"}
-                      {responses.message === "SERVER_NOT_RESPONDING" &&
-                        "Server hariu ogsongui!"}
+                      {responses.message === "WRONG_PASSWORD" && "Буруу нууц үг оруулсан байна."}
+                      {responses.message === "WRONG_EMAIL" && "Буруу и-мэйл хаяг оруулсан байна."}
+                      {responses.message === "NOT_REGISTERED" && "Бүртгэлгүй хэрэглэгч байна."}
+                      {responses.message === "SERVER_NOT_RESPONDING" && "Сервер хариу өгсөнгүй."}
                     </div>
                   ) : (
                     <>
