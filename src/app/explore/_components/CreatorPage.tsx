@@ -25,13 +25,13 @@ export function CreatorPage () {
 
   useEffect(() => {
     const fetchProfileData = async () => {
-      const response = await fetch(`http://localhost:4000/profile/explore/${id}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/explore/${id}`);
       const data = await response.json();
      setProfileData(data)
     };
 
     const fetchDonationData = async () => {
-      const response = await fetch(`http://localhost:4000/donation/creator/${id}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/donation/creator/${id}`);
       const data = await response.json();
      setDonationData(data)
     };
@@ -63,7 +63,7 @@ export function CreatorPage () {
                 </div>
                 <div className="border-b w-[100%] h-[10%]"></div>
 
-                <p className="text-[16px] font-semibold mt-8">About Space {profileData?.name}</p>
+                <p className="text-[16px] font-semibold mt-8">About Space{profileData?.name}</p>
                 <p className="text-[14px] mt-3 h-[80px]">{profileData?.about}</p>  
 
             </div>

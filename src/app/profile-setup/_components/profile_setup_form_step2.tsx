@@ -111,7 +111,6 @@ export default function ProfileSetup2() {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
-      credentials: "include",
       body: JSON.stringify(form1),
     });
     const response = await res.json();
@@ -121,13 +120,7 @@ export default function ProfileSetup2() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-<<<<<<< HEAD
-      body: JSON.stringify({
-        ...form2,userId
-      }),
-=======
       body: JSON.stringify(form2),
->>>>>>> main
     });
     const response2 = await res2.json();
     console.log("card response", response2);
