@@ -43,17 +43,14 @@ export default function SignupStep2() {
   const sendForm = async () => {
     setLoading(true);
     try {
-      const send = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/sign-up`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        }
-      );
+      const send = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/sign-up`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
       const response = await send.json();
       setResponse(response);
-      // localStorage.setItem("userId", response.id);
+      localStorage.setItem("userId", response.id);
       if (response.success) {
         setTimeout(() => {
           router.push(`/account/signin`);
@@ -88,38 +85,21 @@ export default function SignupStep2() {
       <div className="relative min-h-screen w-full">
         <div className="flex justify-end p-10">
           <Link href={`/account/signin`}>
-            <Button className="bg-secondary text-foreground hover:bg-foreground hover:text-background">
-              Log in
-            </Button>
+            <Button className="bg-secondary text-foreground hover:bg-foreground hover:text-background">Log in</Button>
           </Link>
         </div>
         <div className="w-[407px] h-[256px] absolute flex flex-col gap-3 justify-evenly top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className="">
             <h3 className="font-bold text-2xl">Welcome, {form.username}</h3>
-            <p className="text-muted-foreground text-sm">
-              Connect email and set a password
-            </p>
+            <p className="text-muted-foreground text-sm">Connect email and set a password</p>
           </div>
           <div>
             <label htmlFor="email">Email</label>
-            <Input
-              defaultValue={form.email}
-              onChange={handleChange}
-              name="email"
-              id="email"
-              placeholder="Enter email here"
-            />
+            <Input defaultValue={form.email} onChange={handleChange} name="email" id="email" placeholder="Enter email here" />
           </div>
           <div>
             <label htmlFor="password">Password</label>
-            <Input
-              defaultValue={form.password}
-              onChange={handleChange}
-              name="password"
-              type="password"
-              id="password"
-              placeholder="Enter password here"
-            />
+            <Input defaultValue={form.password} onChange={handleChange} name="password" type="password" id="password" placeholder="Enter password here" />
           </div>
 
           <Button
@@ -132,8 +112,7 @@ export default function SignupStep2() {
                 sendForm();
               }
             }}
-            className="w-full text-background"
-          >
+            className="w-full text-background">
             Continue
           </Button>
 
@@ -141,11 +120,7 @@ export default function SignupStep2() {
             {loading && (
               <div>
                 {response ? (
-                  <div className="text-red-500">
-                    {response.success
-                      ? "amjilttai burtgegdelee"
-                      : "Ali hediin burtgeltei bn"}
-                  </div>
+                  <div className="text-red-500">{response.success ? "amjilttai burtgegdelee" : "Ali hediin burtgeltei bn"}</div>
                 ) : (
                   <div className="flex items-center gap-2">
                     Checking...
