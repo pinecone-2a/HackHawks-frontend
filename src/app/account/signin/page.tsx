@@ -47,7 +47,7 @@ export default function Signin() {
     setIsLoading(true);
     try {
       const send = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/auth/sign-in`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/sign-in`,
         {
           method: "POST",
           headers: {
