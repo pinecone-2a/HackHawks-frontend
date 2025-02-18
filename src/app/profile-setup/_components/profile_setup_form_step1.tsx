@@ -45,14 +45,8 @@ export default function ProfileSetup1() {
     about: "",
     socialMediaURL: "",
     avatarImage: "",
-    
   });
-  // let errors = {
-  //   name: false,
-  //   about: false,
-  //   socialMediaURL: false,
-  //   avatarImage: false,
-  // };
+
   useEffect(() => {
     const step1String = localStorage.getItem("step1");
     const step1 = step1String ? JSON.parse(step1String) : "";
@@ -61,9 +55,7 @@ export default function ProfileSetup1() {
     }
     // if()
   }, []);
-  const handleForm = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleForm = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value = e.target.value;
     const field = e.target.name;
     setForm((prev) => {
@@ -157,8 +149,7 @@ export default function ProfileSetup1() {
               socialMediaURL: "",
               avatarImage: "",
             });
-          }}
-        >
+          }}>
           Reset
         </button>
       </div>
@@ -170,17 +161,10 @@ export default function ProfileSetup1() {
                 handleInput();
               }}
               className={`border w-40 h-40 rounded-full content-center text-center border-dashed 
-            }`}
-            >
+            }`}>
               Add image
             </div>
-            {check && (
-              <div className="text-red-500 whitespace-nowrap">
-                {validationResult.errors.avatarImage && (
-                  <p>Please upload profile picture!</p>
-                )}
-              </div>
-            )}
+            {check && <div className="text-red-500 whitespace-nowrap">{validationResult.errors.avatarImage && <p>Please upload profile picture!</p>}</div>}
           </div>
         ) : (
           <>
@@ -209,54 +193,18 @@ export default function ProfileSetup1() {
       <div className="flex flex-col gap-10">
         <div className="flex flex-col  font-semibold">
           <label htmlFor="">Name</label>
-          <Input
-            onChange={handleForm}
-            name="name"
-            defaultValue={form.name}
-            placeholder="Enter your name here"
-            className={`h-10 `}
-          />
-          {check && (
-            <div className="text-red-500">
-              {validationResult.errors.name && !isValid && (
-                <p>username must be 8+ characters!</p>
-              )}
-            </div>
-          )}
+          <Input onChange={handleForm} name="name" defaultValue={form.name} placeholder="Enter your name here" className={`h-10 `} />
+          {check && <div className="text-red-500">{validationResult.errors.name && !isValid && <p>username must be 8+ characters!</p>}</div>}
         </div>
         <div className="flex flex-col font-semibold">
           <label htmlFor="">About</label>
-          <Textarea
-            onChange={handleForm}
-            name="about"
-            defaultValue={form.about}
-            className={`border h-[130px] `}
-            placeholder="Write about yourself here"
-          />
-          {check && (
-            <div className="text-red-500">
-              {validationResult.errors.about && (
-                <p>Please enter info about yourself!</p>
-              )}
-            </div>
-          )}
+          <Textarea onChange={handleForm} name="about" defaultValue={form.about} className={`border h-[130px] `} placeholder="Write about yourself here" />
+          {check && <div className="text-red-500">{validationResult.errors.about && <p>Please enter info about yourself!</p>}</div>}
         </div>
         <div className="font-semibold">
           <label htmlFor="">Social media URL</label>
-          <Input
-            className={``}
-            onChange={handleForm}
-            name="socialMediaURL"
-            defaultValue={form.socialMediaURL}
-            placeholder="https://"
-          />
-          {check && (
-            <div className="text-red-500">
-              {validationResult.errors.socialMediaURL && (
-                <p>Please enter a valid social link!</p>
-              )}
-            </div>
-          )}
+          <Input className={``} onChange={handleForm} name="socialMediaURL" defaultValue={form.socialMediaURL} placeholder="https://" />
+          {check && <div className="text-red-500">{validationResult.errors.socialMediaURL && <p>Please enter a valid social link!</p>}</div>}
         </div>
       </div>
       <div className="flex justify-end">
@@ -285,11 +233,7 @@ export default function ProfileSetup1() {
           }`}
         > */}
         <Button
-          className={`w-[236px] ${
-            !isValid
-              ? `bg-muted text-background cursor-not-allowed hover:text-background hover:bg-muted-foreground`
-              : `bg-foreground text-background`
-          }`}
+          className={`w-[236px] ${!isValid ? `bg-muted text-background cursor-not-allowed hover:text-background hover:bg-muted-foreground` : `bg-foreground text-background`}`}
           disabled={!isValid || loading}
           onClick={(e) => {
             if (isValid && !loading) {
@@ -307,8 +251,7 @@ export default function ProfileSetup1() {
               console.log("pervented");
               console.log(validationResult.errors);
             }
-          }}
-        >
+          }}>
           Continue
         </Button>
         {/* </Link> */}

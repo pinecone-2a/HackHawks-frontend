@@ -129,17 +129,7 @@ export default function ProfileSetup2() {
       router.push(`/dashboard`);
     }
   };
-  // useEffect(() => {
-  //   setCardExpiryDate(month + " 1 " + year);
-  //   const date = new Date(cardExpiryDate);
-  //   if (typeof date === Date()) {
-  //     setForm2({
-  //       ...form2,
-  //       expiryDate: date,
-  //     });
-  //   }
-  //   console.log(date);
-  // }, [month, year]);
+
   console.log(form2);
   return (
     <div className="w-[510px] h-[631px] flex flex-col gap-10">
