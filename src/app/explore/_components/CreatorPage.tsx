@@ -109,7 +109,7 @@ export function CreatorPage () {
 
 
                   <div className="mt-[32px] w-[580px] h-[62px]">
-                    <p className="text-sm font-medium">Enter BuyMeCoffee or social acount URL:</p>
+                    <p className="text-sm font-medium">Enter BuyMeCoffee or social account URL:</p>
 
                     <div className="border-[#E4E4E7] border rounded-md h-[45px] mt-[8px] hover:border-black">
                         <input onChange={onSocialChange} type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-[570px] h-[40px] rounded-md pl-[12px]"/>
