@@ -21,7 +21,7 @@ export function CreatorPage () {
   const [specialMessage, setSpecialMessage] = useState<string>("")
 
 
-  const {id} =useParams<any>();   
+  const { id } = useParams<{ id: string }>();   
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -119,14 +119,12 @@ export function CreatorPage () {
                   <div className=" h-[153px] w-[580px]">
                         <p className="text-sm font-medium mt-[20px]">Special message:</p>
                       <input onChange={onSpecialChange} className="border-[#E4E4E7] border rounded-md h-[131px] w-[580px] mt-[8px] hover:border-black  pb-[90px] pl-[10px]" type="text" placeholder="Thank you for being so awesome everyday!"  />
+  
 
                   </div>
 
                 <DialogDemo specialMessage={specialMessage } socialURL={socialURL} donationAmount={donationAmount} id={id}/>
-                <div className="flex justify-center items-center mt-[20px] bg-black  text-white w-[580px] h-[45px] rounded-md">
-                  <Button>Buy me coffee</Button>
 
-                </div>
                 
             </div>
             </div>
