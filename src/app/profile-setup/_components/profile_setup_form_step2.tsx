@@ -97,19 +97,16 @@ export default function ProfileSetup2() {
   };
   useEffect(() => {
     const formString = localStorage.getItem("step1");
-    const localId = localStorage.getItem("userId");
     const formL = formString ? JSON.parse(formString) : {};
     setForm1(formL);
-    if (localId) {
-      setUserId(localId);
-    }
+
   }, []);
   const sendDatas = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/create`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form1, userId }),
+      body: JSON.stringify(form1),
     });
     const response = await res.json();
     console.log("profile response", response);
@@ -120,7 +117,7 @@ export default function ProfileSetup2() {
       credentials: "include",
       body: JSON.stringify({
         ...form2,
-        userId,
+     
       }),
     });
     const response2 = await res2.json();
@@ -130,7 +127,7 @@ export default function ProfileSetup2() {
     }
   };
 
-  console.log(form2);
+  console.log(form1);
   return (
     <div className="w-[510px] h-[631px] flex flex-col gap-10">
       <div>
