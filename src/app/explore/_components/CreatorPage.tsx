@@ -10,13 +10,13 @@ import { Input } from "@/components/ui/input";
 import { DialogClose } from "@radix-ui/react-dialog";
 
 import { set } from "zod";
-import { DialogDemo } from "@/app/creator/QrCode";
+import { DialogDemo } from "@/app/creator/QrCodeDialog";
 
 
 export function CreatorPage () {
   const [donationData, setDonationData] = useState<any>([])
   const [profileData, setProfileData] = useState<any>([]); 
-  const [donationAmout, setDonationAmout] = useState<string>("")
+  const [donationAmount, setDonationAmount] = useState<string>("")
   const [socialURL, setSocialURL] = useState<string>("")
   const [specialMessage, setSpecialMessage] = useState<string>("")
 
@@ -27,13 +27,13 @@ export function CreatorPage () {
     const fetchProfileData = async () => {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/explore/${id}`);
       const data = await response.json();
-     setProfileData(data)
+      setProfileData(data)
     };
 
     const fetchDonationData = async () => {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/donation/creator/${id}`);
       const data = await response.json();
-     setDonationData(data)
+      setDonationData(data)
     };
 
     fetchDonationData()
@@ -52,10 +52,10 @@ export function CreatorPage () {
     return (
         <div className="">
     
-           <img src="/CreatorPageBackground.png" alt="" className="w-full h-[319px]" />
+            <img src="/CreatorPageBackground.png" alt="" className="w-full h-[319px]" />
 
-           <div className="flex gap-8 justify-center w-screen h-full absolute mt-[-86px]">
-           <div className="w-[632px] h-[775px] flex flex-col justify-between">
+            <div className="flex gap-8 justify-center w-screen h-full absolute mt-[-86px]">
+                <div className="w-[632px] h-[775px] flex flex-col justify-between">
             <div className="rounded-lg border w-[100%] h-[273px] bg-white p-5">
                 <div className="gap-3 flex items-center">
                 <img src="/Profile.png" alt="avatar" className="w-[40px] h-[40px] rounded-full flex" />
@@ -63,7 +63,7 @@ export function CreatorPage () {
                 </div>
                 <div className="border-b w-[100%] h-[10%]"></div>
 
-                <p className="text-[16px] font-semibold mt-8">About Space{profileData?.name}</p>
+                <p className="text-[16px] font-semibold mt-8">About Space {profileData?.name}</p>
                 <p className="text-[14px] mt-3 h-[80px]">{profileData?.about}</p>  
 
             </div>
@@ -83,47 +83,50 @@ export function CreatorPage () {
                         <p className="text-[14px]"> bought ${donation?.amount} coffee</p>                          
                         </div>
 
-                     <p className="text-[14px]">{donation?.specialMessage}</p>
+                      <p className="text-[14px]">{donation?.specialMessage}</p>
                     </div>
                 </div>))}
-
-
-
             </div>
-           </div>
+            </div>
 
-           <div className="rounded-lg border w-[650px] h-[509px] bg-white p-6">
-           <div className="gap-3 ml-[10px] w-[580px] ">
+
+            <div className="rounded-lg border w-[650px] h-[509px] bg-white p-6">
+            <div className="gap-3 ml-[10px] w-[580px] ">
                   <p className="text-[24px] font-semibold mb-[24px]">Buy Space ranger a Coffee</p>
 
-                  <div>
-                    <p className="font-medium text-sm">Select amount:</p>
-
-                    <div className="w-[337px] flex justify-between mt-[8px] ">
-                    <button onClick={()=> setDonationAmout("1")} className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $1</button>
-                    <button onClick={()=> setDonationAmout("3")} className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $3</button>
-                    <button onClick={()=> setDonationAmout("5")} className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $5</button>
-                    <button onClick={()=> setDonationAmout("10")} className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $10</button>
-                    </div>
+                  <div className="mb-4">
+                    <h3 className="text-sm font-medium">Select amount:</h3>
+                    <div className="flex gap-2 mt-2">
+                      {[1, 2, 5, 10].map((amount) => (
+                          <button key={amount} className="px-4 py-2 flex items-center gap-2 border rounded-lg hover:bg-gray-100 focus:ring-1 focus:ring-black">
+                            ☕ ${amount}
+                          </button>
+                      ))}
                   </div>
+                </div>
+                  
+
+
 
                   <div className="mt-[32px] w-[580px] h-[62px]">
                     <p className="text-sm font-medium">Enter BuyMeCoffee or social acount URL:</p>
 
                     <div className="border-[#E4E4E7] border rounded-md h-[45px] mt-[8px] hover:border-black">
-                        {/* <input onChange={onSocialChange} type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-[570px] h-[40px] rounded-md pl-[12px]"/> */}
+                        <input onChange={onSocialChange} type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-[570px] h-[40px] rounded-md pl-[12px]"/>
                     </div>
                   </div>
 
                   <div className=" h-[153px] w-[580px]">
-                     <p className="text-sm font-medium mt-[20px]">Special message:</p>
-                     {/* <input onChange={onSpecialChange} className="border-[#E4E4E7] border rounded-md h-[131px] w-[580px] mt-[8px] hover:border-black  pb-[90px] pl-[10px]" type="text" placeholder="Thank you for being so awesome everyday!"  /> */}
+                        <p className="text-sm font-medium mt-[20px]">Special message:</p>
+                      <input onChange={onSpecialChange} className="border-[#E4E4E7] border rounded-md h-[131px] w-[580px] mt-[8px] hover:border-black  pb-[90px] pl-[10px]" type="text" placeholder="Thank you for being so awesome everyday!"  />
 
                   </div>
-               <DialogDemo specialMessage={specialMessage } socialURL={socialURL} donationAmout={donationAmout} id={id}/>
-           </div>
+
+                <DialogDemo specialMessage={specialMessage } socialURL={socialURL} donationAmount={donationAmount} id={id}/>
+                
             </div>
-           </div>
-           </div>
+            </div>
+          </div>
+ </div>
     )
 }
