@@ -66,6 +66,7 @@ export default function SignupStep1() {
     localStorage.setItem("signup-info", JSON.stringify(form));
   };
   console.log(form);
+  console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
   return (
     <div className="relative min-h-screen w-full">
       <div className="flex justify-end p-10">

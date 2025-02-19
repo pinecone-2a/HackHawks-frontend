@@ -80,6 +80,7 @@ export default function SignupStep2() {
       clearTimeout(timeout);
     };
   }, [form]);
+  console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
 
   return (
     form.username && (
