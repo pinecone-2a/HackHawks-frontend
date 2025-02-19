@@ -123,6 +123,10 @@ export function CreatorPage () {
                   </div>
 
                 <DialogDemo specialMessage={specialMessage } socialURL={socialURL} donationAmount={donationAmount} id={id}/>
+                <div className="flex justify-center items-center mt-[20px] bg-black  text-white w-[580px] h-[45px] rounded-md">
+                  <Button>Buy me coffee</Button>
+
+                </div>
                 
             </div>
             </div>
