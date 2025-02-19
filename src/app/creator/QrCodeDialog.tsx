@@ -52,7 +52,7 @@ export function DialogDemo({ specialMessage, socialURL, donationAmount, id }: Di
   return (
     <Dialog open={open}>
       <DialogTrigger asChild>
-        <Button disabled={donationAmount === "" || specialMessage === "" || socialURL === ""} onClick={onSupport} className="w-[580px] h-[40px] mt-[32px] bg-black text-white hover:bg-[#343434]" variant="outline">Support</Button>
+        <Button disabled={donationAmount === "" || specialMessage === "" || socialURL === ""} onClick={onSupport} className="w-[580px] h-[40px] mt-[32px] bg-yellow-600 text-white hover:bg-[#343434]" variant="outline">Support</Button>
       </DialogTrigger>
       <DialogContent className=" bg-white rounded-xl shadow-2xl pt-[150px] flex-col  border-2 flex justify-center ">
         <DialogHeader className="flex justify-center items-center">
@@ -70,8 +70,8 @@ export function DialogDemo({ specialMessage, socialURL, donationAmount, id }: Di
           
         </DialogHeader>
         <DialogFooter className="flex justify-center">
-        <div className="w-[240px] h-[240px] flex justify-center mt-[40px]  mb-[40px]">
-            <img src="/img/Qr-Code.png" alt="" />
+        <div className="w-[240px] h-[240px] flex justify-center mt-[40px]  mb-[40px] ">
+            <img src="/Qr-Code.png" alt="" />
           </div>
 
         </DialogFooter>
