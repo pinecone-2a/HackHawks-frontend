@@ -37,7 +37,7 @@ export default function FrameEditPage({ user }: Props) {
   }
 
   return (
-    <div className="max-w-[632px]">
+    <div className="min-w-[632px] ">
       
       
       <div className="bg-white border border-[#E4E4E7] rounded-lg p-6">
@@ -81,7 +81,7 @@ export default function FrameEditPage({ user }: Props) {
 
      
       {user.socialMediaURL && (
-        <div className="bg-white border border-[#E4E4E7] rounded-lg p-6">
+        <div className="bg-white border border-[#E4E4E7] rounded-lg p-6 pt-5 mt-5">
           <h2 className="text-lg font-semibold">Social Media</h2>
           <a href={user.socialMediaURL} target="_blank" className="text-blue-500">
             {user.socialMediaURL}
@@ -90,11 +90,12 @@ export default function FrameEditPage({ user }: Props) {
       )}
 
       
-      <div className="bg-white border border-[#E4E4E7] rounded-lg p-6 text-start">
+      <div className="bg-white border border-[#E4E4E7] rounded-lg p-6 text-start mt-5">
         <h3 className="text-lg font-semibold">Recent Supporters</h3>
         <div className="bg-white border border-[#E4E4E7] rounded-lg p-6 text-center">
+        <p className="font-black">🖤</p>
           <p className="text-gray-500">Be the first one to support {user.name} </p>
-          <p className="font-black">🖤</p>
+          
 
         </div>
       </div>

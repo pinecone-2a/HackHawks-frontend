@@ -37,7 +37,7 @@ export default function ViewPage() {
       </div>
       <div className="relative flex justify-center">
         
-        <div className="flex flex-col items-center xl:flex-row gap-20 absolute -top-10">
+        <div className="flex flex-col xl:justify-center xl:flex-row gap-5 absolute -top-20">
           <FrameEditPage user={user} />
           <FrameViewDonation />
         </div>
