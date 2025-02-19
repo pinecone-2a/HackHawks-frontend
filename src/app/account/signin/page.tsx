@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ResetPassword } from "../_components/resetpassword";
+import SkeletonOne from "@/app/_components/Skeleton";
 export type response = {
   message: string;
   success?: boolean;
@@ -100,7 +101,7 @@ export default function Signin() {
             placeholder="Enter password here"
           />
         </div>
-       
+
         <Button
           disabled={isLoading}
           onClick={() => {
@@ -109,7 +110,7 @@ export default function Signin() {
           }}
           className="w-full text-background"
         >
-          {isLoading ? <div>Please Wait</div> : <div>Continue</div>}
+          {isLoading ? <SkeletonOne /> : <div>Continue</div>}
         </Button>
 
         <Dialog>

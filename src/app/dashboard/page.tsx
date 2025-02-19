@@ -9,6 +9,7 @@ import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { cookies } from "next/headers";
+import SkeletonOne from "../_components/Skeleton";
 
 interface donationsProfile {
   name: string;
@@ -181,7 +182,8 @@ export default function EarningsDashboard() {
       ) : (
         <div>
           {donations?.code !== `JWT_EXPIRED` ? (
-            <div className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2  whitespace-nowrap font-extrabold text-2xl">Please wait...</div>
+            // <div className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2  whitespace-nowrap font-extrabold text-2xl">Please wait...</div>
+            <SkeletonOne />
           ) : (
             <Link className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-extrabold text-2xl" href={`/account/signin`}>
               Please Login 💩

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CameraIcon } from "@heroicons/react/24/outline";
 import { CldImage } from "next-cloudinary";
 import EditProfile from "@/app/_components/EditProfile";
+import SkeletonOne from "@/app/_components/Skeleton";
 type user = {
   id: string;
   name: string;
@@ -22,10 +23,10 @@ export default function FrameEditPage(props: Props) {
   const [image, setImage] = useState<string | null>(null);
   const [about, setAbout] = useState("I'm a typical person who enjoys exploring different things. I also make music art as a hobby. Follow me along.");
 
- 
+
 
   if (!props.user) {
-    return <div className=" max-w-[632px] bg-white border border-[#E4E4E7] rounded-lg p-6"> Loading</div>;
+    return <SkeletonOne />
   }
   return (
     <div className="max-w-[632px]">
