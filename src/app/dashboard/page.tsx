@@ -86,11 +86,6 @@ export default function EarningsDashboard() {
     fetchProfileData();
   }, []);
 
-<<<<<<< HEAD
- 
-=======
-  
->>>>>>> main
   return (
     <div className="h-screen">
       {donations?.success ? (
