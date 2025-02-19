@@ -47,11 +47,11 @@ export default function SignupStep2() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
-        credentials: "include"
+        credentials: "include",
       });
       const response = await send.json();
       setResponse(response);
-      
+
       if (response.success) {
         setTimeout(() => {
           router.push(`/account/signin`);
