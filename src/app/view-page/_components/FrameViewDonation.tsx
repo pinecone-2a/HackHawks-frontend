@@ -21,7 +21,7 @@ export default function FrameViewDonation() {
         <h3 className="text-sm font-medium">Select amount:</h3>
         <div className="flex gap-2 mt-2">
           {[1, 2, 5, 10].map((amount) => (
-            <button key={amount} className="px-4 py-2 flex items-center gap-2 border rounded-lg hover:bg-gray-100 focus:ring-2 focus:ring-gray-300">
+            <button key={amount} className="px-4 py-2 flex items-center gap-2 border rounded-lg hover:bg-gray-100 focus:ring-1 focus:ring-black">
               ☕ ${amount}
             </button>
           ))}

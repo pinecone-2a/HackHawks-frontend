@@ -7,10 +7,7 @@ import { CldImage } from "next-cloudinary";
 import Image from "next/image";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-// type EditCoverProps = {
 
-//   user: Props
-// };
 
 type user = {
   id: string;

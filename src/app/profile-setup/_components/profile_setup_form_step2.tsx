@@ -101,6 +101,8 @@ export default function ProfileSetup2() {
     setForm1(formL);
 
   }, []);
+
+  console.log(paymentSchema)
   const sendDatas = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/create`, {
       method: "POST",
