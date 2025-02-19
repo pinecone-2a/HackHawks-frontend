@@ -124,6 +124,13 @@ export function CreatorPage () {
                   </div>
 
                 <DialogDemo specialMessage={specialMessage } socialURL={socialURL} donationAmount={donationAmount} id={id}/>
+                <div className="">
+                  <Button className="mt-[20px] w-[580px] h-[40px] bg-[#FFDD00] text-black">Send</Button>
+                  <div>
+                    <p className="mt-[20px] text-sm">By clicking send you agree to the <a href="#" className="text-[#FFDD00]">terms and conditions</a> of Space Ranger</p>
+                  </div>
+
+                </div>
 
                 
             </div>
