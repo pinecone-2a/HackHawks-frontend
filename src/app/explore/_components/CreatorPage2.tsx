@@ -74,7 +74,7 @@ export function CreatorPage2 () {
                   </div>
 
                   <div>
-                   <Link href="/creator/QrCode">
+                   <Link href="">
                      <p className="w-[580px] h-[40px] bg-black rounded-md mt-[32px] text-white hover:bg-[#343434] flex justify-center pt-[8px]">Support</p>
                    </Link>
                   </div>
