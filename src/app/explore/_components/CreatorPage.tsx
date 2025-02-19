@@ -111,13 +111,13 @@ export function CreatorPage () {
                     <p className="text-sm font-medium">Enter BuyMeCoffee or social acount URL:</p>
 
                     <div className="border-[#E4E4E7] border rounded-md h-[45px] mt-[8px] hover:border-black">
-                        <input onChange={onSocialChange} type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-[570px] h-[40px] rounded-md pl-[12px]"/>
+                        {/* <input onChange={onSocialChange} type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-[570px] h-[40px] rounded-md pl-[12px]"/> */}
                     </div>
                   </div>
 
                   <div className=" h-[153px] w-[580px]">
                      <p className="text-sm font-medium mt-[20px]">Special message:</p>
-                     <input onChange={onSpecialChange} className="border-[#E4E4E7] border rounded-md h-[131px] w-[580px] mt-[8px] hover:border-black  pb-[90px] pl-[10px]" type="text" placeholder="Thank you for being so awesome everyday!"  />
+                     {/* <input onChange={onSpecialChange} className="border-[#E4E4E7] border rounded-md h-[131px] w-[580px] mt-[8px] hover:border-black  pb-[90px] pl-[10px]" type="text" placeholder="Thank you for being so awesome everyday!"  /> */}
 
                   </div>
                <DialogDemo specialMessage={specialMessage } socialURL={socialURL} donationAmout={donationAmout} id={id}/>
