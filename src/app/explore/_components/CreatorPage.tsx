@@ -105,7 +105,7 @@ export function CreatorPage() {
                     key={amount}
                     onClick={() => handleAmountSelect(amount)}
                     className={`px-4 py-2 border rounded-lg ${
-                      donationAmount === amount.toString() ? "bg-gray-100" : "hover:bg-gray-100 ring-1 ring-gray-300"
+                      donationAmount === amount.toString() ? "bg-gray-100" : "hover:bg-gray-100 ring-1 focus:ring-black"
                     }`}
                   >
                     ☕ ${amount}
@@ -121,7 +121,7 @@ export function CreatorPage() {
                   onChange={(e) => setSocialURL(e.target.value)}
                   type="text"
                   placeholder="buymeacoffee.com/baconpancakes1"
-                  className="w-full h-[40px] rounded-md pl-[12px]"
+                  className="w-full h-[45px] rounded-md pl-[12px]"
                 />
               </div>
             </div>

@@ -52,7 +52,7 @@ export function DialogDemo({ specialMessage, socialURL, donationAmount, id }: Di
   return (
     <Dialog open={open}>
       <DialogTrigger asChild>
-        <Button disabled={donationAmount === "" || specialMessage === "" || socialURL === ""} onClick={onSupport} className="w-[580px] h-[40px] mt-[32px] bg-yellow-600 text-white hover:bg-[#343434]" variant="outline">Support</Button>
+        <Button disabled={donationAmount === "" || specialMessage === "" || socialURL === ""} onClick={onSupport} className="w-[580px] h-[40px] mt-[32px] bg-black text-white hover:bg-[#343434]" variant="outline">Support</Button>
       </DialogTrigger>
       <DialogContent className=" bg-white rounded-xl shadow-2xl pt-[150px] flex-col  border-2 flex justify-center ">
         <DialogHeader className="flex justify-center items-center">

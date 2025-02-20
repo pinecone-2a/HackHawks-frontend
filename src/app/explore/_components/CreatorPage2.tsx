@@ -57,7 +57,7 @@ export function CreatorPage2 () {
                     <h3 className="text-sm font-medium">Select amount:</h3>
                     <div className="flex gap-2 mt-2">
                       {[1, 2, 5, 10].map((amount) => (
-                          <button key={amount} className="px-4 py-2 flex items-center gap-2 border rounded-lg hover:bg-gray-100 focus:ring-1 focus:ring-black">
+                          <button key={amount} className="px-4 py-2 flex items-center gap-2 border rounded-lg hover:bg-gray-100 focus:ring-1 ring-gray-300">
                         ☕ ${amount}
                           </button>
                       ))}
@@ -67,14 +67,14 @@ export function CreatorPage2 () {
                   <div className="mt-[32px] w-[580px] h-[62px]">
                     <p className="text-sm font-medium">Enter BuyMeCoffee or social account URL:</p>
 
-                    <div className="border-[#E4E4E7] border rounded-md h-[45px] mt-[8px] hover:border-black">
-                        <input type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-[570px] h-[40px] rounded-md pl-[12px]"/>
+                    <div className="border-[#E4E4E7] border rounded-md h-[41px] mt-[8px] hover:border-black">
+                        <input type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-[570px] h-[39px] rounded-md pl-[10px]"/>
                     </div>
                   </div>
 
                   <div className=" h-[153px]">
                      <p className="text-sm font-medium mt-[20px]">Special message:</p>
-                     <input  className="border-[#E4E4E7] border rounded-md h-[131px] w-[580px] mt-[8px] hover:border-black  pb-[90px] pl-[10px]" type="text" placeholder="Thank you for being so awesome everyday!"  />
+                     <input  className="border-[#E4E4E7] border rounded-md h-[131px] w-[580px] mt-[8px] hover:border-black  pb-[90px] pl-[2px]" type="text" placeholder="Thank you for being so awesome everyday!"  />
 
 
                   </div>
