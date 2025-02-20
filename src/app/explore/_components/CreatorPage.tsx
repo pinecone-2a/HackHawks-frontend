@@ -7,7 +7,7 @@ import { DialogDemo } from "@/app/creator/QrCodeDialog";
 export function CreatorPage() {
   const [donationData, setDonationData] = useState<any>([]);
   const [profileData, setProfileData] = useState<any>([]);
-  const [donationAmount, setDonationAmount] = useState<string>("");
+  const [donationAmout, setDonationAmout] = useState<string>("");
   const [socialURL, setSocialURL] = useState<string>("");
   const [specialMessage, setSpecialMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
@@ -45,11 +45,12 @@ export function CreatorPage() {
   }, [id]);
 
   const handleAmountSelect = (amount: number) => {
-    setDonationAmount(amount.toString());
+    setDonationAmout(amount.toString());
   };
 
   if (loading) return <p className="text-center mt-10">Loading...</p>;
   if (error) return <p className="text-center text-red-500 mt-10">{error}</p>;
+  
   return (
     <div className="relative px-4 sm:px-8 md:px-16">
       <img src={profileData?.backgroundImage} alt="" className="w-full h-[319px] object-cover" />
@@ -76,14 +77,13 @@ export function CreatorPage() {
             <p className="text-[16px] font-semibold mb-5">Recent supporters</p>
             {donationData?.map((donation: any) => (
               <div key={`creator-${donation?.id}`} className="flex mt-[15px]">
-                {/* <img src="/Profile.png" alt="" className="w-[40px] h-[40px]" /> */}
-                <img src={donation?.donor.profile.avatarImage} className="size-[35px] rounded-full"/>
+                <img src={donation?.donor?.profile.avatarImage || "https://res.cloudinary.com/dku0azubr/image/upload/v1739560375/dinoWeb_riv4zt.jpg"} className="size-[35px] rounded-full"/>
 
                 
                 <div className="flex flex-col pl-[12px]">
                   <div className="flex gap-[4px]">
-                    <p className="font-[600] text-sm">{donation?.donor.profile.name}</p>
-                    <p className="text-[14px] font-[500] flex gap-1"> bought <div className="text-green-600 dark:text-sky-400">${donation?.amount}</div> coffee</p>
+                    <p className="font-[600] text-sm">{donation?.donor?.profile.name || "Guest"}</p>
+                    <div className="text-[14px] font-[500] flex gap-1"> bought <div className="text-green-600 dark:text-sky-400">${donation?.amount}</div> coffee</div>
                   </div>
                   <p className="text-[13px] text-gray-600 pt-2">{donation?.specialMessage}</p>
                 </div>
@@ -104,7 +104,7 @@ export function CreatorPage() {
                     key={amount}
                     onClick={() => handleAmountSelect(amount)}
                     className={`px-4 py-2 border rounded-lg ${
-                      donationAmount === amount.toString() ? "bg-gray-100" : "hover:bg-gray-100 ring-1 focus:ring-black"
+                      donationAmout === amount.toString() ? "bg-gray-100" : "hover:bg-gray-100 ring-1 focus:ring-black"
                     }`}
                   >
                     ☕ ${amount}
@@ -138,7 +138,7 @@ export function CreatorPage() {
             <DialogDemo
               specialMessage={specialMessage}
               socialURL={socialURL}
-              donationAmount={donationAmount}
+              donationAmout={donationAmout}
               id={id}
 
             />

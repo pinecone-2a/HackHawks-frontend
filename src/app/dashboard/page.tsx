@@ -33,6 +33,7 @@ interface Donation {
   specialMessage: string;
   socialURLOrBuyMeACoffee: string;
   donor: Donor;
+  donorName: string
 }
 
 interface TotalEarnings {
@@ -159,8 +160,8 @@ export default function EarningsDashboard() {
                     {donations?.donation.map((donation, index) => (
                       <div key={donations.donation + donation.id} className="flex pt-[24px] justify-between items-start px-[24px] pb-4 last:border-none">
                         <div>
-                          <Link href={`/${donation.donor.id}`}>
-                            <h1 className="text-lg font-semibold">{donation.donor.profile.name}</h1>
+                          <Link href={`/${donation?.donor?.id}`}>
+                            <h1 className="text-lg font-semibold">{donation?.donor?.profile.name || donation?.donorName}</h1>
                           </Link>
                           <p className="text-md text-gray-500">{donation.socialURLOrBuyMeACoffee}</p>
 

@@ -16,7 +16,6 @@ export default function Home() {
       <HomeFeature/>
       <HomeTeam/>
       <HomeFooter/>
-      hi
     </div>
   );
 }
