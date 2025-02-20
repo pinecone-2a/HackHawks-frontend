@@ -7,8 +7,6 @@ import { CldImage } from "next-cloudinary";
 import Image from "next/image";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-
-
 type user = {
   id: string;
   name: string;
