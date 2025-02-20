@@ -1,9 +1,14 @@
 
 import { FaHeart } from "react-icons/fa";
 import Link from "next/link";
+import { useState } from "react";
 
 
 export function CreatorPage2 () {
+  const [profileData, setProfileData] = useState<any>([]);
+
+
+
     return (
         <div className="">
            <img src="/CreatorPageBackground.png" alt="" className="w-full h-[319px]"/>
@@ -45,7 +50,7 @@ export function CreatorPage2 () {
 
            <div className="rounded-lg border w-[650px] h-[520px] bg-white p-6">
            <div className="gap-3 ml-[10px] w-[580px] ">
-                  <p className="text-[24px] font-semibold mb-[24px]">Buy Space ranger a Coffee</p>
+                  <p className="text-[24px] font-semibold mb-[24px]">Buy {profileData?.name} a Coffee</p>
 
                   <div className="mb-4">
                     <h3 className="text-sm font-medium">Select amount:</h3>

@@ -8,6 +8,7 @@ import { HomeFeature } from "./_components/HomeFeature";
 import { HomeNavbar } from "./_components/HomeNavbar";
 import { HomeFooter } from "./_components/HomeFooter";
 
+
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
