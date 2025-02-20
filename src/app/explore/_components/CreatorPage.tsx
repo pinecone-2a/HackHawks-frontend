@@ -105,7 +105,7 @@ export function CreatorPage() {
                     key={amount}
                     onClick={() => handleAmountSelect(amount)}
                     className={`px-4 py-2 border rounded-lg ${
-                      donationAmount === amount.toString() ? "bg-gray-300" : "hover:bg-gray-100"
+                      donationAmount === amount.toString() ? "bg-gray-100" : "hover:bg-gray-100 ring-1 ring-gray-300"
                     }`}
                   >
                     ☕ ${amount}
@@ -141,6 +141,7 @@ export function CreatorPage() {
               socialURL={socialURL}
               donationAmount={donationAmount}
               id={id}
+
             />
           </div>
         </div>
