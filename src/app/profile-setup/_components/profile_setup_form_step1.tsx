@@ -11,7 +11,7 @@ import { z } from "zod";
 import { UserType } from "@/app/_typescript/allTypesGoesHere";
 
 const forSchema = z.object({
-  name: z.string().min(6),
+  name: z.string().min(3),
   about: z.string().min(15),
   socialMediaURL: z.string().url(),
   avatarImage: z.string().url(),
