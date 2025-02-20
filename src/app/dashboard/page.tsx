@@ -5,10 +5,13 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useEffect, useRef, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Copy } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { cookies } from "next/headers";
+import toast from "react-hot-toast";
+import Image from "next/image";
+
 
 interface donationsProfile {
   name: string;
@@ -51,10 +54,12 @@ export interface Data {
 interface ProfileData {
   name: string;
   avatarImage: string;
+  userId?: string;
 }
 export default function EarningsDashboard() {
   const [donations, setDonations] = useState<Data | null>(null);
-  const [days, setDays] = useState<string>("");
+  const [days, setDays] = useState<string>("30");
+  const [daysString, setDaysString] = useState<string>("Last 30 days");
   const [amount, setAmount] = useState<string>("");
   const [profileData, setProfileData] = useState<ProfileData[]>([]);
 
@@ -86,6 +91,13 @@ export default function EarningsDashboard() {
     fetchProfileData();
   }, []);
 
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.hostname + "/creator/"+ `${profileData[0]?.userId}`)
+      .then(() => {
+        toast.success("Link copied to clipboard!");
+      })
+      .catch(() => toast.error("Failed to copy link"));
+  };
   return (
     <div className="h-screen">
       {donations?.success ? (
@@ -102,20 +114,25 @@ export default function EarningsDashboard() {
                     <h2 className="text-2xl font-bold">{profileData[0]?.name}</h2>
                     <p className="text-lg text-gray-500">buymeacoffee.com/{profileData[0]?.name}</p>
                   </div>
+
                 </div>
+                <Button onClick={handleCopyLink} variant="outline" className=" flex ">
+                  <Copy className="w-5 h-5 " />
+                  Share page link
+                </Button>
               </div>
               <div className="mt-8 flex justify-start gap-6 items-center">
-                <h3 className="text-2xl font-semibold">Earnings</h3>
+                <h3 className="text-2xl font-semibold">{}Earnings</h3>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="flex items-center gap-2 text-lg px-4 py-2">
+                    <Button variant="outline" className="flex items-center gap-2 text-lg px-4 py-2">{` ${daysString} `}
                       <ChevronDown className="w-5 h-5" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent defaultValue={`day30`} align="start">
-                    <DropdownMenuItem onClick={() => setDays("30")}>Last 30 days</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setDays("60")}>Last 60 days</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setDays("90")}>Last 90 days</DropdownMenuItem>
+                  <DropdownMenuContent defaultValue={"30"} align="start">
+                    <DropdownMenuItem  onClick={() => {setDays("30");setDaysString("Last 30 days");}}>Last 30 days</DropdownMenuItem>
+                    <DropdownMenuItem  onClick={() => {setDays("90");setDaysString("Last 90 days");}}>Last 90 days</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => {setDays("");setDaysString("All time")}}>All time</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -159,7 +176,11 @@ export default function EarningsDashboard() {
                     {donations?.donation.map((donation, index) => (
                       <div key={donations.donation + donation.id} className="flex pt-[24px] justify-between items-start px-[24px] pb-4 last:border-none">
                         <div>
-                          <Link href={`/${donation.donor.id}`}>
+                          <Link href={`/${donation.donor.id}`} className="flex gap-2 items-center ">
+                          <div className="w-10 h-10 overflow-hidden rounded-full">
+                        {donation.donor.profile.avatarImage && <Image src={`${donation.donor.profile.avatarImage}`} width={40} height={40} alt={`ahjsdfuajsd`} />}
+                          
+                          </div>
                             <h1 className="text-lg font-semibold">{donation.donor.profile.name}</h1>
                           </Link>
                           <p className="text-md text-gray-500">{donation.socialURLOrBuyMeACoffee}</p>
