@@ -50,19 +50,18 @@ export function CreatorPage() {
 
   if (loading) return <p className="text-center mt-10">Loading...</p>;
   if (error) return <p className="text-center text-red-500 mt-10">{error}</p>;
-
   return (
     <div className="relative px-4 sm:px-8 md:px-16">
-      <img src="/CreatorPageBackground.png" alt="" className="w-full h-[319px] object-cover" />
+      <img src={profileData?.backgroundImage} alt="" className="w-full h-[319px] object-cover" />
 
       <div className="flex flex-col sm:flex-row gap-8 justify-center w-full absolute top-[40%] left-1/2 transform -translate-x-1/2">
         <div className="w-full sm:w-[632px] h-full flex flex-col justify-between mb-6 sm:mb-0">
           <div className="rounded-lg border w-full bg-white p-5 mb-6">
             <div className="gap-3 flex items-center">
-              <img src="/Profile.png" alt="avatar" className="w-[40px] h-[40px] rounded-full" />
+              <img src={profileData?.avatarImage} alt="avatar" className="w-[40px] h-[40px] rounded-full" />
               <p className="text-[20px] font-semibold">{profileData?.name}</p>
             </div>
-            <div className="border-b w-full h-[10%]"></div>
+            <div className="border-b w-full h-[10%] pt-3"></div>
 
             <p className="text-[16px] font-semibold mt-8">About {profileData?.name}</p>
             <p className="text-[14px] mt-3 h-[80px] overflow-hidden text-ellipsis">{profileData?.about}</p>
@@ -78,15 +77,15 @@ export function CreatorPage() {
             {donationData?.map((donation: any) => (
               <div key={`creator-${donation?.id}`} className="flex mt-[15px]">
                 {/* <img src="/Profile.png" alt="" className="w-[40px] h-[40px]" /> */}
-                <div className="w-[40px] h-[40px]">{profileData?.image}
+                <img src={donation?.donor.profile.avatarImage} className="size-[35px] rounded-full"/>
 
-                </div>
+                
                 <div className="flex flex-col pl-[12px]">
                   <div className="flex gap-[4px]">
-                    <p className="font-bold text-sm">{donation?.donor.profile.name}</p>
-                    <p className="text-[14px]"> bought ${donation?.amount} coffee</p>
+                    <p className="font-[600] text-sm">{donation?.donor.profile.name}</p>
+                    <p className="text-[14px] font-[500] flex gap-1"> bought <div className="text-green-600 dark:text-sky-400">${donation?.amount}</div> coffee</p>
                   </div>
-                  <p className="text-[14px]">{donation?.specialMessage}</p>
+                  <p className="text-[13px] text-gray-600 pt-2">{donation?.specialMessage}</p>
                 </div>
               </div>
             ))}
@@ -98,7 +97,7 @@ export function CreatorPage() {
             <p className="text-[24px] font-semibold mb-[24px]">Buy {profileData?.name} a Coffee</p>
 
             <div className="mb-4">
-              <h3 className="text-sm font-medium">Select amount:</h3>
+              <h3 className="text-sm font-bold">Select amount:</h3>
               <div className="flex gap-2 mt-2 flex-wrap justify-around ">
                 {[1, 2, 5, 10].map((amount) => (
                   <button

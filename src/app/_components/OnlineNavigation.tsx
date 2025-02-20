@@ -13,20 +13,19 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export function OnlineNavigation() {
-  const [profileData, setProfileData] = useState<any>(null);
+  const [profileData, setProfileData] = useState<any>([]);
   const router = useRouter(); 
 
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/user/profile`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/dashboard`, {
           method: "GET",
           credentials: "include",
         });
         const data = await response.json();
         setProfileData(data);
       } catch (error) {
-        console.error("Failed to fetch profile data", error);
       }
     };
     
@@ -42,10 +41,8 @@ export function OnlineNavigation() {
       localStorage.removeItem("userId");
       router.push("/account/signin");
     } catch (error) {
-      console.log("Logout failed", error);
     }
   };
-
   return (
     <div className="bg-slate-100 w-full shadow-md">
       <div className="h-[56px] bg-white pt-2 shadow-lg">
@@ -59,12 +56,13 @@ export function OnlineNavigation() {
 
           <div className="flex items-center space-x-4">
             <Avatar>
-              <AvatarImage src={profileData?.avatar || "default-avatar-url"} />
-              <AvatarFallback>{profileData?.name?.charAt(0) || "U"}</AvatarFallback>
+              <AvatarImage src={profileData[0]?.avatarImage || "https://res.cloudinary.com/dku0azubr/image/upload/v1739560375/dinoWeb_riv4zt.jpg"
+} />
+              <AvatarFallback>{profileData[0]?.avatarImage || "U"}</AvatarFallback>
             </Avatar>
 
             <p className="font-medium text-sm text-black">
-              {profileData?.name || "User"}
+              {profileData[0]?.name || "User"}
             </p>
 
             <Select onValueChange={(value) => value === "logout" && logOut()}>

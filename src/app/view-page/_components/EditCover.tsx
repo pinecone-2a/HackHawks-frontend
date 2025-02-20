@@ -63,7 +63,6 @@ export default function EditCover({ user, setCount, count }: Props) {
       const response = await res.json();
       setUploading(false);
       setImage(response.secure_url);
-      console.log(response.secure_url);
     }
   };
   const sendImage = async () => {
@@ -78,7 +77,6 @@ export default function EditCover({ user, setCount, count }: Props) {
       );
       const data = await res.json();
       setCount(!count);
-      console.log(data);
     }
   };
   return (

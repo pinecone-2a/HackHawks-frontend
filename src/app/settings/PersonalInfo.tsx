@@ -54,7 +54,6 @@ export default function PersonalInfo() {
     //             }
     //         }
     //     } catch (e) {
-    //         console.error(e, "server hariu ogsongu");
     //         setResponse({ message: "SERVER_NOT_RESPONDING" });
     //         // setnoreponse(e.message);
     //     }
@@ -69,7 +68,6 @@ export default function PersonalInfo() {
         };
     }, [selectedImage]);
 
-    // console.log("ajksdhfakjhsd")
 
     return (
         <div>

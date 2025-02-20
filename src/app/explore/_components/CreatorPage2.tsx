@@ -3,12 +3,7 @@ import { FaHeart } from "react-icons/fa";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-
-
 export function CreatorPage2 () {
-  // const [profileData, setProfileData] = useState<any>([]);
-
-
 
     return (
         <div className="">
@@ -16,7 +11,7 @@ export function CreatorPage2 () {
 
            <div className="flex gap-8 justify-center w-screen h-full absolute mt-[-86px]">
            <div className="w-[632px] h-[660px] flex flex-col justify-between">
-            <div className="rxounded-lg border w-[100%] h-[273px] bg-white p-5">
+            <div className="rounded-lg border w-[100%] h-[273px] bg-white p-5">
                 <div className="gap-3 flex items-center">
                   <img src="/Profile.png" alt="" className="w-[48px] h-[48px]" />
                   <p className="text-[20px] font-semibold">Space ranger</p>

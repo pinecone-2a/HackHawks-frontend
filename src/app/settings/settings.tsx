@@ -25,7 +25,6 @@ export default function Settings() {
       const data = await res.json();
       setUser(data);
       setresponse(data);
-      console.log(data);
     };
     fetchData();
   }, []);

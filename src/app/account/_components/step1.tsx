@@ -70,7 +70,6 @@ export default function SignupStep1() {
   const save = () => {
     localStorage.setItem("signup-info", JSON.stringify(form));
   };
-  console.log(form);
   return (
     <div className="relative min-h-screen w-full">
       <div className="flex justify-end p-10">

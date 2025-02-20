@@ -6,7 +6,7 @@ import { QrCode } from "lucide-react"
 import { DonationComplete } from "../DonationComplete"
 import { Dialog } from "@radix-ui/react-dialog"
 import { DialogDemo } from "../QrCodeDialog"
-import  TeamMembers from "../../explore/_components/TeamMembers"
+
 
 // import { QrCodeDialog } from "../QrCodeDialog"
 
@@ -16,12 +16,6 @@ export default function Home() {
         <div>
           
             <CreatorPage/>
-            {/* <DonationComplete/> */}
-            {/* <CreatorPage2/> */}
-            {/* <DialogDemo specialMessage="test" socialURL="test" id="1" donationAmount="100"/> */}
-            {/* <TeamMembers/> */}
-
-
         </div>
     )
 }

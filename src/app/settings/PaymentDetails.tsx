@@ -38,8 +38,6 @@ export default function PaymentDetails() {
     fetchData()
   }, [])
 
-  console.log(cardData)
-
 
 
   return <div className="w-[650px] min-h-[250px] text-black gap-1 p-[24px] flex flex-col rounded-[9px] border-[#E4E4E7] border-[1px] ">

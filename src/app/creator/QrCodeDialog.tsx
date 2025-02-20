@@ -11,9 +11,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { send } from "process"
 import { useState } from "react"
 
 
@@ -40,7 +37,6 @@ export function DialogDemo({ specialMessage, socialURL, donationAmount, id }: Di
     });
   }
  
-  console.log(specialMessage,socialURL,id)
 
   const onSupport = () => {
     setOpen(true);

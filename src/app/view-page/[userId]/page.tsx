@@ -29,7 +29,6 @@ export default function ViewPage() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/auth/${userId}`);
       const data = await res.json();
       setUser(data);
-      console.log(data);
     };
     fetchData();
   }, [count]);

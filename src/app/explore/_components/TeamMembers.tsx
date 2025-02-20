@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 
-const teamMembers = [
+ const teamMembers = [
   { name: "Avia", role: "Team Leader", imageUrl: "/Avi.jpg", isLeader: true },
   { name: "Aviyas", role: "Developer", imageUrl: "/Aviyas.jpg", isLeader: false },
   { name: "Adiya", role: "Developer", imageUrl: "/Adiya.jpg", isLeader: false },
@@ -12,7 +12,7 @@ const teamMembers = [
   { name: "Nurka", role: "Developer", imageUrl: "/Nurkaa.jpg", isLeader: false },
 ];
 
-const Home: React.FC = () => {
+export const HomeTeam: React.FC = () => {
   return (
     <section className="team-section">
       <h2>🚀 Meet Our Team</h2>
@@ -60,7 +60,7 @@ const Home: React.FC = () => {
 
         .team-grid {
           display: grid;
-          grid-template-columns: repeat(6, 1fr); /* Бүгд нэг эгнээнд тэнцүү багтана */
+          grid-template-columns: repeat(6, 1fr); 
           gap: 20px;
           max-width: 1200px;
           margin: auto;
@@ -155,4 +155,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default HomeTeam;
