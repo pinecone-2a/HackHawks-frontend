@@ -72,10 +72,6 @@ export default function PaymentDetails() {
       cvc,
     };
 
-<<<<<<< HEAD
-    fetchData()
-  }, [])
-=======
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bank-card/update`, {
       method: "PUT",
       headers: {"Content-Type": "application/json"},
@@ -85,7 +81,6 @@ export default function PaymentDetails() {
     const data = await response.json();
     console.log(data); 
   };
->>>>>>> main
 
 
 
