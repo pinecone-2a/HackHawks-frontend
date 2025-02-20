@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 
 const teamMembers = [
-  { name: "Avia", role: "Team Leader", imageUrl: "/Avia.jpg", isLeader: true },
+  { name: "Avia", role: "Team Leader", imageUrl: "/Avi.jpg", isLeader: true },
   { name: "Aviyas", role: "Developer", imageUrl: "/Aviyas.jpg", isLeader: false },
   { name: "Adiya", role: "Developer", imageUrl: "/Adiya.jpg", isLeader: false },
   { name: "Boldoo", role: "Developer", imageUrl: "/Boldoo.jpg", isLeader: false },
