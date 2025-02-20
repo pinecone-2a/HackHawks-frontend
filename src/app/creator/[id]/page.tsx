@@ -15,8 +15,8 @@ export default function Home() {
     return (
         <div>
           
-            <CreatorPage/>
-            {/* <DonationComplete/> */}
+            {/* <CreatorPage/> */}
+            <DonationComplete/>
             {/* <CreatorPage2/> */}
             {/* <DialogDemo specialMessage="test" socialURL="test" id="1" donationAmount="100"/> */}
             {/* <TeamMembers/> */}

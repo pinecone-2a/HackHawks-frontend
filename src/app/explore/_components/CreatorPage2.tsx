@@ -1,11 +1,12 @@
 
 import { FaHeart } from "react-icons/fa";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 
 
 export function CreatorPage2 () {
-  const [profileData, setProfileData] = useState<any>([]);
+  // const [profileData, setProfileData] = useState<any>([]);
 
 
 
@@ -15,7 +16,7 @@ export function CreatorPage2 () {
 
            <div className="flex gap-8 justify-center w-screen h-full absolute mt-[-86px]">
            <div className="w-[632px] h-[660px] flex flex-col justify-between">
-            <div className="rounded-lg border w-[100%] h-[273px] bg-white p-5">
+            <div className="rxounded-lg border w-[100%] h-[273px] bg-white p-5">
                 <div className="gap-3 flex items-center">
                   <img src="/Profile.png" alt="" className="w-[48px] h-[48px]" />
                   <p className="text-[20px] font-semibold">Space ranger</p>
@@ -50,7 +51,7 @@ export function CreatorPage2 () {
 
            <div className="rounded-lg border w-[650px] h-[520px] bg-white p-6">
            <div className="gap-3 ml-[10px] w-[580px] ">
-                  <p className="text-[24px] font-semibold mb-[24px]">Buy {profileData?.name} a Coffee</p>
+                  <p className="text-[24px] font-semibold mb-[24px]">Buy  a Coffee</p>
 
                   <div className="mb-4">
                     <h3 className="text-sm font-medium">Select amount:</h3>
