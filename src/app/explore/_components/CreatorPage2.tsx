@@ -1,18 +1,19 @@
 
 import { FaHeart } from "react-icons/fa";
 import Link from "next/link";
-
+import { useEffect, useState } from "react";
 
 export function CreatorPage2 () {
+
     return (
         <div className="">
-           <img src="/img/background.png" alt="" className="w-full h-[319px]"/>
+           <img src="/CreatorPageBackground.png" alt="" className="w-full h-[319px]"/>
 
            <div className="flex gap-8 justify-center w-screen h-full absolute mt-[-86px]">
            <div className="w-[632px] h-[660px] flex flex-col justify-between">
             <div className="rounded-lg border w-[100%] h-[273px] bg-white p-5">
                 <div className="gap-3 flex items-center">
-                  <img src="space-avatar.png" alt="" className="w-[48px] h-[48px]" />
+                  <img src="/Profile.png" alt="" className="w-[48px] h-[48px]" />
                   <p className="text-[20px] font-semibold">Space ranger</p>
                 </div>
                 <div className="border-b w-[100%] h-[10%]"></div>
@@ -45,38 +46,37 @@ export function CreatorPage2 () {
 
            <div className="rounded-lg border w-[650px] h-[520px] bg-white p-6">
            <div className="gap-3 ml-[10px] w-[580px] ">
-                  <p className="text-[24px] font-semibold mb-[24px]">Buy Space ranger a Coffee</p>
+                  <p className="text-[24px] font-semibold mb-[24px]">Buy  a Coffee</p>
 
-                  <div>
-                    <p className="font-medium text-sm">Select amount:</p>
-
-                    <div className="w-[337px] flex justify-between mt-[8px]">
-                    <button className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $1</button>
-                    <button className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $3</button>
-                    <button className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $5</button>
-                    <button className="w-[72px] h-[40px] bg-[#F4F4F7] rounded-md border hover:border-black"> $10</button>
+                  <div className="mb-4">
+                    <h3 className="text-sm font-medium">Select amount:</h3>
+                    <div className="flex gap-2 mt-2">
+                      {[1, 2, 5, 10].map((amount) => (
+                          <button key={amount} className="px-4 py-2 flex items-center gap-2 border rounded-lg hover:bg-gray-100 focus:ring-1 ring-gray-300">
+                        ☕ ${amount}
+                          </button>
+                      ))}
                     </div>
                   </div>
 
                   <div className="mt-[32px] w-[580px] h-[62px]">
                     <p className="text-sm font-medium">Enter BuyMeCoffee or social account URL:</p>
 
-                    <div className="border-[#E4E4E7] border rounded-md h-[45px] mt-[8px] hover:border-black">
-                        <input type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-[570px] h-[40px] rounded-md pl-[12px]"/>
+                    <div className="border-[#E4E4E7] border rounded-md h-[41px] mt-[8px] hover:border-black">
+                        <input type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-[570px] h-[39px] rounded-md pl-[10px]"/>
                     </div>
                   </div>
 
                   <div className=" h-[153px]">
                      <p className="text-sm font-medium mt-[20px]">Special message:</p>
+                     <input  className="border-[#E4E4E7] border rounded-md h-[131px] w-[580px] mt-[8px] hover:border-black  pb-[90px] pl-[2px]" type="text" placeholder="Thank you for being so awesome everyday!"  />
 
-                     <div className="border-[#E4E4E7] border rounded-md h-[131px] mt-[8px] hover:border-black">
-                        <p className="font-normal text-sm pl-[12px] pt-[8px] ">Thank you for being so awesome everyday!</p>
-                    </div>
+
                   </div>
 
                   <div>
                    <Link href="">
-                     <p className="w-[580px] h-[40px] bg-black rounded-md mt-[32px] text-white hover:bg-gray-900 flex justify-center pt-[8px]">Support</p>
+                     <p className="w-[580px] h-[40px] bg-black rounded-md mt-[32px] text-white hover:bg-[#343434] flex justify-center pt-[8px]">Support</p>
                    </Link>
                   </div>
            </div>
