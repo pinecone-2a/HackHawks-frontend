@@ -19,7 +19,7 @@ export default function Settings() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/dashbordInfo`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/dashboard`, {
         credentials: "include",
       });
       const data = await res.json();

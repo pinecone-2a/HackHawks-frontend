@@ -15,13 +15,13 @@ export default function FrameViewDonation() {
   });
 
   return (
-    <div className="max-w-lg bg-white border border-gray-300 rounded-lg p-6 z-3">
+    <div className="min-w-[628px] bg-white border border-gray-300 rounded-lg p-6 z-3">
       <h2 className="text-xl font-semibold mb-4">Buy Jake a Coffee</h2>
       <div className="mb-4">
         <h3 className="text-sm font-medium">Select amount:</h3>
         <div className="flex gap-2 mt-2">
           {[1, 2, 5, 10].map((amount) => (
-            <button key={amount} className="px-4 py-2 flex items-center gap-2 border rounded-lg hover:bg-gray-100 focus:ring-2 focus:ring-gray-300">
+            <button key={amount} className="px-4 py-2 flex items-center gap-2 border rounded-lg hover:bg-gray-100 focus:ring-1 focus:ring-black">
               ☕ ${amount}
             </button>
           ))}

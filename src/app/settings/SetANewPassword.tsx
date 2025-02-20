@@ -1,36 +1,67 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-type SetSNewPasswordProps = {
-  user: any;
-};
+export default function SetNewPassword() {
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
-export default function SetSNewPassword() {
-  const [userId, setUserId] = useState("")
   useEffect(() => {
-    const localId = localStorage.getItem("userId");
-    setUserId(localId!)
-  }, [])
+    setIsButtonEnabled(newPassword.length >= 5 && newPassword === confirmPassword);
+  }, [newPassword, confirmPassword]);
 
-  // const updatePassword = async () => {
-  //     const response = await fetch(`http://localhost:4000/users/update/${userId}`, {
-  //         method: "POST",
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
+    const value = e.target.value;
+    if (field === "new") setNewPassword(value);
+    else setConfirmPassword(value);
+  };
 
-  //     });
-  //     const data = await response.json();
+  const handleSubmit = async () => {
+    if (!isButtonEnabled) return;
 
-  // }
-  // updatePassword()
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/update-password`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({newPassword}),
+        credentials: "include",
+      });
 
+      const data = await response.json();
+      console.log("Response:", data);
+   
+  };
 
-  return <div className="w-[650px] min-h-[250px] text-black gap-1 p-[24px] flex flex-col rounded-[9px] border-[#E4E4E7] border-[1px] ">
-    <h1 className="font-bold text-[16px] pb-5">Set a new password</h1>
-    <h2 className="text-[14px] font-semibold">New password</h2>
-    <input type="password" className="rounded-[6px] border-[#E4E4E7] border-[1px] p-2" placeholder="Enter new password" />
-    <h2 className="text-[14px] font-semibold">Confirm password</h2>
-    <input type="password" className="rounded-[6px] border-[#E4E4E7] border-[1px] p-2" placeholder="Confirm password" />
-    <button className="mt-4 p-2 bg-black text-white rounded">Save changes</button>
+  return (
+    <div className="w-[650px] min-h-[250px] text-black gap-3 p-6 flex flex-col rounded-lg border border-gray-300">
+      <h1 className="font-bold text-lg pb-3">Set a New Password</h1>
 
-  </div>
+      <label className="text-sm font-semibold">New Password</label>
+      <input
+        type="password"
+        value={newPassword}
+        onChange={(e) => handleChange(e, "new")}
+        className="rounded-md border border-gray-300 p-2"
+        placeholder="Enter new password"
+      />
+
+      <label className="text-sm font-semibold">Confirm Password</label>
+      <input
+        type="password"
+        value={confirmPassword}
+        onChange={(e) => handleChange(e, "confirm")}
+        className="rounded-md border border-gray-300 p-2"
+        placeholder="Confirm password"
+      />
+
+      <button
+        onClick={handleSubmit}
+        disabled={!isButtonEnabled}
+        className={`mt-4 p-2 text-white rounded ${
+          isButtonEnabled ? "bg-black hover:bg-gray-800" : "bg-gray-400 cursor-not-allowed"
+        }`}>
+        Save Changes
+      </button>
+    </div>
+  );
 }

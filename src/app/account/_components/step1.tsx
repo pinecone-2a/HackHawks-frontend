@@ -26,9 +26,7 @@ export default function SignupStep1() {
   });
   useEffect(() => {
     const formString = localStorage.getItem("signup-info");
-    const formL = formString
-      ? JSON.parse(formString)
-      : { username: "", password: "", email: "" };
+    const formL = formString ? JSON.parse(formString) : { username: "", password: "", email: "" };
     setForm(formL);
   }, []);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,10 +48,7 @@ export default function SignupStep1() {
     setResponse({ message: "" });
     if (form.username) {
       timeout = setTimeout(async () => {
-        const send = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/${form.username}`,
-          { method: "POST", headers: { "Content-Type": "application/json" } }
-        );
+        const send = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/${form.username}`, { method: "POST", headers: { "Content-Type": "application/json" } });
         const response = await send.json();
         setResponse(response);
         setLoading(false);
@@ -70,33 +65,28 @@ export default function SignupStep1() {
   const save = () => {
     localStorage.setItem("signup-info", JSON.stringify(form));
   };
+<<<<<<< HEAD
+=======
+  console.log(form);
+  console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
+>>>>>>> main
   return (
     <div className="relative min-h-screen w-full">
       <div className="flex justify-end p-10">
         <Link href={`/account/signin`}>
-          <Button className="bg-secondary text-foreground hover:bg-foreground hover:text-background">
-            Log in
-          </Button>
+          <Button className="bg-secondary text-foreground hover:bg-foreground hover:text-background">Log in</Button>
         </Link>
       </div>
       <div className="w-[407px] h-[256px] absolute flex flex-col justify-evenly top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="">
           <h3 className="font-bold text-2xl">Create you account</h3>
-          <p className="text-muted-foreground text-sm">
-            choose an username for you page
-          </p>
+          <p className="text-muted-foreground text-sm">choose an username for you page</p>
         </div>
         <div>
           <div>
             <label htmlFor="username">Username</label>
             <Input
-              className={`border ${
-                form.username && response?.no
-                  ? "border-red-500"
-                  : response?.yes
-                  ? "border-green-400"
-                  : "border-gray-300"
-              }`}
+              className={`border ${form.username && response?.no ? "border-red-500" : response?.yes ? "border-green-400" : "border-gray-300"}`}
               defaultValue={form.username}
               onChange={(e) => {
                 handleChange(e);
@@ -106,38 +96,31 @@ export default function SignupStep1() {
               placeholder="Enter username here"
             />
           </div>
-          {response?.message ? (
-            <div
-              className={`${
-                form.username && response?.no
-                  ? "text-red-500"
-                  : response?.yes
-                  ? "text-green-400"
-                  : "text-gray-300"
-              }`}
-            >
-              {response?.message}
-            </div>
-          ) : (
+          {response?.message && (
+            <div className={`${form.username && response?.no ? "text-red-500" : response?.yes ? "text-green-400" : "text-gray-300"}`}>{response?.message}</div>
+          )}
+          {loading && <div>
+            
+          {form.username && (
             <div className="flex items-center gap-3">
               <AiOutlineLoading3Quarters className="animate-spin" />
               <div className="animate-pulse">Checking</div>
             </div>
           )}
+            </div>}
         </div>
 
         <Button
           onClick={(e) => {
-            if (form.username.length < 6 || !response?.yes) {
+            if (form.username.length < 4 || !response?.yes) {
               e.preventDefault();
             } else {
               save();
               nextStep();
             }
           }}
-          disabled={form.username.length < 6 || !response?.yes}
-          className="w-full text-background"
-        >
+          disabled={form.username.length < 3 || !response?.yes}
+          className="w-full text-background">
           Continue
         </Button>
       </div>

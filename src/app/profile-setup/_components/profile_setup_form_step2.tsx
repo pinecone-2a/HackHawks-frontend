@@ -17,8 +17,8 @@ type country = {
 
 const paymentSchema = z.object({
   country: z.string(),
-  firstName: z.string().min(6),
-  lastName: z.string().min(6),
+  firstName: z.string().min(3),
+  lastName: z.string().min(3),
   cardNumber: z.string().min(16),
   expiryDate: z.date(),
   CVC: z.string().max(3),
@@ -36,7 +36,7 @@ export default function ProfileSetup2() {
   const [cardExpiryDate, setCardExpiryDate] = useState("");
   const [year, setYear] = useState("");
   const [response, setMessage] = useState("");
-  const [userId, setUserId] = useState("")
+  const [userId, setUserId] = useState("");
   const [month, setMonth] = useState("");
   const [countries, setCountries] = useState<country[]>([]);
   const [isValid, setValid] = useState<boolean>(false);
@@ -84,10 +84,12 @@ export default function ProfileSetup2() {
     };
     fetchData();
   }, []);
-  const handleChange = (
-    e: ChangeEvent<HTMLSelectElement | HTMLInputElement>
-  ) => {
+  
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
+    
+
     setForm2((p) => {
       return {
         ...p,
@@ -97,17 +99,17 @@ export default function ProfileSetup2() {
     });
     console.log(form2);
   };
+  
   useEffect(() => {
     const formString = localStorage.getItem("step1");
-    const localId = localStorage.getItem("userId");
     const formL = formString ? JSON.parse(formString) : {};
     setForm1(formL);
-    if (localId) {
-      setUserId(localId);
-    }
+
   }, []);
+
+  console.log(paymentSchema)
   const sendDatas = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/create`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -120,7 +122,14 @@ export default function ProfileSetup2() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
+<<<<<<< HEAD
       body: JSON.stringify(form2),
+=======
+      body: JSON.stringify({
+        ...form2,
+     
+      }),
+>>>>>>> main
     });
     const response2 = await res2.json();
     console.log("card response", response2);
@@ -128,35 +137,20 @@ export default function ProfileSetup2() {
       router.push(`/dashboard`);
     }
   };
-  // useEffect(() => {
-  //   setCardExpiryDate(month + " 1 " + year);
-  //   const date = new Date(cardExpiryDate);
-  //   if (typeof date === Date()) {
-  //     setForm2({
-  //       ...form2,
-  //       expiryDate: date,
-  //     });
-  //   }
-  //   console.log(date);
-  // }, [month, year]);
-  console.log(form2);
+  
+
+  console.log(form1);
+  
   return (
     <div className="w-[510px] h-[631px] flex flex-col gap-10">
       <div>
         <h1 className="text-xl font-bold">How would you like to be paid</h1>
-        <p className="text-muted-foreground text-xs">
-          Enter location and payment details
-        </p>
+        <p className="text-muted-foreground text-xs">Enter location and payment details</p>
       </div>
       <div className="flex flex-col gap-10">
         <div className="font-semibold ">
           <label htmlFor="countries">Select country</label>
-          <select
-            onChange={handleChange}
-            name="country"
-            id="countries"
-            className="w-full border p-2 rounded-md"
-          >
+          <select onChange={handleChange} name="country" id="countries" className="w-full border p-2 rounded-md">
             {countries &&
               countries.map((country: country) => (
                 <option key={country.cca2} value={country.name.common}>
@@ -169,35 +163,19 @@ export default function ProfileSetup2() {
         <div className="font-semibold flex justify-between">
           <div>
             <label htmlFor="firstname">First name</label>
-            <Input
-              onChange={handleChange}
-              id="firstname"
-              name="firstName"
-              placeholder="your first name"
-            />
+            <Input onChange={handleChange} id="firstname" name="firstName" placeholder="your first name" />
           </div>
           <div>
             <label htmlFor="lastname">Last name</label>
-            <Input
-              onChange={handleChange}
-              id="lastname"
-              name="lastName"
-              placeholder="your last name"
-            />
+            <Input onChange={handleChange} id="lastname" name="lastName" placeholder="your last name" />
           </div>
         </div>
 
         <div
           className="font-semibold
-        "
-        >
+        ">
           <label htmlFor="card-number">Enter card number</label>
-          <Input
-            onChange={handleChange}
-            id="card-number"
-            name="cardNumber"
-            placeholder="XXXX-XXXX-XXXX-XXXX"
-          />
+          <Input onChange={handleChange} maxLength={16} id="card-number" name="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX" />
         </div>
         <div className="font-semibold flex justify-between gap-2">
           <div>
@@ -208,8 +186,7 @@ export default function ProfileSetup2() {
                 setMonth(e.target.value);
               }}
               id="month"
-              className="border p-2 w-40 rounded-lg"
-            >
+              className="border p-2 w-40 rounded-lg">
               {months.map((month) => (
                 <option key={month} value={month}>
                   {month}
@@ -224,8 +201,7 @@ export default function ProfileSetup2() {
                 setYear(e.target.value);
               }}
               id="year"
-              className="border p-2 w-40 rounded-lg"
-            >
+              className="border p-2 w-40 rounded-lg">
               {years.map((year) => (
                 <option value={year} key={year}>
                   {year}
@@ -235,14 +211,7 @@ export default function ProfileSetup2() {
           </div>
           <div>
             <label htmlFor="CVC">CVC</label>
-            <Input
-              onChange={handleChange}
-              id="CVC"
-              maxLength={3}
-              type="number"
-              name="CVC"
-              placeholder="CVC"
-            />
+            <Input onChange={handleChange} id="CVC" maxLength={3}  name="CVC" placeholder="CVC" />
           </div>
         </div>
       </div>
@@ -253,8 +222,7 @@ export default function ProfileSetup2() {
             sendDatas();
             console.log("it works");
           }}
-          className={``}
-        >
+          className={``}>
           Continue
         </Button>
       </div>

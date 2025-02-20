@@ -89,13 +89,13 @@ export default function EditProfile({ isOpen, onClose }: EditProfileProps) {
             )}
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 cursor-pointer">
               <label className="cursor-pointer">
-                <CameraIcon className="w-6 h-6 text-white" />
+                {/* <CameraIcon className="w-6 h-6 text-white" />
                 <input
                   type="file"
                   accept="image/*"
                   onChange={handleImageUpload}
                   className="hidden"
-                />
+                /> */}
               </label>
             </div>
           </div>

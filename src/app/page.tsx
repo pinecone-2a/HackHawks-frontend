@@ -11,11 +11,18 @@ export default function Home() {
 
   return (
     <div>
+<<<<<<< HEAD
       <HomeNavbar/>
       <HomeHero/>
       <HomeFeature/>
       <HomeTeam/>
       <HomeFooter/>
+=======
+      <HomeNavbar />
+      <HomeHero />
+      <HomeFeature />
+      <HomeFooter />
+>>>>>>> main
     </div>
   );
 }
