@@ -53,6 +53,8 @@ export default function SignupStep2() {
       setResponse(response);
       
       if (response.success) {
+        localStorage.removeItem("step1")
+        localStorage.removeItem("step2")
         setTimeout(() => {
           router.push(`/account/signin`);
           setLoading(false);
@@ -121,14 +123,9 @@ export default function SignupStep2() {
           <div>
             {loading && (
               <div>
-                {response ? (
-                  <div className="text-red-500">{response.success ? "amjilttai burtgegdelee" : "Ali hediin burtgeltei bn"}</div>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    Checking...
-                    <AiOutlineLoading3Quarters className="animate-spin" />
-                  </div>
-                )}
+                {response && (
+                  <div className="text-green-500">{response.success ? "Амжилттай бүртгэгдлээ" : <div className=" text-red-500">Таны бүртгэл аль хэдийн үүссэн байна.</div> }</div>
+                ) }
               </div>
             )}
           </div>
