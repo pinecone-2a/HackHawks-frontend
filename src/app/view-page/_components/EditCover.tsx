@@ -55,69 +55,37 @@ export default function EditCover({ user, setCount, count }: Props) {
   };
   const sendImage = async () => {
     if (image) {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/profile/updateCover`,
-        {
-          method: "PUT",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ image }),
-        }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/updateCover`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image }),
+      });
       const data = await res.json();
       setImagePreview("");
       setCount(!count);
-<<<<<<< HEAD
-=======
 
       console.log(data);
       setUploading2(false);
->>>>>>> main
     }
   };
 
   if (!user) {
-    return (
-      <div className="w-full bg-[#F4F4F5] h-[319px] flex items-center justify-center"></div>
-    );
+    return <div className="w-full bg-[#F4F4F5] h-[319px] flex items-center justify-center"></div>;
   }
 
   return (
     <div className="w-full bg-[#F4F4F5] h-[319px] flex items-center justify-center">
       {imagePreview ? (
-        <Image
-          src={imagePreview}
-          alt="Cover"
-          className="absolute inset-0 w-full h-full object-cover"
-          width={1400}
-          height={400}
-        />
+        <Image src={imagePreview} alt="Cover" className="absolute inset-0 w-full h-full object-cover" width={1400} height={400} />
       ) : uploading2 ? (
         user?.backgroundImage && (
           <div>
-            <Image
-              src={user?.backgroundImage}
-              alt="Cover"
-              className="absolute inset-0 w-full h-full object-cover"
-              width={1400}
-              height={400}
-            />
+            <Image src={user?.backgroundImage} alt="Cover" className="absolute inset-0 w-full h-full object-cover" width={1400} height={400} />
           </div>
         )
       ) : (
-        !uploading && (
-          <div>
-            {user?.backgroundImage && (
-              <Image
-                src={user?.backgroundImage}
-                alt="Cover"
-                className="absolute inset-0 w-full h-full object-cover"
-                width={1400}
-                height={400}
-              />
-            )}
-          </div>
-        )
+        !uploading && <div>{user?.backgroundImage && <Image src={user?.backgroundImage} alt="Cover" className="absolute inset-0 w-full h-full object-cover" width={1400} height={400} />}</div>
       )}
 
       {editing ? (
@@ -128,12 +96,10 @@ export default function EditCover({ user, setCount, count }: Props) {
               sendImage();
               handleCancelCover();
             }}
-            className="bg-black text-white"
-          >
+            className="bg-black text-white">
             {uploading ? (
               <>
-                <AiOutlineLoading3Quarters className="animate-spin" />{" "}
-                <div>Uploading</div>
+                <AiOutlineLoading3Quarters className="animate-spin" /> <div>Uploading</div>
               </>
             ) : (
               `Save Changes`
@@ -145,19 +111,11 @@ export default function EditCover({ user, setCount, count }: Props) {
         </div>
       ) : (
         <label className="cursor-pointer absolute top-4 right-4 bg-black bg-opacity-50 text-white px-4 py-2 rounded-lg hover:bg-opacity-70">
-          <CameraIcon className="w-5 h-5 inline-block mr-2" />{" "}
-          {user?.backgroundImage ? "Change cover" : "Add a cover image"}
-          <input
-            type="file"
-            accept="image/*"
-            onChange={imageInput}
-            className="hidden"
-          />
+          <CameraIcon className="w-5 h-5 inline-block mr-2" /> {user?.backgroundImage ? "Change cover" : "Add a cover image"}
+          <input type="file" accept="image/*" onChange={imageInput} className="hidden" />
         </label>
       )}
-      {uploading && (
-        <p className="absolute bottom-4 text-white text-sm">Uploading...</p>
-      )}
+      {uploading && <p className="absolute bottom-4 text-white text-sm">Uploading...</p>}
     </div>
   );
 }

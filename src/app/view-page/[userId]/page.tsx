@@ -34,11 +34,11 @@ export default function ViewPage() {
   }, [count]);
   return (
     <div className="">
-      <div className="relative">{user && <EditCover setCount={setCount} count={count} user={user} />}</div>
+      <div className="relative">{user && <EditCover setCount={setCount} count={count} user={user.profile} />}</div>
       <div className="relative flex justify-center">
         {/* <div className="w-[1280px] flex justify-between pt-[238px]"> */}
         <div className="flex flex-col items-center xl:flex-row gap-20 absolute -top-10">
-          {user && <FrameEditPage user={user} />}
+          {user && <FrameEditPage user={user.profile} />}
 
           <FrameViewDonation />
         </div>

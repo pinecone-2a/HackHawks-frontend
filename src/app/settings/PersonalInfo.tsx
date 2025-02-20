@@ -83,42 +83,9 @@ export default function PersonalInfo() {
     }
   };
 
-<<<<<<< HEAD
-    // const sendData = async () => {
-    //     try {
-    //         const send = await fetch(
-    //             `${process.env.NEXT_PUBLIC_API_URL}/users/auth/sign-in`,
-    //             {
-    //                 method: "POST",
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                 },
-    //                 body: JSON.stringify(login),
-    //                 credentials: "include",
-    //             }
-    //         );
-    //         const response = await send.json();
-    //         setResponse(response);
-    //         if (response.data.id) {
-    //             localStorage.setItem("userId", response.data.id);
-    //         }
-    //         if (response.success) {
-    //             if (response.profileSetup) {
-    //                 router.push(`/dashboard`);
-    //             } else {
-    //                 router.push(`/profile-setup`);
-    //             }
-    //         }
-    //     } catch (e) {
-    //         setResponse({ message: "SERVER_NOT_RESPONDING" });
-    //         // setnoreponse(e.message);
-    //     }
-    // };
-=======
   return (
     <div className="w-[650px] min-h-[570px] text-black gap-3 p-6 flex flex-col rounded-lg border border-gray-300">
       <h1 className="font-bold text-lg pb-3">Personal Info</h1>
->>>>>>> main
 
       <h2 className="text-sm font-semibold">Add Photo</h2>
       <div className="w-[160px] h-[160px] rounded-full bg-gray-700 relative mb-5">
@@ -147,8 +114,6 @@ export default function PersonalInfo() {
         placeholder="Enter your name"
       />
 
-<<<<<<< HEAD
-=======
       <h2 className="text-sm font-semibold">About</h2>
       <textarea
         name="about"
@@ -157,7 +122,6 @@ export default function PersonalInfo() {
         className="rounded-md border border-gray-300 p-2 min-h-[100px]"
         placeholder="Tell something about yourself..."
       />
->>>>>>> main
 
       <h2 className="text-sm font-semibold">Social Media URL</h2>
       <input
