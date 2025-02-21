@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtDecode } from "jwt-decode";
-import { cookies } from "next/headers";
+
 export const decodeToken = (token: string) => {
   try {
     return jwtDecode(token);
@@ -10,42 +10,68 @@ export const decodeToken = (token: string) => {
     return null;
   }
 };
+
 export const isTokenExpired = (token: string) => {
   const decoded = decodeToken(token);
   if (!decoded?.exp) return true;
   return Date.now() >= decoded.exp * 1000;
 };
+
 export async function middleware(request: NextRequest) {
   const BASE_URL =
     process.env.NEXT_PUBLIC_BACKEND_URL ??
     process.env.NEXT_PUBLIC_LOCAL_BACKEND_URL;
 
-  let refreshToken = request.cookies.get("refreshToken")?.value;
-  let accessToken = request.cookies.get("RefreshToken")?.value;
+  const refreshToken = request.cookies.get("RefreshToken")?.value;
+  const accessToken = request.cookies.get("Authorization")?.value;
+
+  console.log("Access Token:", accessToken);
+  console.log("Refresh Token:", refreshToken);
+  console.log("Is Access Token Expired:", accessToken ? isTokenExpired(accessToken) : "No Access Token");
+  console.log("Is Refresh Token Expired:", refreshToken ? isTokenExpired(refreshToken) : "No Refresh Token");
 
   
-
-  if (!accessToken || !refreshToken || isTokenExpired(refreshToken))
+  if (!accessToken || !refreshToken || isTokenExpired(refreshToken)) {
     return NextResponse.redirect(new URL("/account/signin", request.url));
+  }
+
 
   if (isTokenExpired(accessToken)) {
-    const res = await fetch(`${BASE_URL}/auth/token`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      
-      },
-      body: JSON.stringify({ refreshToken }),
-    });
+    try {
+      const res = await fetch(`${BASE_URL}/auth/token`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refreshToken }),
+      });
 
-    const response = NextResponse.next()
-    const resJson = await res.json();
-    console.log(resJson.result.accessToken);
-    response.cookies.set('accessToken', resJson.result.accessToken);
-    return response
+      if (!res.ok) {
+        throw new Error("Failed to refresh access token");
+      }
+
+      const data = await res.json();
+      console.log("Response Data from Token Refresh:", data);
+      
+      const response = NextResponse.next();
+
+    
+      response.cookies.set("Authorization", data.result.accessToken, {
+        sameSite: "none",
+        secure: true,
+      });
+
+      return response;
+    } catch (error) {
+      console.error("Error refreshing access token:", error);
+      return NextResponse.redirect(new URL("/account/signin", request.url));
+    }
   }
+
+  
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard", "/view-page", "/settings", "/profile_setup_form_step2"]
+  matcher: ["/dashboard", "/view-page", "/settings", "/profile_setup_form_step2"],
 };
