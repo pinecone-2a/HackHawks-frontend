@@ -110,7 +110,7 @@ export default function Signin() {
           }}
           className="w-full text-background"
         >
-          <div>Continue</div>
+          {isLoading ? <AiOutlineLoading3Quarters className="animate-spin" /> : <div>Continue</div>}
         </Button>
 
         <Dialog>
