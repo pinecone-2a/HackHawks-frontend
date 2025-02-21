@@ -46,11 +46,7 @@ export default function Signin() {
         credentials: "include",
       });
       const response = await send.json();
-      const accessToken = response.data.result.accessToken;
-      const refreshToken = response.data.result.refreshToken;
 
-      Cookies.set("accessToken", accessToken);
-      Cookies.set("refreshToken", refreshToken);
       setResponse(response);
       setIsLoading(false);
     } catch (e) {
