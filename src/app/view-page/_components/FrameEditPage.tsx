@@ -5,6 +5,7 @@ import { CameraIcon } from "@heroicons/react/24/outline";
 import { CldImage } from "next-cloudinary";
 import EditProfile from "@/app/_components/EditProfile";
 
+
 type user = {
   id: string;
   name: string;
@@ -38,13 +39,13 @@ export default function FrameEditPage({ user }: Props) {
 
   return (
     <div className="min-w-[632px] ">
-      
-      
+
+
       <div className="bg-white border border-[#E4E4E7] rounded-lg p-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-4">
-            
-           
+
+
             <div className="relative w-16 h-16 rounded-full overflow-hidden border border-gray-300">
               {user.avatarImage ? (
                 <CldImage width="64" height="64" src={user.avatarImage} alt="Profile" className="w-full h-full object-cover" />
@@ -52,7 +53,7 @@ export default function FrameEditPage({ user }: Props) {
                 <img src="/Profile.png" className="w-full h-full object-cover" alt="Profile Placeholder" />
               )}
 
-             
+
               {isCurrentUser && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 cursor-pointer">
                   <CameraIcon className="w-6 h-6 text-white" />
@@ -62,24 +63,24 @@ export default function FrameEditPage({ user }: Props) {
             <h1 className="text-xl font-semibold">{user.name}</h1>
           </div>
 
-          
-          
-            <button onClick={() => setIsOpen(true)} className="px-4 py-2 bg-[#F4F4F5] text-[#18181B] rounded-md">
-              Edit Page
-            </button>
-          
+
+
+          <button onClick={() => setIsOpen(true)} className="px-4 py-2 bg-[#F4F4F5] text-[#18181B] rounded-md">
+            Edit Page
+          </button>
+
         </div>
 
         <div className="border-t border-[#E4E4E7] my-4"></div>
 
-       
+
         <div>
           <h2 className="text-lg font-semibold">About {user.name}</h2>
           <p className="text-gray-500">{user.about}</p>
         </div>
       </div>
 
-     
+
       {user.socialMediaURL && (
         <div className="bg-white border border-[#E4E4E7] rounded-lg p-6 pt-5 mt-5">
           <h2 className="text-lg font-semibold">Social Media</h2>
@@ -89,19 +90,19 @@ export default function FrameEditPage({ user }: Props) {
         </div>
       )}
 
-      
+
       <div className="bg-white border border-[#E4E4E7] rounded-lg p-6 text-start mt-5">
         <h3 className="text-lg font-semibold">Recent Supporters</h3>
         <div className="bg-white border border-[#E4E4E7] rounded-lg p-6 text-center">
-        <p className="font-black">🖤</p>
+          <p className="font-black">🖤</p>
           <p className="text-gray-500">Be the first one to support {user.name} </p>
-          
+
 
         </div>
       </div>
 
-      
-       <EditProfile isOpen={isOpen} onClose={() => setIsOpen(false)} />
+
+      <EditProfile isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </div>
   );
 }

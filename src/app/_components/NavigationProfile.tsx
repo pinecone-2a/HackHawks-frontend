@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { OnlineNavigation } from "./OnlineNavigation";
 import { OfflineNavigation } from "./OfflineNavigation";
 import { useRouter } from "next/navigation";
+import SkeletonOne from "./Skeleton";
 
 export default function Navigation() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -18,9 +19,9 @@ export default function Navigation() {
       .catch(() => setIsLoggedIn(false));
   }, []);
 
-  if(isLoggedIn === null) return <div>Loading...</div>
+  if (isLoggedIn === null) return <SkeletonOne />
 
-  return isLoggedIn? <OnlineNavigation /> : <OfflineNavigation />
+  return isLoggedIn ? <OnlineNavigation /> : <OfflineNavigation />
 
 
 }

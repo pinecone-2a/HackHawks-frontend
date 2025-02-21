@@ -95,14 +95,14 @@ export default function SignupStep1() {
             <div className={`${form.username && response?.no ? "text-red-500" : response?.yes ? "text-green-400" : "text-gray-300"}`}>{response?.message}</div>
           )}
           {loading && <div>
-            
-          {form.username && (
-            <div className="flex items-center gap-3">
-              <AiOutlineLoading3Quarters className="animate-spin" />
-              <div className="animate-pulse">Checking</div>
-            </div>
-          )}
-            </div>}
+
+            {form.username && (
+              <div className="flex items-center gap-3">
+                <AiOutlineLoading3Quarters className="animate-spin" />
+                <div className="animate-pulse">Checking</div>
+              </div>
+            )}
+          </div>}
         </div>
 
         <Button
@@ -120,5 +120,6 @@ export default function SignupStep1() {
         </Button>
       </div>
     </div>
+
   );
 }
