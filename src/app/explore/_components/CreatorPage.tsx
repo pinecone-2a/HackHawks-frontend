@@ -50,7 +50,7 @@ export function CreatorPage() {
 
   if (loading) return <p className="text-center mt-10">Loading...</p>;
   if (error) return <p className="text-center text-red-500 mt-10">{error}</p>;
-  
+
   return (
     <div className="relative px-4 sm:px-8 md:px-16">
       <img src={profileData?.backgroundImage} alt="" className="w-full h-[319px] object-cover" />
@@ -77,13 +77,15 @@ export function CreatorPage() {
             <p className="text-[16px] font-semibold mb-5">Recent supporters</p>
             {donationData?.map((donation: any) => (
               <div key={`creator-${donation?.id}`} className="flex mt-[15px]">
-                <img src={donation?.donor?.profile.avatarImage || "https://res.cloudinary.com/dku0azubr/image/upload/v1739560375/dinoWeb_riv4zt.jpg"} className="size-[35px] rounded-full"/>
+                <img src={donation?.donor?.profile.avatarImage || "https://res.cloudinary.com/dku0azubr/image/upload/v1739560375/dinoWeb_riv4zt.jpg"} className="size-[35px] rounded-full" />
 
-                
                 <div className="flex flex-col pl-[12px]">
                   <div className="flex gap-[4px]">
                     <p className="font-[600] text-sm">{donation?.donor?.profile.name || "Guest"}</p>
-                    <div className="text-[14px] font-[500] flex gap-1"> bought <div className="text-green-600 dark:text-sky-400">${donation?.amount}</div> coffee</div>
+                    <div className="text-[14px] font-[500] flex gap-1">
+                      {" "}
+                      bought <div className="text-green-600 dark:text-sky-400">${donation?.amount}</div> coffee
+                    </div>
                   </div>
                   <p className="text-[13px] text-gray-600 pt-2">{donation?.specialMessage}</p>
                 </div>
@@ -100,13 +102,7 @@ export function CreatorPage() {
               <h3 className="text-sm font-bold">Select amount:</h3>
               <div className="flex gap-2 mt-2 flex-wrap justify-around ">
                 {[1, 2, 5, 10].map((amount) => (
-                  <button
-                    key={amount}
-                    onClick={() => handleAmountSelect(amount)}
-                    className={`px-4 py-2 border rounded-lg ${
-                      donationAmout === amount.toString() ? "bg-gray-100" : "hover:bg-gray-100 ring-1 focus:ring-black"
-                    }`}
-                  >
+                  <button key={amount} onClick={() => handleAmountSelect(amount)} className={`px-4 py-2 border rounded-lg ${donationAmout === amount.toString() ? "bg-gray-100" : "hover:bg-gray-100 ring-1 focus:ring-black"}`}>
                     ☕ ${amount}
                   </button>
                 ))}
@@ -116,32 +112,16 @@ export function CreatorPage() {
             <div className="mt-4 w-full">
               <p className="text-sm font-medium">Enter BuyMeCoffee or social account URL:</p>
               <div className="border-[#E4E4E7] border rounded-md h-[41px] mt-[8px] hover:border-black">
-                <input
-                  onChange={(e) => setSocialURL(e.target.value)}
-                  type="text"
-                  placeholder="buymeacoffee.com/baconpancakes1"
-                  className="w-full h-[45px] rounded-md pl-[12px]"
-                />
+                <input onChange={(e) => setSocialURL(e.target.value)} type="text" placeholder="buymeacoffee.com/baconpancakes1" className="w-full h-[45px] rounded-md pl-[12px]" />
               </div>
             </div>
 
             <div className="h-[153px] w-full mt-4">
               <p className="text-sm font-medium mt-[20px]">Special message:</p>
-              <input
-                onChange={(e) => setSpecialMessage(e.target.value)}
-                className="border-[#E4E4E7] border rounded-md h-[131px] w-full mt-[9px] hover:border-black pb-[90px] pl-[10px]"
-                type="text"
-                placeholder="Thank you for being so awesome everyday!"
-              />
+              <input onChange={(e) => setSpecialMessage(e.target.value)} className="border-[#E4E4E7] border rounded-md h-[131px] w-full mt-[9px] hover:border-black pb-[90px] pl-[10px]" type="text" placeholder="Thank you for being so awesome everyday!" />
             </div>
 
-            <DialogDemo
-              specialMessage={specialMessage}
-              socialURL={socialURL}
-              donationAmout={donationAmout}
-              id={id}
-
-            />
+            <DialogDemo specialMessage={specialMessage} socialURL={socialURL} donationAmout={donationAmout} id={id} />
           </div>
         </div>
       </div>

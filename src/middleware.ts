@@ -20,11 +20,16 @@ export const isTokenExpired = (token: string) => {
 export async function middleware(request: NextRequest) {
   const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? process.env.NEXT_PUBLIC_LOCAL_BACKEND_URL;
 
-  let refreshToken = request.cookies.get("RefreshToken")?.value;
-  let accessToken = request.cookies.get("Authorization")?.value;
+  const refreshToken = request.cookies.get("RefreshToken")?.value;
+  const accessToken = request.cookies.get("Authorization")?.value;
+
+  console.log("Access Token:", accessToken);
+  console.log("Refresh Token:", refreshToken);
+  console.log("Is Access Token Expired:", accessToken ? isTokenExpired(accessToken) : "No Access Token");
+  console.log("Is Refresh Token Expired:", refreshToken ? isTokenExpired(refreshToken) : "No Refresh Token");
 
   if (!accessToken || !refreshToken || isTokenExpired(refreshToken)) {
-    return NextResponse.redirect(new URL("account/signin", request.url));
+    return NextResponse.redirect(new URL("/account/signin", request.url));
   }
 
   if (isTokenExpired(accessToken)) {
@@ -42,16 +47,23 @@ export async function middleware(request: NextRequest) {
       }
 
       const data = await res.json();
+      console.log("Response Data from Token Refresh:", data);
 
       const response = NextResponse.next();
-      response.cookies.set("accessToken", data.result.accessToken);
+
+      response.cookies.set("Authorization", data.result.accessToken, {
+        sameSite: "none",
+        secure: true,
+      });
 
       return response;
     } catch (error) {
       console.error("Error refreshing access token:", error);
-      return NextResponse.redirect(new URL("account/signin", request.url));
+      return NextResponse.redirect(new URL("/account/signin", request.url));
     }
   }
+
+  return NextResponse.next();
 }
 
 export const config = {
