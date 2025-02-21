@@ -9,7 +9,7 @@ export const HomeHero = () =>{
           Buy them a coffee to show your appreciation and keep them creating.
         </p>
         <a
-          href="http:/https://hackhawks-frontend.vercel.app/explore"
+          href="http:/http://hackhawks-frontend.vercel.app/explore"
           className="bg-yellow-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-700"
         >
           Get Started
