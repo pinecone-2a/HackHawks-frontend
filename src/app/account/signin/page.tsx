@@ -110,7 +110,7 @@ export default function Signin() {
           }}
           className="w-full text-background"
         >
-          {isLoading ? <SkeletonOne /> : <div>Continue</div>}
+          <div>Continue</div>
         </Button>
 
         <Dialog>

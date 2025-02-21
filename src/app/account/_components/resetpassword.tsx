@@ -87,21 +87,18 @@ export function ResetPassword() {
       const data = await res.json();
       setresponse(data);
       setLoading(false);
-      console.log("step 1 data", data);
       if (data.success) {
         setuserExist(true);
         if (data?.id) {
           setOtpId(data?.id);
         }
       }
-      console.log(data);
     } catch (e) {
       console.error(e, "aldaa");
     }
   };
   const changePassword = async () => {
     setLoading(true);
-    console.log({ otp, email, otpId });
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/reset/change-password`,
@@ -126,7 +123,6 @@ export function ResetPassword() {
         setOtpState(true);
       }
 
-      console.log(data);
     } catch (e) {
       console.error(e, "aldaa");
     }
@@ -146,7 +142,6 @@ export function ResetPassword() {
   //     );
   //     const data = await res.json();
   //     setresponse(data);
-  //     console.log(data);
   //   } catch (e) {
   //     console.error(e, "aldaa");
   //   }

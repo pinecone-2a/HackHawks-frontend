@@ -17,8 +17,8 @@ type country = {
 
 const paymentSchema = z.object({
   country: z.string(),
-  firstName: z.string().min(6),
-  lastName: z.string().min(6),
+  firstName: z.string().min(3),
+  lastName: z.string().min(3),
   cardNumber: z.string().min(16),
   expiryDate: z.date(),
   CVC: z.string().max(3),
@@ -84,8 +84,12 @@ export default function ProfileSetup2() {
     };
     fetchData();
   }, []);
+  
+
   const handleChange = (e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
+    
+
     setForm2((p) => {
       return {
         ...p,
@@ -95,12 +99,15 @@ export default function ProfileSetup2() {
     });
     console.log(form2);
   };
+  
   useEffect(() => {
     const formString = localStorage.getItem("step1");
     const formL = formString ? JSON.parse(formString) : {};
     setForm1(formL);
 
   }, []);
+
+  console.log(paymentSchema)
   const sendDatas = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/create`, {
       method: "POST",
@@ -126,8 +133,10 @@ export default function ProfileSetup2() {
       router.push(`/dashboard`);
     }
   };
+  
 
   console.log(form1);
+  
   return (
     <div className="w-[510px] h-[631px] flex flex-col gap-10">
       <div>
@@ -162,7 +171,7 @@ export default function ProfileSetup2() {
           className="font-semibold
         ">
           <label htmlFor="card-number">Enter card number</label>
-          <Input onChange={handleChange} id="card-number" name="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX" />
+          <Input onChange={handleChange} maxLength={16} id="card-number" name="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX" />
         </div>
         <div className="font-semibold flex justify-between gap-2">
           <div>
@@ -198,7 +207,7 @@ export default function ProfileSetup2() {
           </div>
           <div>
             <label htmlFor="CVC">CVC</label>
-            <Input onChange={handleChange} id="CVC" maxLength={3} type="number" name="CVC" placeholder="CVC" />
+            <Input onChange={handleChange} id="CVC" maxLength={3}  name="CVC" placeholder="CVC" />
           </div>
         </div>
       </div>

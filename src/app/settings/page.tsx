@@ -4,7 +4,6 @@ import PaymentDetails from "./PaymentDetails";
 import PersonalInfo from "./PersonalInfo";
 import SetSNewPassword from "./SetANewPassword";
 import SuccessPage from "./SuccessPage";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import SkeletonOne from "../_components/Skeleton";
 type response = {
