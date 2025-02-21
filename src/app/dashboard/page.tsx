@@ -12,7 +12,6 @@ import { cookies } from "next/headers";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
-
 interface donationsProfile {
   name: string;
   avatarImage: string;
@@ -36,7 +35,7 @@ interface Donation {
   specialMessage: string;
   socialURLOrBuyMeACoffee: string;
   donor: Donor;
-  donorName: string
+  donorName: string;
 }
 
 interface TotalEarnings {
@@ -93,7 +92,8 @@ export default function EarningsDashboard() {
   }, []);
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.hostname + "/creator/"+ `${profileData[0]?.userId}`)
+    navigator.clipboard
+      .writeText(window.location.hostname + "/creator/" + `${profileData[0]?.userId}`)
       .then(() => {
         toast.success("Link copied to clipboard!");
       })
@@ -116,7 +116,6 @@ export default function EarningsDashboard() {
                     <h2 className="text-2xl font-bold">{profileData[0]?.name}</h2>
                     <p className="text-lg text-gray-500">buymeacoffee.com/{profileData[0]?.name}</p>
                   </div>
-
                 </div>
                 <Button onClick={handleCopyLink} variant="outline" className=" flex ">
                   <Copy className="w-5 h-5 " />
@@ -127,14 +126,33 @@ export default function EarningsDashboard() {
                 <h3 className="text-2xl font-semibold">{}Earnings</h3>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="flex items-center gap-2 text-lg px-4 py-2">{` ${daysString} `}
+                    <Button variant="outline" className="flex items-center gap-2 text-lg px-4 py-2">
+                      {` ${daysString} `}
                       <ChevronDown className="w-5 h-5" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent defaultValue={"30"} align="start">
-                    <DropdownMenuItem  onClick={() => {setDays("30");setDaysString("Last 30 days");}}>Last 30 days</DropdownMenuItem>
-                    <DropdownMenuItem  onClick={() => {setDays("90");setDaysString("Last 90 days");}}>Last 90 days</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => {setDays("");setDaysString("All time")}}>All time</DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setDays("30");
+                        setDaysString("Last 30 days");
+                      }}>
+                      Last 30 days
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setDays("90");
+                        setDaysString("Last 90 days");
+                      }}>
+                      Last 90 days
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setDays("");
+                        setDaysString("All time");
+                      }}>
+                      All time
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -178,12 +196,9 @@ export default function EarningsDashboard() {
                     {donations?.donation.map((donation, index) => (
                       <div key={donations.donation + donation.id} className="flex pt-[24px] justify-between items-start px-[24px] pb-4 last:border-none">
                         <div>
-                          <Link href={`/${donation.donor.id}`} className="flex gap-2 items-center ">
-                          <div className="w-10 h-10 overflow-hidden rounded-full">
-                        {donation.donor.profile.avatarImage && <Image src={`${donation.donor.profile.avatarImage}`} width={40} height={40} alt={`ahjsdfuajsd`} />}
-                          
-                          </div>
-                            <h1 className="text-lg font-semibold">{donation.donor.profile.name}</h1>
+                          <Link href={`/${donation?.donor?.id}`} className="flex gap-2 items-center ">
+                            <div className="w-10 h-10 overflow-hidden rounded-full">{donation?.donor?.profile.avatarImage && <Image src={`${donation.donor.profile.avatarImage}`} width={40} height={40} alt={`ahjsdfuajsd`} />}</div>
+                            <h1 className="text-lg font-semibold">{donation?.donor?.profile.name}</h1>
                           </Link>
                           <p className="text-md text-gray-500">{donation.socialURLOrBuyMeACoffee}</p>
 
