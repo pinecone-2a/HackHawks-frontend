@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 
  const teamMembers = [
-  { name: "Avia", role: "Team Leader", imageUrl: "/Avi.jpg", isLeader: true },
+  { name: "Avia", role: "Team Leader", imageUrl: "/Avia.jpg", isLeader: true },
   { name: "Aviyas", role: "Developer", imageUrl: "/Aviyas.jpg", isLeader: false },
   { name: "Adiya", role: "Developer", imageUrl: "/Adiya.jpg", isLeader: false },
   { name: "Boldoo", role: "Developer", imageUrl: "/Boldoo.jpg", isLeader: false },
@@ -14,7 +14,7 @@ import Image from "next/image";
 
 export const HomeTeam: React.FC = () => {
   return (
-    <section className="team-section">
+    <section className="team-section  bg-white">
       <h2>🚀 Meet Our Team</h2>
       <p className="team-description">We are passionate about building great things together.</p>
       <div className="team-grid">
@@ -31,7 +31,7 @@ export const HomeTeam: React.FC = () => {
         /* General Styles */
         body {
           font-family: "Poppins", sans-serif;
-          background: #eceff1;
+          // background: #FFFFFF;
           color: #333;
         }
 
@@ -113,23 +113,25 @@ export const HomeTeam: React.FC = () => {
 
         /* Center Leader */
         .leader {
-          background: linear-gradient(135deg, #fffbeb, #ffefc2);
-          border: 2px solid #ffcc00;
-          box-shadow: 0 0 18px rgba(255, 204, 0, 0.6);
+          // background: linear-gradient(135deg, #fffbeb, #ffefc2);
+          // border: 2px solid #ffcc00;
+          // box-shadow: 0 0 18px rgba(255, 204, 0, 0.6);
         }
 
         .leader .team-image {
-          border: 4px solid #ffcc00;
+          // border: 4px solid #ffcc00;
         }
 
         .leader .name {
-          color: #d4a017;
           font-size: 1.6rem;
+          color: #222;
+
         }
 
         .leader .role {
           font-weight: bold;
-          color: #a67c00;
+          color: #555;
+
         }
 
         /* Responsive */
