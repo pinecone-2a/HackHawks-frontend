@@ -48,7 +48,10 @@ export async function middleware(request: NextRequest) {
       const data = await res.json();
 
       const response = NextResponse.next();
-      response.cookies.set("accessToken", data.result.accessToken);
+      response.cookies.set("accessToken", data.result.accessToken,{
+        sameSite:"none",
+        secure:true
+      });
 
       return response;
     } catch (error) {
@@ -59,5 +62,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [ "/view-page", "/settings", "/profile_setup_form_step2"]
+  matcher: ["/dashboard", "/view-page", "/settings", "/profile_setup_form_step2"]
 };
