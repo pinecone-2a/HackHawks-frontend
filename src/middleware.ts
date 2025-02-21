@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
   if (!accessToken || !refreshToken || isTokenExpired(refreshToken)) return NextResponse.redirect(new URL("/account/signin", request.url));
 
   if (isTokenExpired(accessToken)) {
-    const res = await axios.post(BASE_URL + "/auth/signin", {
+    const res = await axios.post(BASE_URL + "/auth/sign-in", {
       refreshToken,
     });
 
