@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import { cookies } from "next/headers";
+
 export const decodeToken = (token: string) => {
   try {
     return jwtDecode(token);
@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
   if (!accessToken || !refreshToken || isTokenExpired(refreshToken)) return NextResponse.redirect(new URL("/account/signin", request.url));
 
   if (isTokenExpired(accessToken)) {
-    const res = await axios.post(BASE_URL + "/account/signin", {
+    const res = await axios.post(BASE_URL + "/auth/signin", {
       refreshToken,
     });
 
