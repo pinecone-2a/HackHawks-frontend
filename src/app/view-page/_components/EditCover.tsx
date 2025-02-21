@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, SetStateAction, useState } from "react";
+import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
 import { CameraIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
 import { CldImage } from "next-cloudinary";
@@ -69,10 +69,19 @@ export default function EditCover({ user, setCount, count }: Props) {
       setUploading2(false);
     }
   };
+  
+  useEffect(()=>{
+    if(user?.backgroundImage){
+      setImage(user?.backgroundImage)
+    }
+  }, [user?.backgroundImage])
+
 
   if (!user) {
     return <div className="w-full bg-[#F4F4F5] h-[319px] flex items-center justify-center"></div>;
   }
+
+
 
   return (
     <div className="w-full bg-[#F4F4F5] h-[319px] flex items-center justify-center">
@@ -81,11 +90,11 @@ export default function EditCover({ user, setCount, count }: Props) {
       ) : uploading2 ? (
         user?.backgroundImage && (
           <div>
-            <Image src={user?.backgroundImage} alt="Cover" className="absolute inset-0 w-full h-full object-cover" width={1400} height={400} />
+            <Image src={imagePreview} alt="Cover" className="absolute inset-0 w-full h-full object-cover" width={1400} height={400} />
           </div>
         )
       ) : (
-        !uploading && <div>{user?.backgroundImage && <Image src={user?.backgroundImage} alt="Cover" className="absolute inset-0 w-full h-full object-cover" width={1400} height={400} />}</div>
+        !uploading && <div>{image && <Image src={image} alt="Cover" className="absolute inset-0 w-full h-full object-cover" width={1400} height={400} />}</div>
       )}
 
       {editing ? (

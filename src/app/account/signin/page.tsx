@@ -8,14 +8,13 @@ import Link from "next/link";
 import SignupStep2 from "../_components/step2";
 import { ChangeEvent, useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ResetPassword } from "../_components/resetpassword";
+<<<<<<< HEAD
 import SkeletonOne from "@/app/_components/Skeleton";
+=======
+import Cookies from "js-cookie";
+>>>>>>> c17d84576182db95d61319d1ed32ef84dfd4ca89
 export type response = {
   message: string;
   success?: boolean;
@@ -25,7 +24,7 @@ export type response = {
   };
 };
 export default function Signin() {
-  const [responses, setResponse] = useState<{ message: string, success: boolean, profileSetup?: boolean, data?: { id: string } }>({ message: "WAITING", success: false });
+  const [responses, setResponse] = useState<{ message: string; success: boolean; profileSetup?: boolean; data?: { id: string } }>({ message: "WAITING", success: false });
   const [isResponded, setIsResponded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -51,6 +50,11 @@ export default function Signin() {
         credentials: "include",
       });
       const response = await send.json();
+      const accessToken = response.data.result.accessToken;
+      const refreshToken = response.data.result.refreshToken;
+
+      Cookies.set("accessToken", accessToken);
+      Cookies.set("refreshToken", refreshToken);
       setResponse(response);
       setIsLoading(false);
     } catch (e) {
@@ -73,9 +77,7 @@ export default function Signin() {
     <div className="relative min-h-screen w-full">
       <div className="flex justify-end p-10">
         <Link href={`/account/signup`}>
-          <Button className="bg-secondary text-foreground hover:bg-foreground hover:text-background">
-            Sign up
-          </Button>
+          <Button className="bg-secondary text-foreground hover:bg-foreground hover:text-background">Sign up</Button>
         </Link>
       </div>
       <div className="w-[407px] h-[256px] absolute flex flex-col gap-3 justify-evenly top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -84,22 +86,11 @@ export default function Signin() {
         </div>
         <div>
           <label htmlFor="email">Email</label>
-          <Input
-            onChange={handleChange}
-            name="email"
-            id="email"
-            placeholder="Enter email here"
-          />
+          <Input onChange={handleChange} name="email" id="email" placeholder="Enter email here" />
         </div>
         <div>
           <label htmlFor="password">Password</label>
-          <Input
-            onChange={handleChange}
-            name="password"
-            type="password"
-            id="password"
-            placeholder="Enter password here"
-          />
+          <Input onChange={handleChange} name="password" type="password" id="password" placeholder="Enter password here" />
         </div>
 
         <Button
@@ -108,9 +99,14 @@ export default function Signin() {
             sendData();
             setIsResponded(true);
           }}
+<<<<<<< HEAD
           className="w-full text-background"
         >
           {isLoading ? <AiOutlineLoading3Quarters className="animate-spin" /> : <div>Continue</div>}
+=======
+          className="w-full text-background">
+          {isLoading ? <div>Please Wait</div> : <div>Continue</div>}
+>>>>>>> c17d84576182db95d61319d1ed32ef84dfd4ca89
         </Button>
 
         <Dialog>
