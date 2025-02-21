@@ -5,7 +5,6 @@ import { profile } from "console";
 import { useState } from "react";
 
 export function DonationComplete () {
-// const [profileData, setProfileData] = useState<any>([]);
 
     return (
         <div className="">
@@ -34,7 +33,7 @@ export function DonationComplete () {
                 </div>
             </div>
             <div className="flex justify-center">
-                   <Link href="/explore">
+                    <Link href="/explore">
                       <button className="bg-black text-white w-[148px] h-[40px] rounded-md mt-[40px] ml-[30px] hover:bg-[#343434]">Return to explore</button>
                    </Link>
 
