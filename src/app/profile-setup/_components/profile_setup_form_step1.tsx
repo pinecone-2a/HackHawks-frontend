@@ -11,7 +11,7 @@ import { z } from "zod";
 import { UserType } from "@/app/_typescript/allTypesGoesHere";
 
 const forSchema = z.object({
-  name: z.string().min(6),
+  name: z.string().min(3),
   about: z.string().min(15),
   socialMediaURL: z.string().url(),
   avatarImage: z.string().url(),
@@ -100,7 +100,6 @@ export default function ProfileSetup1() {
         },
       });
     }
-    console.log(validationResult);
   }, [form]);
 
   const handleInput = () => {
@@ -125,7 +124,6 @@ export default function ProfileSetup1() {
           avatarImage: response.secure_url,
         };
       });
-      console.log(form);
     }
   };
   // useEffect(() => {
@@ -212,17 +210,11 @@ export default function ProfileSetup1() {
           onClick={(e) => {
             if (validate() && !loading) {
               setCheck(false);
-              console.log("validate", validate());
-              console.log("loading", loading);
-              console.log("working");
-              console.log(errors);
+ 
             } else {
               e.preventDefault();
               setCheck(true);
-              console.log("validate", validate());
-              console.log("loading", loading);
-              console.log("pervented");
-              console.log(errors);
+
             }
           }}
           href={`/profile?step=2`}
@@ -239,17 +231,11 @@ export default function ProfileSetup1() {
             if (isValid && !loading) {
               setCheck(false);
               router.push(`/profile-setup?step=2`);
-              console.log("validate", isValid);
-              console.log("loading", loading);
-              console.log("working");
-              console.log(validationResult.errors);
+
             } else {
               e.preventDefault();
               setCheck(true);
-              console.log("validate", isValid);
-              console.log("loading", loading);
-              console.log("pervented");
-              console.log(validationResult.errors);
+
             }
           }}>
           Continue

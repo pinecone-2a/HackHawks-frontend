@@ -1,3 +1,5 @@
+
+
 export const HomeFeature = () =>{
 return(<>
  <div className="bg-white py-16">
@@ -35,6 +37,7 @@ return(<>
             </div>
           </div>
         </div>
+      
       </div>
 </>)
 }

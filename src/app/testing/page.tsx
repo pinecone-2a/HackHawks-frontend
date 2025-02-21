@@ -6,7 +6,6 @@ export default async function App() {
     headers: { Cookie: (await cookies()).toString() },
   });
   const data = await res.json();
-  console.log(data);
 
   return <div>{data && <div>{data.user.email}</div>}</div>;
 }

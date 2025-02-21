@@ -36,6 +36,7 @@ interface Donation {
   specialMessage: string;
   socialURLOrBuyMeACoffee: string;
   donor: Donor;
+  donorName: string
 }
 
 interface TotalEarnings {

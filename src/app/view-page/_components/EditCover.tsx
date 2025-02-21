@@ -1,13 +1,11 @@
 "use client";
 
-import { ChangeEvent, SetStateAction, useState } from "react";
+import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
 import { CameraIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
 import { CldImage } from "next-cloudinary";
 import Image from "next/image";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-
-
 
 type user = {
   id: string;
@@ -29,6 +27,7 @@ export default function EditCover({ user, setCount, count }: Props) {
   const [imagePreview, setImagePreview] = useState("");
 
   const [uploading, setUploading] = useState(false);
+  const [uploading2, setUploading2] = useState(false);
   const [editing, setEditing] = useState(false);
 
   const handleCancelCover = () => {
@@ -37,6 +36,7 @@ export default function EditCover({ user, setCount, count }: Props) {
   const imageInput = async (e: ChangeEvent<HTMLInputElement>) => {
     setEditing(true);
     setUploading(true);
+    setUploading2(true);
     if (e.target.files) {
       const objectUrl = URL.createObjectURL(e.target.files[0]);
       setImagePreview(objectUrl);
@@ -51,7 +51,6 @@ export default function EditCover({ user, setCount, count }: Props) {
       const response = await res.json();
       setUploading(false);
       setImage(response.secure_url);
-      console.log(response.secure_url);
     }
   };
   const sendImage = async () => {
@@ -63,27 +62,39 @@ export default function EditCover({ user, setCount, count }: Props) {
         body: JSON.stringify({ image }),
       });
       const data = await res.json();
+      setImagePreview("");
       setCount(!count);
+
       console.log(data);
+      setUploading2(false);
     }
   };
+  
+  useEffect(()=>{
+    if(user?.backgroundImage){
+      setImage(user?.backgroundImage)
+    }
+  }, [user?.backgroundImage])
+
 
   if (!user) {
     return <div className="w-full bg-[#F4F4F5] h-[319px] flex items-center justify-center"></div>;
   }
 
+
+
   return (
     <div className="w-full bg-[#F4F4F5] h-[319px] flex items-center justify-center">
-      {uploading ? (
-        <div>
-          {user?.backgroundImage && (
-            <div>
-              <Image src={imagePreview} alt="Cover" className="absolute inset-0 w-full h-full object-cover" width={1400} height={400} />
-            </div>
-          )}
-        </div>
+      {imagePreview ? (
+        <Image src={imagePreview} alt="Cover" className="absolute inset-0 w-full h-full object-cover" width={1400} height={400} />
+      ) : uploading2 ? (
+        user?.backgroundImage && (
+          <div>
+            <Image src={imagePreview} alt="Cover" className="absolute inset-0 w-full h-full object-cover" width={1400} height={400} />
+          </div>
+        )
       ) : (
-        <div>{user?.backgroundImage && <Image src={user?.backgroundImage as string} alt="Cover" className="absolute inset-0 w-full h-full object-cover" width={1400} height={400} />}</div>
+        !uploading && <div>{image && <Image src={image} alt="Cover" className="absolute inset-0 w-full h-full object-cover" width={1400} height={400} />}</div>
       )}
 
       {editing ? (
@@ -95,7 +106,6 @@ export default function EditCover({ user, setCount, count }: Props) {
               handleCancelCover();
             }}
             className="bg-black text-white">
-            {" "}
             {uploading ? (
               <>
                 <AiOutlineLoading3Quarters className="animate-spin" /> <div>Uploading</div>
