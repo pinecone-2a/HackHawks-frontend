@@ -98,6 +98,7 @@ export default function EarningsDashboard() {
       })
       .catch(() => toast.error("Failed to copy link"));
   };
+
   return (
     <div className="h-screen">
       {donations?.success ? (
