@@ -74,8 +74,8 @@ export function DialogDemo({ specialMessage, socialURL, donationAmout, id }: Dia
             </DialogDescription>
           </div>
         </DialogHeader>
-        <DialogFooter className="flex justify-center">
-          <div className="w-[240px] h-[240px] flex justify-center mt-[40px] mb-[40px]">
+        <DialogFooter className="flex justify-center items-center">
+          <div className="w-[240px] h-[240px] flex justify-center mr-28 mt-[40px] mb-[40px]">
             {qrData && <QRCodeCanvas value={qrData} size={200} />}
           </div>
         </DialogFooter>
