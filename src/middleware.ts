@@ -73,5 +73,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard", "/view-page", "/settings", "/profile_setup_form_step2"],
+  matcher: ""
 };
