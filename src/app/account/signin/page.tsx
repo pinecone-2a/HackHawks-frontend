@@ -10,11 +10,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ResetPassword } from "../_components/resetpassword";
-<<<<<<< HEAD
 import SkeletonOne from "@/app/_components/Skeleton";
-=======
 import Cookies from "js-cookie";
->>>>>>> c17d84576182db95d61319d1ed32ef84dfd4ca89
 export type response = {
   message: string;
   success?: boolean;
@@ -99,14 +96,11 @@ export default function Signin() {
             sendData();
             setIsResponded(true);
           }}
-<<<<<<< HEAD
           className="w-full text-background"
         >
           {isLoading ? <AiOutlineLoading3Quarters className="animate-spin" /> : <div>Continue</div>}
-=======
-          className="w-full text-background">
-          {isLoading ? <div>Please Wait</div> : <div>Continue</div>}
->>>>>>> c17d84576182db95d61319d1ed32ef84dfd4ca89
+
+
         </Button>
 
         <Dialog>
