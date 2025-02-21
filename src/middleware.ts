@@ -21,12 +21,12 @@ export async function middleware(request: NextRequest) {
     process.env.NEXT_PUBLIC_LOCAL_BACKEND_URL;
 
   let refreshToken = request.cookies.get("refreshToken")?.value;
-  let accessToken = request.cookies.get("accessToken")?.value;
+  let accessToken = request.cookies.get("RefreshToken")?.value;
 
   
 
   if (!accessToken || !refreshToken || isTokenExpired(refreshToken))
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/account/signin", request.url));
 
   if (isTokenExpired(accessToken)) {
     const res = await fetch(`${BASE_URL}/auth/token`, {
