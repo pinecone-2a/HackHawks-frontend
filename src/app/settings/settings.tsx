@@ -34,14 +34,25 @@ export default function Settings() {
       router.push("/account/signin");
     }
   }, [response]);
+
   return (
     <div className="w-[650px] ">
       <div className=" mb-[20px]  text-black font-semibold text-[24px]">My account</div>
       <div className="flex flex-col justify-center items-start gap-8">
-        <PersonalInfo />
-        <SetSNewPassword />
-        <PaymentDetails />
-        <SuccessPage user={user} />
+        {response?.success === true ? (
+          <div>
+            <PersonalInfo />
+            <SetSNewPassword />
+            <PaymentDetails />
+            <SuccessPage user={user} />
+          </div>
+        ) : (
+          <div className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2  whitespace-nowrap font-extrabold text-2xl">
+            Please wait...
+            <br />
+            <div className="text-[15px] pl-[12px]">(or login first ☺️)</div>
+          </div>
+        )}
       </div>
     </div>
     // ) :

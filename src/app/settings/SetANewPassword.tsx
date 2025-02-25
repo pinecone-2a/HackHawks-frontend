@@ -20,16 +20,14 @@ export default function SetNewPassword() {
   const handleSubmit = async () => {
     if (!isButtonEnabled) return;
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/update-password`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({newPassword}),
-        credentials: "include",
-      });
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/update-password`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ newPassword }),
+      credentials: "include",
+    });
 
-      const data = await response.json();
-      console.log("Response:", data);
-   
+    const data = await response.json();
   };
 
   return (
@@ -37,29 +35,12 @@ export default function SetNewPassword() {
       <h1 className="font-bold text-lg pb-3">Set a New Password</h1>
 
       <label className="text-sm font-semibold">New Password</label>
-      <input
-        type="password"
-        value={newPassword}
-        onChange={(e) => handleChange(e, "new")}
-        className="rounded-md border border-gray-300 p-2"
-        placeholder="Enter new password"
-      />
+      <input type="password" value={newPassword} onChange={(e) => handleChange(e, "new")} className="rounded-md border border-gray-300 p-2" placeholder="Enter new password" />
 
       <label className="text-sm font-semibold">Confirm Password</label>
-      <input
-        type="password"
-        value={confirmPassword}
-        onChange={(e) => handleChange(e, "confirm")}
-        className="rounded-md border border-gray-300 p-2"
-        placeholder="Confirm password"
-      />
+      <input type="password" value={confirmPassword} onChange={(e) => handleChange(e, "confirm")} className="rounded-md border border-gray-300 p-2" placeholder="Confirm password" />
 
-      <button
-        onClick={handleSubmit}
-        disabled={!isButtonEnabled}
-        className={`mt-4 p-2 text-white rounded ${
-          isButtonEnabled ? "bg-black hover:bg-gray-800" : "bg-gray-400 cursor-not-allowed"
-        }`}>
+      <button onClick={handleSubmit} disabled={!isButtonEnabled} className={`mt-4 p-2 text-white rounded ${isButtonEnabled ? "bg-black hover:bg-gray-800" : "bg-gray-400 cursor-not-allowed"}`}>
         Save Changes
       </button>
     </div>

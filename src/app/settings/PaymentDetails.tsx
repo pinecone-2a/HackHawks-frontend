@@ -19,16 +19,12 @@ export default function PaymentDetails() {
   const [lastName, setLastName] = useState<string>("");
   const [cardNumber, setCardNumber] = useState<string>("");
   const [cvc, setCvc] = useState<string>("");
-  const [isButtonEnabled,setIsButtonEnabled] = useState<boolean>(false)
+  const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
 
   const startYear = 2025;
   const endYear = 2030;
 
-  const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -38,10 +34,10 @@ export default function PaymentDetails() {
     };
 
     const fetchData = async () => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bank-card`,{
-        credentials:"include"
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bank-card`, {
+        credentials: "include",
       });
-      
+
       const data = await response.json();
       setCardData(data);
     };
@@ -51,13 +47,7 @@ export default function PaymentDetails() {
   }, []);
 
   const validateForm = () => {
-    const isFormValid =
-    Boolean(firstName) &&
-    Boolean(lastName) &&
-    Boolean(cardNumber) &&
-    cvc.length === 2 &&
-    cardNumber.length === 16 &&
-    Boolean(selectedYear)
+    const isFormValid = Boolean(firstName) && Boolean(lastName) && Boolean(cardNumber) && cvc.length === 2 && cardNumber.length === 16 && Boolean(selectedYear);
     setIsButtonEnabled(isFormValid);
   };
 
@@ -74,21 +64,17 @@ export default function PaymentDetails() {
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bank-card/update`, {
       method: "PUT",
-      headers: {"Content-Type": "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
-      credentials:"include",
+      credentials: "include",
     });
     const data = await response.json();
-    console.log(data); 
   };
-
-
 
   return (
     <div className="w-[650px] min-h-[250px] text-black gap-1 p-[24px] flex flex-col rounded-[9px] border-[#E4E4E7] border-[1px]">
       <h1 className="font-bold text-[16px] pb-5">Payment details</h1>
 
-     
       <div>
         <h2 className="text-[14px] font-semibold mb-2">Select country</h2>
         <Select value={selectedCountry} onValueChange={setSelectedCountry}>
@@ -108,13 +94,15 @@ export default function PaymentDetails() {
         </Select>
       </div>
 
-      
       <div className="flex justify-between">
         <h2 className="text-[14px] font-semibold flex flex-col">
           First name
           <input
             value={firstName}
-            onChange={(e) =>{setFirstName(e.target.value); validateForm()} }
+            onChange={(e) => {
+              setFirstName(e.target.value);
+              validateForm();
+            }}
             className="rounded-[6px] border-[#E4E4E7] border-[1px] p-2 w-[292px]"
             type="text"
             placeholder="First name"
@@ -124,7 +112,10 @@ export default function PaymentDetails() {
           Last name
           <input
             value={lastName}
-            onChange={(e) => { setLastName(e.target.value); validateForm(); }}
+            onChange={(e) => {
+              setLastName(e.target.value);
+              validateForm();
+            }}
             className="rounded-[6px] border-[#E4E4E7] border-[1px] p-2 w-[292px]"
             type="text"
             placeholder="Last name"
@@ -132,18 +123,18 @@ export default function PaymentDetails() {
         </h2>
       </div>
 
-     
       <h2 className="text-[14px] font-semibold">Enter card number</h2>
       <input
         value={cardNumber}
-        onChange={(e) => { setCardNumber(e.target.value); validateForm(); }}
-        className={`rounded-[6px] border-[#E4E4E7] focus:outline-none border-[1px] p-2 ${cardNumber.length === 16 ? 'border-green-500' : 'border-red-500'}`}
+        onChange={(e) => {
+          setCardNumber(e.target.value);
+          validateForm();
+        }}
+        className={`rounded-[6px] border-[#E4E4E7] focus:outline-none border-[1px] p-2 ${cardNumber.length === 16 ? "border-green-500" : "border-red-500"}`}
         type="number"
         placeholder="XXXX-XXXX-XXXX-XXXX"
       />
-          
-      
-      
+
       <div className="flex justify-between">
         <h2 className="text-[14px] font-semibold flex flex-col">
           Expires
@@ -185,7 +176,10 @@ export default function PaymentDetails() {
           CVC
           <input
             value={cvc}
-            onChange={(e) => {setCvc(e.target.value); validateForm()}}
+            onChange={(e) => {
+              setCvc(e.target.value);
+              validateForm();
+            }}
             className="rounded-[6px] border-[#E4E4E7] border-[1px] p-2 w-[192px]"
             type="text"
             placeholder="XXX"
@@ -193,13 +187,7 @@ export default function PaymentDetails() {
         </h2>
       </div>
 
-     
-      <button
-         onClick={handleSubmit}
-         disabled={!isButtonEnabled}
-         className={`mt-4 p-2 text-white rounded ${
-           isButtonEnabled ? "bg-black hover:bg-gray-800" : "bg-gray-400 cursor-not-allowed"
-         }`}>
+      <button onClick={handleSubmit} disabled={!isButtonEnabled} className={`mt-4 p-2 text-white rounded ${isButtonEnabled ? "bg-black hover:bg-gray-800" : "bg-gray-400 cursor-not-allowed"}`}>
         Save changes
       </button>
     </div>

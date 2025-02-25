@@ -65,23 +65,19 @@ export default function EditCover({ user, setCount, count }: Props) {
       setImagePreview("");
       setCount(!count);
 
-      console.log(data);
       setUploading2(false);
     }
   };
-  
-  useEffect(()=>{
-    if(user?.backgroundImage){
-      setImage(user?.backgroundImage)
-    }
-  }, [user?.backgroundImage])
 
+  useEffect(() => {
+    if (user?.backgroundImage) {
+      setImage(user?.backgroundImage);
+    }
+  }, [user?.backgroundImage]);
 
   if (!user) {
     return <div className="w-full bg-[#F4F4F5] h-[319px] flex items-center justify-center"></div>;
   }
-
-
 
   return (
     <div className="w-full bg-[#F4F4F5] h-[319px] flex items-center justify-center">

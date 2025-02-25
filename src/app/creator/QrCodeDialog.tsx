@@ -1,18 +1,9 @@
-'use client';
+"use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useState, useEffect } from "react";
-import { QRCodeCanvas } from "qrcode.react"; 
+import { QRCodeCanvas } from "qrcode.react";
 
 interface DialogDemoProps {
   specialMessage: string;
@@ -23,7 +14,7 @@ interface DialogDemoProps {
 
 export function DialogDemo({ specialMessage, socialURL, donationAmout, id }: DialogDemoProps) {
   const [open, setOpen] = useState(false);
-  const [qrData, setQRData] = useState(""); 
+  const [qrData, setQRData] = useState("");
 
   const sendData = async () => {
     const send = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/donation/create-donation`, {
@@ -34,9 +25,8 @@ export function DialogDemo({ specialMessage, socialURL, donationAmout, id }: Dia
       body: JSON.stringify({ specialMessage, socialURL, donationAmout, id }),
       credentials: "include",
     });
-    
 
-    const uniqueTransactionID = `txn-${Date.now()}`; 
+    const uniqueTransactionID = `txn-${Date.now()}`;
     setQRData(uniqueTransactionID);
   };
 
@@ -49,17 +39,10 @@ export function DialogDemo({ specialMessage, socialURL, donationAmout, id }: Dia
     }, 3000);
   };
 
-  console.log(donationAmout);
-
   return (
     <Dialog open={open}>
       <DialogTrigger asChild>
-        <Button
-          disabled={donationAmout === "" || specialMessage === "" || socialURL === ""}
-          onClick={onSupport}
-          className="w-[580px] h-[40px] mt-[32px] bg-black text-white hover:bg-[#343434]"
-          variant="outline"
-        >
+        <Button disabled={donationAmout === "" || specialMessage === "" || socialURL === ""} onClick={onSupport} className="w-[580px] h-[40px] mt-[32px] bg-black text-white hover:bg-[#343434]" variant="outline">
           Support
         </Button>
       </DialogTrigger>
@@ -75,9 +58,7 @@ export function DialogDemo({ specialMessage, socialURL, donationAmout, id }: Dia
           </div>
         </DialogHeader>
         <DialogFooter className="flex justify-center items-center">
-          <div className="w-[240px] h-[240px] flex justify-center mr-28 mt-[40px] mb-[40px]">
-            {qrData && <QRCodeCanvas value={qrData} size={200} />}
-          </div>
+          <div className="w-[240px] h-[240px] flex justify-center mr-28 mt-[40px] mb-[40px]">{qrData && <QRCodeCanvas value={qrData} size={200} />}</div>
         </DialogFooter>
       </DialogContent>
     </Dialog>

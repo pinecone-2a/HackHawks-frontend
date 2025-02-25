@@ -47,14 +47,14 @@ export default function SignupStep2() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
-        credentials: "include"
+        credentials: "include",
       });
       const response = await send.json();
       setResponse(response);
-      
+
       if (response.success) {
-        localStorage.removeItem("step1")
-        localStorage.removeItem("step2")
+        localStorage.removeItem("step1");
+        localStorage.removeItem("step2");
         setTimeout(() => {
           router.push(`/account/signin`);
           setLoading(false);
@@ -82,7 +82,6 @@ export default function SignupStep2() {
       clearTimeout(timeout);
     };
   }, [form]);
-  console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
 
   return (
     form.username && (
@@ -120,15 +119,7 @@ export default function SignupStep2() {
             Continue
           </Button>
 
-          <div>
-            {loading && (
-              <div>
-                {response && (
-                  <div className="text-green-500">{response.success ? "Амжилттай бүртгэгдлээ" : <div className=" text-red-500">Таны бүртгэл аль хэдийн үүссэн байна.</div> }</div>
-                ) }
-              </div>
-            )}
-          </div>
+          <div>{loading && <div>{response && <div className="text-green-500">{response.success ? "Амжилттай бүртгэгдлээ" : <div className=" text-red-500">Таны бүртгэл аль хэдийн үүссэн байна.</div>}</div>}</div>}</div>
         </div>
       </div>
     )

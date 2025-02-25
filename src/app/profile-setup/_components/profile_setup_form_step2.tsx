@@ -73,22 +73,18 @@ export default function ProfileSetup2() {
     } else {
       setValid(false);
     }
-    console.log(result);
   }, [form2]);
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(`https://restcountries.com/v3.1/all`);
       const data: country[] = await res.json();
       setCountries(data);
-      // console.log(data);
     };
     fetchData();
   }, []);
-  
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
-    
 
     setForm2((p) => {
       return {
@@ -97,17 +93,14 @@ export default function ProfileSetup2() {
         expiryDate: new Date(year + "-" + month + "-" + "15"),
       };
     });
-    console.log(form2);
   };
-  
+
   useEffect(() => {
     const formString = localStorage.getItem("step1");
     const formL = formString ? JSON.parse(formString) : {};
     setForm1(formL);
-
   }, []);
 
-  console.log(paymentSchema)
   const sendDatas = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/create`, {
       method: "POST",
@@ -116,7 +109,6 @@ export default function ProfileSetup2() {
       body: JSON.stringify(form1),
     });
     const response = await res.json();
-    console.log("profile response", response);
 
     const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bank-card/addnew`, {
       method: "POST",
@@ -124,19 +116,15 @@ export default function ProfileSetup2() {
       credentials: "include",
       body: JSON.stringify({
         ...form2,
-     
       }),
     });
     const response2 = await res2.json();
-    console.log("card response", response2);
+
     if (response.message === "success" && response2.message === "success") {
       router.push(`/dashboard`);
     }
   };
-  
 
-  console.log(form1);
-  
   return (
     <div className="w-[510px] h-[631px] flex flex-col gap-10">
       <div>
@@ -207,7 +195,7 @@ export default function ProfileSetup2() {
           </div>
           <div>
             <label htmlFor="CVC">CVC</label>
-            <Input onChange={handleChange} id="CVC" maxLength={3}  name="CVC" placeholder="CVC" />
+            <Input onChange={handleChange} id="CVC" maxLength={3} name="CVC" placeholder="CVC" />
           </div>
         </div>
       </div>
@@ -216,7 +204,6 @@ export default function ProfileSetup2() {
           disabled={!isValid}
           onClick={() => {
             sendDatas();
-            console.log("it works");
           }}
           className={``}>
           Continue
