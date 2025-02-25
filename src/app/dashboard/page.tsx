@@ -219,7 +219,11 @@ export default function EarningsDashboard() {
       ) : (
         <div>
           {donations?.code !== `JWT_EXPIRED` ? (
-            <div className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2  whitespace-nowrap font-extrabold text-2xl">Please wait...</div>
+            <div className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2  whitespace-nowrap font-extrabold text-2xl">
+              Please wait...
+              <br />
+              <div className="text-[15px] pl-[12px]">(or login first ☺️)</div>
+            </div>
           ) : (
             <Link className="fixed transform top-1/2 left-1/2 bottom-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-extrabold text-2xl" href={`/account/signin`}>
               Please Login 💩
